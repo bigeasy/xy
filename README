@@ -1,6 +1,6 @@
 Xy
 
-2D <--> 1D mapping in JS.
+Hilbert curve 2d to 1d mapping in JS.
 
     Documentation:  http://bigeasy.github.io/xy
     Source:         http://github.io/bigeasy/xy

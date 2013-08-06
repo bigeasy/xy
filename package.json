@@ -2,10 +2,10 @@
     "name":             "xy",
     "version":          "0.0.0",
     "author":           "Alan Gutierrez <alan@prettyrobots.com>",
-    "description":      "An R-Tree partition algorithm.",
+    "description":      "Hilbert curve 2d to 1d mapping in JS.",
     "keywords":
     [
-                        "hilbert", "hilbert curve", "cruve", "spaital", "r-tree"
+                        "hilbert", "hilbert curve", "cruve", "spatial", "r-tree"
     ],
     "url":              "http://bigeasy.github.com/xy",
     "homepage":         "https://github.com/bigeasy/xy",
