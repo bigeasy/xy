@@ -1,0 +1,37 @@
+{
+    "name":             "xy",
+    "version":          "0.0.0",
+    "author":           "Alan Gutierrez <alan@prettyrobots.com>",
+    "description":      "An R-Tree partition algorithm.",
+    "keywords":
+    [
+                        "hilbert", "hilbert curve", "cruve", "spaital", "r-tree"
+    ],
+    "url":              "http://bigeasy.github.com/xy",
+    "homepage":         "https://github.com/bigeasy/xy",
+    "bugs":             "https://github.com/bigeasy/xy/issues",
+    "repository":
+    {
+                        "type": "git",
+                        "url": "http://github.com/bigeasy/xy.git"
+    },
+    "contributors":
+    [{
+                        "name":   "Demarius Chrite",
+                        "email":  "chrite.demarius@gmail.com",
+                        "web":    "https://github.com/demarius"
+    }],
+    "devDependencies":
+    {
+                        "proof": "0.0.35"
+    },
+    "licenses":
+    [{
+                        "type": "MIT",
+                        "url": "http://github.com/bigeasy/xy/raw/master/LICENSE"
+    }],
+    "scripts":
+    {
+        "test": "proof platform win32 && proof test */*/*.t.js || t/test"
+    }
+}
