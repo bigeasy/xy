@@ -59,3 +59,6 @@ function rotate (n, x, y, xbit, ybit) {
 
     return [x, y]
 }
+
+exports.convertPointToDistance = convertPointToDistance
+exports.convertDistanceToPoint = convertDistanceToPoint
