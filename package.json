@@ -7,7 +7,6 @@
     [
                         "hilbert", "hilbert curve", "cruve", "spatial", "r-tree"
     ],
-    "url":              "http://bigeasy.github.com/xy",
     "homepage":         "https://github.com/bigeasy/xy",
     "bugs":             "https://github.com/bigeasy/xy/issues",
     "repository":
