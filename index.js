@@ -4,7 +4,7 @@
 
 // Accepts the height or width of a square, and the coordinates to
 // convert.
-function convertPointToDistance (height, x, y) {
+function convertPointToDistance (height, x, y) { // :: Int -> Int -> Int -> Int
     var xbit, ybit, level, d = 0
 
     // For each Hilbert level, we want to add an amount to
@@ -25,7 +25,8 @@ function convertPointToDistance (height, x, y) {
     return d
 }
 
-function convertDistanceToPoint (height, distance) {
+// Accepts height or width of a square and distance
+function convertDistanceToPoint (height, distance) { // :: Int -> Int -> [Int, Int]
     var xbit, ybit, level, distance
     var x = 0, y = 0
 
@@ -45,7 +46,7 @@ function convertDistanceToPoint (height, distance) {
 }
 
 // Rotate the coordinate plane and (x,y)
-function rotate (n, x, y, xbit, ybit) {
+function rotate (n, x, y, xbit, ybit) { // :: Int -> Int -> Int -> Int -> Int -> [Int, Int]
     if (ybit === 0  ) {
         if (xbit === 1) {
             x = n - 1 - x
