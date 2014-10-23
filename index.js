@@ -61,5 +61,5 @@ function rotate (n, x, y, xbit, ybit) { // :: Int -> Int -> Int -> Int -> Int ->
     return [x, y]
 }
 
-exports.convertPointToDistance = convertPointToDistance
-exports.convertDistanceToPoint = convertDistanceToPoint
+exports.p2d = convertPointToDistance
+exports.d2p = convertDistanceToPoint
