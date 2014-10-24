@@ -27,10 +27,10 @@ function convertPointToDistance (height, x, y) { // :: Int -> Int -> Int -> Int
 
 // Accepts height or width of a square and distance
 function convertDistanceToPoint (height, distance) { // :: Int -> Int -> [Int, Int]
-    var xbit, ybit, level, distance
+    var xbit, ybit, level
     var x = 0, y = 0
 
-    for (level = 1; level < height; level *= 2) {
+    for (level = 1; level < height && distance > 0; level *= 2) {
         xbit = 1 & (distance / 2)
         ybit = 1 & (distance ^ xbit)
 
@@ -39,7 +39,7 @@ function convertDistanceToPoint (height, distance) { // :: Int -> Int -> [Int, I
         y = temp[1]
         x += level * xbit
         y += level * xbit
-        distance /= 4
+        distance = Math.floor(distance / 4)
     }
 
     return [x, y]
