@@ -2,7 +2,7 @@
 // Will later expand to allow `n` dimensions.
 
 
-// Accepts the height or width of a square, and the coordinates to
+// Accepts the height or width of a square/graph, and the coordinates to
 // convert.
 function convertPointToDistance (height, x, y) { // :: Int -> Int -> Int -> Int
     var xbit, ybit, level, d = 0
@@ -25,10 +25,13 @@ function convertPointToDistance (height, x, y) { // :: Int -> Int -> Int -> Int
     return d
 }
 
-// Accepts height or width of a square and distance
+// Accepts height or width of a square/graph and distance
 function convertDistanceToPoint (height, distance) { // :: Int -> Int -> [Int, Int]
     var xbit, ybit, level
     var x = 0, y = 0
+    if (height < 2) {
+        height = 2
+    }
 
     for (level = 1; level < height && distance > 0; level *= 2) {
         xbit = 1 & (distance / 2)
