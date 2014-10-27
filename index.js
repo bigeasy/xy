@@ -6,6 +6,9 @@
 // convert.
 function convertPointToDistance (height, x, y) { // :: Int -> Int -> Int -> Int
     var xbit, ybit, level, d = 0
+    if (height < 2) {
+        height = 2
+    }
 
     // For each Hilbert level, we want to add an amount to
     // `d` based on which region we are in
