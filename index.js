@@ -30,17 +30,18 @@ function convertPointToDistance (height, x, y) { // :: Int -> Int -> Int -> Int
 
 // Accepts height or width of a square/graph and distance
 function convertDistanceToPoint (height, distance) { // :: Int -> Int -> [Int, Int]
+    distance = Math.floor(distance)
     var xbit, ybit, level
     var x = 0, y = 0
     if (height < 2) {
         height = 2
     }
 
-    for (level = 1; level < height && distance > 0; level *= 2) {
-        xbit = 1 & (distance / 2)
-        ybit = 1 & (distance ^ xbit)
+    for (level = 1; level < height || distance > 0; level *= 2) {
+        ybit = 1 & (distance / 2)
+        xbit = 1 & (ybit ^ distance)
 
-        var temp = rotate(height, x, y, xbit, ybit)
+        var temp = rotate(level, x, y, xbit, ybit)
         x = temp[0]
         y = temp[1]
         x += level * xbit
