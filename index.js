@@ -45,7 +45,7 @@ function convertDistanceToPoint (height, distance) { // :: Int -> Int -> [Int, I
         x = temp[0]
         y = temp[1]
         x += level * xbit
-        y += level * xbit
+        y += level * ybit
         distance = Math.floor(distance / 4)
     }
 
