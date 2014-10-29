@@ -3,3 +3,5 @@ the function convertPointToDistance requires 'height' to be a power of 2. Lookin
 http://www.win.tue.nl/~hermanh/stack/dagstuhl08-talk.pdf
 
 pseudo-code: http://www.fundza.com/algorithmic/space_filling/hilbert/basics/index.html
+
+http://arxiv.org/abs/1109.2323
