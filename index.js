@@ -2,10 +2,13 @@
 // Will later expand to allow `n` dimensions.
 
 
-// Accepts the height or width of a square, and the coordinates to
+// Accepts the height or width of a square/graph, and the coordinates to
 // convert.
-function convertPointToDistance (height, x, y) {
+function convertPointToDistance (height, x, y) { // :: Int -> Int -> Int -> Int
     var xbit, ybit, level, d = 0
+    if (height < 2) {
+        height = 2
+    }
 
     // For each Hilbert level, we want to add an amount to
     // `d` based on which region we are in
@@ -25,27 +28,32 @@ function convertPointToDistance (height, x, y) {
     return d
 }
 
-function convertDistanceToPoint (height, distance) {
-    var xbit, ybit, level, distance
+// Accepts height or width of a square/graph and distance
+function convertDistanceToPoint (height, distance) { // :: Int -> Int -> [Int, Int]
+    distance = Math.floor(distance)
+    var xbit, ybit, level
     var x = 0, y = 0
+    if (height < 2) {
+        height = 2
+    }
 
-    for (level = 1; level < height; level *= 2) {
-        xbit = 1 & (distance / 2)
-        ybit = 1 & (distance ^ xbit)
+    for (level = 1; level < height || distance > 0; level *= 2) {
+        ybit = 1 & (distance / 2)
+        xbit = 1 & (ybit ^ distance)
 
-        var temp = rotate(height, x, y, xbit, ybit)
+        var temp = rotate(level, x, y, xbit, ybit)
         x = temp[0]
         y = temp[1]
         x += level * xbit
-        y += level * xbit
-        distance /= 4
+        y += level * ybit
+        distance = Math.floor(distance / 4)
     }
 
     return [x, y]
 }
 
 // Rotate the coordinate plane and (x,y)
-function rotate (n, x, y, xbit, ybit) {
+function rotate (n, x, y, xbit, ybit) { // :: Int -> Int -> Int -> Int -> Int -> [Int, Int]
     if (ybit === 0  ) {
         if (xbit === 1) {
             x = n - 1 - x
@@ -60,5 +68,5 @@ function rotate (n, x, y, xbit, ybit) {
     return [x, y]
 }
 
-exports.convertPointToDistance = convertPointToDistance
-exports.convertDistanceToPoint = convertDistanceToPoint
+exports.p2d = convertPointToDistance
+exports.d2p = convertDistanceToPoint
