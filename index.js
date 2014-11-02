@@ -28,6 +28,9 @@ function convert2dPointToDistance (height, x, y) { // :: Int -> Int -> Int -> In
     return d
 }
 
+function convert3dPointToDistance (height, distance) {
+}
+
 // Accepts height or width of a square/graph and distance
 function convertDistanceTo2dPoint (height, distance) { // :: Int -> Int -> [Int, Int]
     distance = Math.floor(distance)
@@ -50,6 +53,22 @@ function convertDistanceTo2dPoint (height, distance) { // :: Int -> Int -> [Int,
     }
 
     return [x, y]
+}
+
+function convertDistanceTo3dPoint (height, distance) {
+    distance = Math.floor(distance)
+    var xbit, ybit, zbit, level
+    if (height < 2) {
+        height = 2
+    }
+
+    for (level = 1; level < height || distance > 0; level *=2) {
+        xbit = distance & 1;
+        ybit = (ditance / 2) & 1;
+        zbit = (distance / 4) & 1;
+
+        // do some rotations
+    }
 }
 
 // Rotate the coordinate plane and (x,y)
