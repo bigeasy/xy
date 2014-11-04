@@ -20,7 +20,7 @@ function convert2dPointToDistance (height, x, y) { // :: Int -> Int -> Int -> In
         d += level * level * ((3 * xbit) ^ ybit)
         // rotate so that we'll be in sync with the next
         // region.
-        var temp = rotate (height, x, y, xbit, ybit)
+        var temp = rotate2d(height, x, y, xbit, ybit)
         x = temp[0]
         y = temp[1]
     }
@@ -44,7 +44,7 @@ function convertDistanceTo2dPoint (height, distance) { // :: Int -> Int -> [Int,
         ybit = 1 & (distance / 2)
         xbit = 1 & (ybit ^ distance)
 
-        var temp = rotate(level, x, y, xbit, ybit)
+        var temp = rotate2d(level, x, y, xbit, ybit)
         x = temp[0]
         y = temp[1]
         x += level * xbit
