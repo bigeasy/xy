@@ -87,5 +87,20 @@ function rotate2d (n, x, y, xbit, ybit) { // :: Int -> Int -> Int -> Int -> Int 
     return [x, y]
 }
 
+function rotate3d(level, x, y, z) {
+    index = 4 * z + 2 * y + x
+    if (index == 0) {
+        return [z, x, y]
+    } else if (index == 1 || index == 3) {
+        return [y, z, x]
+    } else if (index == 2 || index == 6) {
+        return [level - x, level - y, z]
+    } else if (index == 5 || index == 7) {
+        return [y, level - z, level - x]
+    } else {
+        return [level - z, x, level - y]
+    }
+}
+
 exports.p2d = convert2dPointToDistance
 exports.d2p = convertDistanceTo2dPoint
