@@ -58,6 +58,7 @@ function convertDistanceTo2dPoint (height, distance) { // :: Int -> Int -> [Int,
 function convertDistanceTo3dPoint (height, distance) {
     distance = Math.floor(distance)
     var xbit, ybit, zbit, level
+    var x = 0, y = 0, z = 0
     if (height < 2) {
         height = 2
     }
@@ -67,7 +68,12 @@ function convertDistanceTo3dPoint (height, distance) {
         ybit = (ditance / 2) & 1;
         zbit = (distance / 4) & 1;
 
-        // do some rotations
+        var temp = rotate3d(level - 1, xbit ^ ybit, ybit ^ zbit, zbit)
+        x = temp[0] * level + level - 1
+        y = temp[1] * level + level - 1
+        z = temp[2] * level + level - 1
+
+        distance = Math.floor(distance / 8)
     }
 }
 
