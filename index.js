@@ -4,7 +4,7 @@
 
 // Accepts the height or width of a square/graph, and the coordinates to
 // convert.
-function convertPointToDistance (height, x, y) { // :: Int -> Int -> Int -> Int
+function convert2dPointToDistance (height, x, y) { // :: Int -> Int -> Int -> Int
     var xbit, ybit, level, d = 0
     if (height < 2) {
         height = 2
@@ -20,7 +20,7 @@ function convertPointToDistance (height, x, y) { // :: Int -> Int -> Int -> Int
         d += level * level * ((3 * xbit) ^ ybit)
         // rotate so that we'll be in sync with the next
         // region.
-        var temp = rotate (height, x, y, xbit, ybit)
+        var temp = rotate2d(height, x, y, xbit, ybit)
         x = temp[0]
         y = temp[1]
     }
@@ -28,8 +28,11 @@ function convertPointToDistance (height, x, y) { // :: Int -> Int -> Int -> Int
     return d
 }
 
+function convert3dPointToDistance (height, distance) {
+}
+
 // Accepts height or width of a square/graph and distance
-function convertDistanceToPoint (height, distance) { // :: Int -> Int -> [Int, Int]
+function convertDistanceTo2dPoint (height, distance) { // :: Int -> Int -> [Int, Int]
     distance = Math.floor(distance)
     var xbit, ybit, level
     var x = 0, y = 0
@@ -41,7 +44,7 @@ function convertDistanceToPoint (height, distance) { // :: Int -> Int -> [Int, I
         ybit = 1 & (distance / 2)
         xbit = 1 & (ybit ^ distance)
 
-        var temp = rotate(level, x, y, xbit, ybit)
+        var temp = rotate2d(level, x, y, xbit, ybit)
         x = temp[0]
         y = temp[1]
         x += level * xbit
@@ -52,8 +55,30 @@ function convertDistanceToPoint (height, distance) { // :: Int -> Int -> [Int, I
     return [x, y]
 }
 
+function convertDistanceTo3dPoint (height, distance) {
+    distance = Math.floor(distance)
+    var xbit, ybit, zbit, level
+    var x = 0, y = 0, z = 0
+    if (height < 2) {
+        height = 2
+    }
+
+    for (level = 1; level < height || distance > 0; level *=2) {
+        xbit = distance & 1;
+        ybit = (ditance / 2) & 1;
+        zbit = (distance / 4) & 1;
+
+        var temp = rotate3d(level - 1, xbit ^ ybit, ybit ^ zbit, zbit)
+        x = temp[0] * level + level - 1
+        y = temp[1] * level + level - 1
+        z = temp[2] * level + level - 1
+
+        distance = Math.floor(distance / 8)
+    }
+}
+
 // Rotate the coordinate plane and (x,y)
-function rotate (n, x, y, xbit, ybit) { // :: Int -> Int -> Int -> Int -> Int -> [Int, Int]
+function rotate2d (n, x, y, xbit, ybit) { // :: Int -> Int -> Int -> Int -> Int -> [Int, Int]
     if (ybit === 0  ) {
         if (xbit === 1) {
             x = n - 1 - x
@@ -68,5 +93,20 @@ function rotate (n, x, y, xbit, ybit) { // :: Int -> Int -> Int -> Int -> Int ->
     return [x, y]
 }
 
-exports.p2d = convertPointToDistance
-exports.d2p = convertDistanceToPoint
+function rotate3d(level, x, y, z) {
+    index = 4 * z + 2 * y + x
+    if (index == 0) {
+        return [z, x, y]
+    } else if (index == 1 || index == 3) {
+        return [y, z, x]
+    } else if (index == 2 || index == 6) {
+        return [level - x, level - y, z]
+    } else if (index == 5 || index == 7) {
+        return [y, level - z, level - x]
+    } else {
+        return [level - z, x, level - y]
+    }
+}
+
+exports.p2d = convert2dPointToDistance
+exports.d2p = convertDistanceTo2dPoint
