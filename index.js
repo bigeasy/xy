@@ -28,7 +28,7 @@ function convert2dPointToDistance (height, x, y) { // :: Int -> Int -> Int -> In
     return d
 }
 
-function convert3dPointToDistance (height, distance) {
+function convert3dPointToDistance (height, x, y, z) {
 }
 
 // Accepts height or width of a square/graph and distance
