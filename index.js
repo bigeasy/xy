@@ -29,6 +29,10 @@ function convert2dPointToDistance (height, x, y) { // :: Int -> Int -> Int -> In
 }
 
 function convert3dPointToDistance (height, x, y, z) {
+    var s = 1, level = 0, max = Math.max.apply(Math, [x, y, z])
+    for (;, 2 * s <= max; s *= 2) {
+        level = (level + 1) % 3
+    }
 }
 
 // Accepts height or width of a square/graph and distance
