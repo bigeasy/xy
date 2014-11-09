@@ -66,6 +66,7 @@ function convertDistanceTo3dPoint (height, distance) {
     if (height < 2) {
         height = 2
     }
+    var parity = height % 3;
 
     for (level = 1; level < height || distance > 0; level *=2) {
         xbit = distance & 1;
