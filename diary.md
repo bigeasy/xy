@@ -7,3 +7,5 @@ pseudo-code: http://www.fundza.com/algorithmic/space_filling/hilbert/basics/inde
 http://arxiv.org/abs/1109.2323
 
 Axis rotation: http://www.siggraph.org/education/materials/HyperGraph/modeling/mod_tran/3drota.htm#X-Axis%20Rotation
+
+parity: http://en.wikipedia.org/wiki/Parity_%28mathematics%29 http://en.wikipedia.org/wiki/Parity_bit
