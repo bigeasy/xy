@@ -28,7 +28,8 @@ function convert2dPointToDistance (height, x, y) { // :: Int -> Int -> Int -> In
     return d
 }
 
-function convert3dPointToDistance (height, x, y, z) {
+// height and coordinates.
+function convert3dPointToDistance (height, x, y, z) { // :: Int -> Int -> Int -> Int -> Int
     var s = 1, level = 0, max = Math.max.apply(Math, [x, y, z])
     for (;, 2 * s <= max; s *= 2) {
         level = (level + 1) % 3
@@ -59,7 +60,8 @@ function convertDistanceTo2dPoint (height, distance) { // :: Int -> Int -> [Int,
     return [x, y]
 }
 
-function convertDistanceTo3dPoint (height, distance) {
+// height/width of a square/graph and distance
+function convertDistanceTo3dPoint (height, distance) { // Int -> Int -> [Int, Int, Int]
     distance = Math.floor(distance)
     var xbit, ybit, zbit, level
     var x = 0, y = 0, z = 0
@@ -98,7 +100,8 @@ function rotate2d (n, x, y, xbit, ybit) { // :: Int -> Int -> Int -> Int -> Int 
     return [x, y]
 }
 
-function rotate3d(level, x, y, z) {
+// Rotate the coordinate plane and (x,y, z)
+function rotate3d(level, x, y, z) { // :: Int -> Int -> Int -> Int -> [Int, Int, Int]
     index = 4 * z + 2 * y + x
     if (index == 0) {
         return [z, x, y]
