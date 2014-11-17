@@ -1,6 +1,15 @@
 // Use Hilbert curve point generation to map 2D data to 1D space and vice-versa.
 // Will later expand to allow `n` dimensions.
 
+function Point(x, y, z) {
+    this.x = Math.round(x) || 0
+    this.y = Math.round(y) || 0
+    this.z = Math.round(z) || 0
+
+    this.array = function () {
+        return [this.x, this.y, this.z]
+    }
+}
 
 // Accepts the height or width of a square/graph, and the coordinates to
 // convert.
