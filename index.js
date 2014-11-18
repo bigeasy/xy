@@ -4,10 +4,16 @@
 function Point(x, y, z) {
     this.x = Math.round(x) || 0
     this.y = Math.round(y) || 0
-    this.z = Math.round(z) || 0
+    if (z) {
+        this.z = Math.round(z) || 0
+        this.d = 3
+    } else {
+        this.d = 2
+    }
 
     this.array = function () {
-        return [this.x, this.y, this.z]
+        if (this.d == 3) { return [this.x, this.y, this.z] }
+        return [this.x, this.y]
     }
 }
 
