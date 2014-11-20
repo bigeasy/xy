@@ -8,6 +8,7 @@ function Point(x, y, z) {
         this.z = Math.round(z) || 0
         this.d = 3
     } else {
+        this.z = null
         this.d = 2
     }
 
@@ -16,6 +17,13 @@ function Point(x, y, z) {
         return [this.x, this.y]
     }
 }
+
+Point.prototype.rotateLeft = function (n) {
+    if (n % 3 == 0) return this
+    if (n % 3 == 1) return new Point(this.y, this.z, this.x)
+    return new Point(this.z, this.x, this.y)
+}
+
 
 // Accepts the height or width of a square/graph, and the coordinates to
 // convert.
@@ -45,7 +53,7 @@ function convert2dPointToDistance (height, x, y) { // :: Int -> Int -> Int -> In
 
 // height and coordinates.
 function convert3dPointToDistance (height, x, y, z) { // :: Int -> Int -> Int -> Int -> Int
-    var s = 1, level = 0, max = Math.max.apply(Math, [x, y, z])
+    var s = 1, level = 0, max = Math.max.apply(Math, [x, y, z]), p = new Point(x, y, z)
     for (; 2 * s <= max; s *= 2) {
         level = (level + 1) % 3
     }
