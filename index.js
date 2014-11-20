@@ -24,6 +24,11 @@ Point.prototype.rotateLeft = function (n) {
     return new Point(this.z, this.x, this.y)
 }
 
+Point.prototype.rotateRight = function (n) {
+    if (n % 3 == 0) return this
+    if (n % 3 == 1) return new Point(this.z, this.x, this.y)
+    return new Point(this.y, this.z, this.x)
+}
 
 // Accepts the height or width of a square/graph, and the coordinates to
 // convert.
