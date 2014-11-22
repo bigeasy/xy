@@ -32,7 +32,7 @@ Point.prototype.rotateRight = function (n) {
 
 // Accepts the height or width of a square/graph, and the coordinates to
 // convert.
-function convert2dPointToDistance (height, x, y) { // :: Int -> Int -> Int -> Int
+function convert2dPointToDistance (height, p) { // :: Int -> Int -> Int -> Int
     var xbit, ybit, level, d = 0
     if (height < 2) {
         height = 2
@@ -42,15 +42,15 @@ function convert2dPointToDistance (height, x, y) { // :: Int -> Int -> Int -> In
     // `d` based on which region we are in
     for (level = height / 2; level > 0; level /= 2) {
         // Determine what region we're in
-        xbit = (x & level) > 0
-        ybit = (y & level) > 0
+        xbit = (p.x & level) > 0
+        ybit = (p.y & level) > 0
         // increase distance based on region
         d += level * level * ((3 * xbit) ^ ybit)
         // rotate so that we'll be in sync with the next
         // region.
-        var temp = rotate2d(height, x, y, xbit, ybit)
-        x = temp[0]
-        y = temp[1]
+        var temp = rotate2d(height, p.x, p.y, xbit, ybit)
+        p.x = temp[0]
+        p.y = temp[1]
     }
 
     return d
@@ -144,5 +144,7 @@ function rotate3d(level, x, y, z) { // :: Int -> Int -> Int -> Int -> [Int, Int,
     }
 }
 
-exports.p2d = convert2dPointToDistance
+exports.p2d = function (height, x, y) {
+    return convert2dPointToDistance(height, new Point(x, y))
+}
 exports.d2p = convertDistanceTo2dPoint
