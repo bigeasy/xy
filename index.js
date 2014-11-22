@@ -16,6 +16,10 @@ function Point(x, y, z) {
         if (this.d == 3) { return [this.x, this.y, this.z] }
         return [this.x, this.y]
     }
+
+    this.n = function () {
+        return 4 * this.z + 2 * this.y  + this.x
+    }
 }
 
 Point.prototype.rotateLeft = function (n) {
