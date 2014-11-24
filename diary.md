@@ -12,3 +12,5 @@ parity: http://en.wikipedia.org/wiki/Parity_%28mathematics%29 http://en.wikipedi
 
 Want to express axis rotations internally without creating a point object.
 or perhaps use one internally but return an array.
+
+move Point to own module for reuse in Voronoi diagram calculator and r-tree
