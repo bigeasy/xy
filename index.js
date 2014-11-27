@@ -12,9 +12,6 @@ function Point(x, y, z) {
         this.d = 2
     }
 
-    this.n = function () {
-        return 4 * this.z + 2 * this.y  + this.x
-    }
 }
 
 Point.prototype.rotateLeft = function (n) {
@@ -32,6 +29,10 @@ Point.prototype.rotateRight = function (n) {
 Point.prototype.toArray = function () {
         if (this.d == 3) { return [this.x, this.y, this.z] }
         return [this.x, this.y]
+}
+
+Point.prototype.n = function () {
+        return 4 * this.z + 2 * this.y  + this.x
 }
 
 // Accepts the height or width of a square/graph, and the coordinates to
