@@ -12,12 +12,20 @@ function Point(x, y, z) {
         this.d = 2
     }
 
+    this.rotateLeft2d = function (n) {
+        if (n % 3 == 0) return this
+        if (n % 3 == 1) return new Point(this.y, this.z, this.x)
+        return new Point(this.z, this.x, this.y)
+    }
+
 }
 
 Point.prototype.rotateLeft = function (n) {
-    if (n % 3 == 0) return this
-    if (n % 3 == 1) return new Point(this.y, this.z, this.x)
-    return new Point(this.z, this.x, this.y)
+    if (this.d == 2) {
+        return this.rotateLeft2d(n)
+    }
+
+    return this.rotateLeft3d(n)
 }
 
 Point.prototype.rotateRight = function (n) {
