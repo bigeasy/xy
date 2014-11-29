@@ -18,6 +18,11 @@ function Point(x, y, z) {
         return new Point(this.z, this.x, this.y)
     }
 
+    this.rotateRight2d = function (n) {
+        if (n % 3 == 0) return this
+        if (n % 3 == 1) return new Point(this.z, this.x, this.y)
+        return new Point(this.y, this.z, this.x)
+    }
 }
 
 Point.prototype.rotateLeft = function (n) {
@@ -29,9 +34,11 @@ Point.prototype.rotateLeft = function (n) {
 }
 
 Point.prototype.rotateRight = function (n) {
-    if (n % 3 == 0) return this
-    if (n % 3 == 1) return new Point(this.z, this.x, this.y)
-    return new Point(this.y, this.z, this.x)
+    if (this.d == 2) {
+        return this.rotateRight2d(n)
+    }
+
+    return this.rotateRight3d(n)
 }
 
 Point.prototype.toArray = function () {
