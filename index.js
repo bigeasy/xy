@@ -50,6 +50,10 @@ Point.prototype.n = function () {
         return 4 * this.z + 2 * this.y  + this.x
 }
 
+Point.prototype.mod = function (n) {
+    return new Point(this.x % n, this.y % n, this.z % n)
+}
+
 // Accepts the height or width of a square/graph, and the coordinates to
 // convert.
 function convert2dPointToDistance (height, p) { // :: Int -> Int -> Int -> Int
