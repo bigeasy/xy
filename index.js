@@ -12,26 +12,42 @@ function Point(x, y, z) {
         this.d = 2
     }
 
-    this.array = function () {
-        if (this.d == 3) { return [this.x, this.y, this.z] }
-        return [this.x, this.y]
+    this.rotateLeft2d = function (n) {
+        if (n % 3 == 0) return this
+        if (n % 3 == 1) return new Point(this.y, this.z, this.x)
+        return new Point(this.z, this.x, this.y)
     }
 
-    this.n = function () {
-        return 4 * this.z + 2 * this.y  + this.x
+    this.rotateRight2d = function (n) {
+        if (n % 3 == 0) return this
+        if (n % 3 == 1) return new Point(this.z, this.x, this.y)
+        return new Point(this.y, this.z, this.x)
     }
 }
 
 Point.prototype.rotateLeft = function (n) {
-    if (n % 3 == 0) return this
-    if (n % 3 == 1) return new Point(this.y, this.z, this.x)
-    return new Point(this.z, this.x, this.y)
+    if (this.d == 2) {
+        return this.rotateLeft2d(n)
+    }
+
+    return this.rotateLeft3d(n)
 }
 
 Point.prototype.rotateRight = function (n) {
-    if (n % 3 == 0) return this
-    if (n % 3 == 1) return new Point(this.z, this.x, this.y)
-    return new Point(this.y, this.z, this.x)
+    if (this.d == 2) {
+        return this.rotateRight2d(n)
+    }
+
+    return this.rotateRight3d(n)
+}
+
+Point.prototype.toArray = function () {
+        if (this.d == 3) { return [this.x, this.y, this.z] }
+        return [this.x, this.y]
+}
+
+Point.prototype.n = function () {
+        return 4 * this.z + 2 * this.y  + this.x
 }
 
 // Accepts the height or width of a square/graph, and the coordinates to
