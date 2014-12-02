@@ -12,13 +12,13 @@ function Point(x, y, z) {
         this.d = 2
     }
 
-    this.rotateLeft2d = function (n) {
+    this.rotateLeft3d = function (n) {
         if (n % 3 == 0) return this
         if (n % 3 == 1) return new Point(this.y, this.z, this.x)
         return new Point(this.z, this.x, this.y)
     }
 
-    this.rotateRight2d = function (n) {
+    this.rotateRight3d = function (n) {
         if (n % 3 == 0) return this
         if (n % 3 == 1) return new Point(this.z, this.x, this.y)
         return new Point(this.y, this.z, this.x)
