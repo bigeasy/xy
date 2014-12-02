@@ -60,6 +60,9 @@ Point.prototype.mod = function (n) {
     return new Point(this.x % n, this.y % n, this.z % n)
 }
 
+Point.prototype.unrotate = function (n) {
+}
+
 // Accepts the height or width of a square/graph, and the coordinates to
 // convert.
 function convert2dPointToDistance (height, p) { // :: Int -> Int -> Int -> Int
