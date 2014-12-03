@@ -18,10 +18,16 @@ function Point(x, y, z) {
         return new Point(this.z, this.x, this.y)
     }
 
+    this.rotateLeft2d = function (n) {
+    }
+
     this.rotateRight3d = function (n) {
         if (n % 3 == 0) return this
         if (n % 3 == 1) return new Point(this.z, this.x, this.y)
         return new Point(this.y, this.z, this.x)
+    }
+
+    this.rotateRight2d = function (n) {
     }
 }
 
