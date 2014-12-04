@@ -31,9 +31,9 @@ function Point(x, y, z) {
     }
 }
 
-Point.prototype.rotateLeft = function (n) {
+Point.prototype.rotateLeft = function (n, xbit, ybit) {
     if (this.d == 2) {
-        return this.rotateLeft2d(n)
+        rotate2d(this.x, this.y n, xbit, ybit)
     }
 
     return this.rotateLeft3d(n)
@@ -41,7 +41,7 @@ Point.prototype.rotateLeft = function (n) {
 
 Point.prototype.rotateRight = function (n) {
     if (this.d == 2) {
-        return this.rotateRight2d(n)
+        return rotate2d(this.x, this.y, n xbit, ybit)
     }
 
     return this.rotateRight3d(n)
