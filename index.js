@@ -12,16 +12,22 @@ function Point(x, y, z) {
         this.d = 2
     }
 
-    this.rotateLeft2d = function (n) {
+    this.rotateLeft3d = function (n) {
         if (n % 3 == 0) return this
         if (n % 3 == 1) return new Point(this.y, this.z, this.x)
         return new Point(this.z, this.x, this.y)
     }
 
-    this.rotateRight2d = function (n) {
+    this.rotateLeft2d = function (n) {
+    }
+
+    this.rotateRight3d = function (n) {
         if (n % 3 == 0) return this
         if (n % 3 == 1) return new Point(this.z, this.x, this.y)
         return new Point(this.y, this.z, this.x)
+    }
+
+    this.rotateRight2d = function (n) {
     }
 }
 
@@ -48,6 +54,13 @@ Point.prototype.toArray = function () {
 
 Point.prototype.n = function () {
         return 4 * this.z + 2 * this.y  + this.x
+}
+
+Point.prototype.mod = function (n) {
+    return new Point(this.x % n, this.y % n, this.z % n)
+}
+
+Point.prototype.unrotate = function (n) {
 }
 
 // Accepts the height or width of a square/graph, and the coordinates to

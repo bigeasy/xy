@@ -14,3 +14,5 @@ Want to express axis rotations internally without creating a point object.
 or perhaps use one internally but return an array.
 
 move Point to own module for reuse in Voronoi diagram calculator and r-tree
+
+http://en.wikipedia.org/wiki/Rotation_matrix
