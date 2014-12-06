@@ -13,6 +13,10 @@ function Point(x, y, z) {
     }
 }
 
+Point.prototype.rotate2d(n, xbit, ybit) {
+    return rotate2d(n, this.x, this.y, xbit, ybit)
+}
+
 Point.prototype.rotateLeft = function (n, xbit, ybit) {
     if (n % 3 == 0) return this
     if (n % 3 == 1) return new Point(this.y, this.z, this.x)
