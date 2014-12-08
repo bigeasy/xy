@@ -2,6 +2,17 @@
 // Will later expand to allow `n` dimensions.
 
 function Point(x, y, z) {
+    if (x instanceof Array) {
+        this.x = x[0]
+        this.y = x[1]
+        if (x[2]) {
+            this.z = x[2]
+                this.d = 3
+        } else {
+            this.z = null
+            this.d = 2
+        }
+    }
     this.x = Math.round(x) || 0
     this.y = Math.round(y) || 0
     if (z) {
@@ -13,8 +24,8 @@ function Point(x, y, z) {
     }
 }
 
-Point.prototype.rotate2d(n, xbit, ybit) {
-    return rotate2d(n, this.x, this.y, xbit, ybit)
+Point.prototype.rotate2d = function (n, xbit, ybit) {
+    return new Point(rotate2d(n, this.x, this.y, xbit, ybit))
 }
 
 Point.prototype.rotateLeft = function (n, xbit, ybit) {
@@ -63,9 +74,7 @@ function convert2dPointToDistance (height, p) { // :: Int -> Int -> Int -> Int
         d += level * level * ((3 * xbit) ^ ybit)
         // rotate so that we'll be in sync with the next
         // region.
-        var temp = rotate2d(height, p.x, p.y, xbit, ybit)
-        p.x = temp[0]
-        p.y = temp[1]
+        p = p.rotate2d(height, p.x, p.y, xbit, ybit)
     }
 
     return d
