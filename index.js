@@ -101,9 +101,7 @@ function convertDistanceTo2dPoint (height, distance) { // :: Int -> Int -> [Int,
         ybit = 1 & (distance / 2)
         xbit = 1 & (ybit ^ distance)
 
-        var temp = rotate2d(level, x, y, xbit, ybit)
-        p.x = temp[0]
-        p.y = temp[1]
+        p = p.rotate2d(level, x, y, xbit, ybit)
         p.x += level * xbit
         p.y += level * ybit
         distance = Math.floor(distance / 4)
