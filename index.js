@@ -12,15 +12,16 @@ function Point(x, y, z) {
             this.z = null
             this.d = 2
         }
-    }
-    this.x = Math.round(x) || 0
-    this.y = Math.round(y) || 0
-    if (z) {
-        this.z = Math.round(z) || 0
-        this.d = 3
     } else {
-        this.z = null
-        this.d = 2
+        this.x = Math.round(x) || 0
+        this.y = Math.round(y) || 0
+        if (z) {
+            this.z = Math.round(z) || 0
+            this.d = 3
+        } else {
+            this.z = null
+            this.d = 2
+        }
     }
 }
 
