@@ -29,6 +29,10 @@ Point.prototype.rotate2d = function (n, xbit, ybit) {
     return new Point(rotate2d(n, this.x, this.y, xbit, ybit))
 }
 
+Point.prototype.rotate3d = function (level) {
+    return new Point(rotate3d(level, this.x, this.y, this.z))
+}
+
 Point.prototype.rotateLeft = function (n, xbit, ybit) {
     if (n % 3 == 0) return this
     if (n % 3 == 1) return new Point(this.y, this.z, this.x)
