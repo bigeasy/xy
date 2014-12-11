@@ -16,3 +16,5 @@ or perhaps use one internally but return an array.
 move Point to own module for reuse in Voronoi diagram calculator and r-tree
 
 http://en.wikipedia.org/wiki/Rotation_matrix
+
+figure out how to keep track of rotations so we can unrotate.
