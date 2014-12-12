@@ -23,6 +23,12 @@ function Point(x, y, z) {
             this.d = 2
         }
     }
+
+    this.rotations = {
+        x: 0,
+        y: 0,
+        z: 0
+    }
 }
 
 Point.prototype.rotate2d = function (n, xbit, ybit) {
