@@ -31,36 +31,36 @@ function Point(x, y, z) {
     }
 }
 
-Point.prototype.rotate2d = function (n, xbit, ybit) {
+Point.prototype.rotate2d = function (n, xbit, ybit) { // : Int -> Int -> Int -> Point
     return new Point(rotate2d(n, this.x, this.y, xbit, ybit))
 }
 
-Point.prototype.rotate3d = function (level) {
+Point.prototype.rotate3d = function (level) { // :: Int -> Point
     return new Point(rotate3d(level, this.x, this.y, this.z))
 }
 
-Point.prototype.rotateLeft = function (n, xbit, ybit) {
+Point.prototype.rotateLeft = function (n, xbit, ybit) { // :: Int -> Int -> Int -> Point
     if (n % 3 == 0) return this
     if (n % 3 == 1) return new Point(this.y, this.z, this.x)
     return new Point(this.z, this.x, this.y)
 }
 
-Point.prototype.rotateRight = function (n) {
+Point.prototype.rotateRight = function (n) { // :: Int -> Point
     if (n % 3 == 0) return this
     if (n % 3 == 1) return new Point(this.z, this.x, this.y)
     return new Point(this.y, this.z, this.x)
 }
 
-Point.prototype.toArray = function () {
+Point.prototype.toArray = function () { // Int :: -> [Int, Int]
         if (this.d == 3) { return [this.x, this.y, this.z] }
         return [this.x, this.y]
 }
 
-Point.prototype.n = function () {
+Point.prototype.n = function () { // :: Int
         return 4 * this.z + 2 * this.y  + this.x
 }
 
-Point.prototype.mod = function (n) {
+Point.prototype.mod = function (n) { // :: Int -> Point
     return new Point(this.x % n, this.y % n, this.z % n)
 }
 
