@@ -7,10 +7,11 @@ function Point(x, y, z) {
         this.y = x[1]
         if (x[2]) {
             this.z = x[2]
-                this.d = 3
+            this.d = 3
         } else {
             this.z = null
             this.d = 2
+            this.n = 4 * this.z + 2 * this.y  + this.x
         }
     } else {
         this.x = Math.round(x) || 0
@@ -54,10 +55,6 @@ Point.prototype.rotateRight = function (n) { // :: Int -> Point
 Point.prototype.toArray = function () { // Int :: -> [Int, Int]
         if (this.d == 3) { return [this.x, this.y, this.z] }
         return [this.x, this.y]
-}
-
-Point.prototype.n = function () { // :: Int
-        return 4 * this.z + 2 * this.y  + this.x
 }
 
 Point.prototype.mod = function (n) { // :: Int -> Point
