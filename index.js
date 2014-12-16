@@ -2,61 +2,65 @@
 // Will later expand to allow `n` dimensions.
 
 function Point(x, y, z) {
-    this.x = Math.round(x) || 0
-    this.y = Math.round(y) || 0
-    if (z) {
-        this.z = Math.round(z) || 0
-        this.d = 3
+    if (x instanceof Array) {
+        this.x = x[0]
+        this.y = x[1]
+        if (x[2]) {
+            this.z = x[2]
+                this.d = 3
+        } else {
+            this.z = null
+            this.d = 2
+        }
     } else {
-        this.z = null
-        this.d = 2
+        this.x = Math.round(x) || 0
+        this.y = Math.round(y) || 0
+        if (z) {
+            this.z = Math.round(z) || 0
+            this.d = 3
+        } else {
+            this.z = null
+            this.d = 2
+        }
     }
 
-    this.rotateLeft3d = function (n) {
-        if (n % 3 == 0) return this
-        if (n % 3 == 1) return new Point(this.y, this.z, this.x)
-        return new Point(this.z, this.x, this.y)
-    }
-
-    this.rotateLeft2d = function (n) {
-    }
-
-    this.rotateRight3d = function (n) {
-        if (n % 3 == 0) return this
-        if (n % 3 == 1) return new Point(this.z, this.x, this.y)
-        return new Point(this.y, this.z, this.x)
-    }
-
-    this.rotateRight2d = function (n) {
+    this.rotations = {
+        x: 0,
+        y: 0,
+        z: 0
     }
 }
 
-Point.prototype.rotateLeft = function (n) {
-    if (this.d == 2) {
-        return this.rotateLeft2d(n)
-    }
-
-    return this.rotateLeft3d(n)
+Point.prototype.rotate2d = function (n, xbit, ybit) { // : Int -> Int -> Int -> Point
+    return new Point(rotate2d(n, this.x, this.y, xbit, ybit))
 }
 
-Point.prototype.rotateRight = function (n) {
-    if (this.d == 2) {
-        return this.rotateRight2d(n)
-    }
-
-    return this.rotateRight3d(n)
+Point.prototype.rotate3d = function (level) { // :: Int -> Point
+    return new Point(rotate3d(level, this.x, this.y, this.z))
 }
 
-Point.prototype.toArray = function () {
+Point.prototype.rotateLeft = function (n, xbit, ybit) { // :: Int -> Int -> Int -> Point
+    if (n % 3 == 0) return this
+    if (n % 3 == 1) return new Point(this.y, this.z, this.x)
+    return new Point(this.z, this.x, this.y)
+}
+
+Point.prototype.rotateRight = function (n) { // :: Int -> Point
+    if (n % 3 == 0) return this
+    if (n % 3 == 1) return new Point(this.z, this.x, this.y)
+    return new Point(this.y, this.z, this.x)
+}
+
+Point.prototype.toArray = function () { // Int :: -> [Int, Int]
         if (this.d == 3) { return [this.x, this.y, this.z] }
         return [this.x, this.y]
 }
 
-Point.prototype.n = function () {
+Point.prototype.n = function () { // :: Int
         return 4 * this.z + 2 * this.y  + this.x
 }
 
-Point.prototype.mod = function (n) {
+Point.prototype.mod = function (n) { // :: Int -> Point
     return new Point(this.x % n, this.y % n, this.z % n)
 }
 
@@ -81,9 +85,7 @@ function convert2dPointToDistance (height, p) { // :: Int -> Int -> Int -> Int
         d += level * level * ((3 * xbit) ^ ybit)
         // rotate so that we'll be in sync with the next
         // region.
-        var temp = rotate2d(height, p.x, p.y, xbit, ybit)
-        p.x = temp[0]
-        p.y = temp[1]
+        p = p.rotate2d(height, p.x, p.y, xbit, ybit)
     }
 
     return d
@@ -110,9 +112,7 @@ function convertDistanceTo2dPoint (height, distance) { // :: Int -> Int -> [Int,
         ybit = 1 & (distance / 2)
         xbit = 1 & (ybit ^ distance)
 
-        var temp = rotate2d(level, x, y, xbit, ybit)
-        p.x = temp[0]
-        p.y = temp[1]
+        p = p.rotate2d(level, x, y, xbit, ybit)
         p.x += level * xbit
         p.y += level * ybit
         distance = Math.floor(distance / 4)
