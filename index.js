@@ -32,6 +32,13 @@ function Point(x, y, z) {
     }
 }
 
+Point.prototype.rotate = function (p, n) {
+    if (p.n == 0) return new Point(this.z, this.x, this.y)
+    if (p.n == 1 || p.n == 3) return new Point(this.y, this.z, this.x)
+    if (p.n == 2 || p.n == 6) return new Point(n - this.x, n - this.y, this.z)
+    return new Point(n - this.z, this.x, n - this.y)
+}
+
 Point.prototype.rotate2d = function (n, xbit, ybit) { // : Int -> Int -> Int -> Point
     return new Point(rotate2d(n, this.x, this.y, xbit, ybit))
 }
@@ -121,12 +128,13 @@ function convertDistanceTo2dPoint (height, distance) { // :: Int -> Int -> [Int,
 // height/width of a square/graph and distance
 function convertDistanceTo3dPoint (height, distance) { // Int -> Int -> [Int, Int, Int]
     distance = Math.floor(distance)
-    var xbit, ybit, zbit, level
-    var x = 0, y = 0, z = 0
+    var xbit, ybit, zbit, level, parity
+    var x = 0, y = 0, z = 0, iter = 2, log = 0, p = new Point(x, y, z)
     if (height < 2) {
         height = 2
     }
-    var parity = height % 3;
+    for (parity = 1; parity < height; parity *= 2, log++) {}
+    parity = log % 3;
 
     for (level = 1; level < height || distance > 0; level *=2) {
         xbit = distance & 1;
@@ -134,12 +142,16 @@ function convertDistanceTo3dPoint (height, distance) { // Int -> Int -> [Int, In
         zbit = (distance / 4) & 1;
 
         var temp = rotate3d(level - 1, xbit ^ ybit, ybit ^ zbit, zbit)
-        x = temp[0] * level + level - 1
-        y = temp[1] * level + level - 1
-        z = temp[2] * level + level - 1
+        p.x = temp[0] * level + level - 1
+        p.y = temp[1] * level + level - 1
+        p.z = temp[2] * level + level - 1
 
         distance = Math.floor(distance / 8)
+        level *= 2;
+        iter++;
     }
+
+    p = p.rotateLeft(iter - parity + 1);
 }
 
 // Rotate the coordinate plane and (x,y)
