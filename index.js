@@ -47,7 +47,7 @@ Point.prototype.rotate3d = function (level) { // :: Int -> Point
     return new Point(rotate3d(level, this.x, this.y, this.z))
 }
 
-Point.prototype.rotateLeft = function (n, xbit, ybit) { // :: Int -> Int -> Int -> Point
+Point.prototype.rotateLeft = function (n) { // :: Int -> Point
     if (n % 3 == 0) return this
     if (n % 3 == 1) return new Point(this.y, this.z, this.x)
     return new Point(this.z, this.x, this.y)
