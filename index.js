@@ -33,6 +33,7 @@ function Point(x, y, z) {
 }
 
 Point.prototype.rotate = function (p, n) {
+    // record rotations
     if (p.n == 0) return new Point(this.z, this.x, this.y)
     if (p.n == 1 || p.n == 3) return new Point(this.y, this.z, this.x)
     if (p.n == 2 || p.n == 6) return new Point(n - this.x, n - this.y, this.z)
@@ -97,7 +98,8 @@ function convert2dPointToDistance (height, p) { // :: Int -> Int -> Int -> Int
 
 // height and coordinates.
 function convert3dPointToDistance (height, x, y, z) { // :: Int -> Int -> Int -> Int -> Int
-    var s = 1, level = 0, max = Math.max.apply(Math, [x, y, z]), p = new Point(x, y, z)
+    var s = 1, level = 0, p = new Point(x, y, z)
+    var max = Math.max.apply(Math, p.toArray())
     for (; 2 * s <= max; s *= 2) {
         level = (level + 1) % 3
     }
