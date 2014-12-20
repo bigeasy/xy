@@ -70,6 +70,7 @@ Point.prototype.mod = function (n) { // :: Int -> Point
 }
 
 Point.prototype.unrotate = function (n) {
+    // read this.rotations and undo
 }
 
 // Accepts the height or width of a square/graph, and the coordinates to
