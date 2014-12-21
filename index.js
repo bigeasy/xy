@@ -104,6 +104,9 @@ function convert3dPointToDistance (height, x, y, z) { // :: Int -> Int -> Int ->
     for (; 2 * s <= max; s *= 2) {
         level = (level + 1) % 3
     }
+
+    // shuffle axes
+    // rotate based on parity
 }
 
 // Accepts height or width of a square/graph and distance
