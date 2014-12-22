@@ -194,7 +194,8 @@ function rotate3d(level, x, y, z) { // :: Int -> Int -> Int -> Int -> [Int, Int,
     }
 }
 
-exports.p2d = function (height, x, y) {
+exports.xy2d = function (height, x, y) {
     return convert2dPointToDistance(height, new Point(x, y))
 }
-exports.d2p = convertDistanceTo2dPoint
+exports.d2xy = convertDistanceTo2dPoint
+exports.d2xyz = convertDistanceTo3dPoint
