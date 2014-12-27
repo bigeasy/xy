@@ -3,10 +3,10 @@
 
 function Point(x, y, z) {
     if (x instanceof Array) {
-        this.x = x[0]
-        this.y = x[1]
+        this.x = Math.round(x[0]) || 0
+        this.y = Math.round(x[1]) || 0
         if (x[2]) {
-            this.z = x[2]
+            this.z = Math.round(x[2]) || 0
             this.d = 3
         } else {
             this.z = null
