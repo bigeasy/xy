@@ -2,18 +2,13 @@
 // Will later expand to allow `n` dimensions.
 
 function Point(x, y, z) {
-    if (x instanceof Array) {
-        this.x = Math.round(x[0]) || 0
-        this.y = Math.round(x[1]) || 0
-        if (x[2]) {
-            this.z = Math.round(x[2]) || 0
-            this.d = 3
-            this.n = 4 * this.z + 2 * this.y  + this.x
-        } else {
-            this.z = null
-            this.d = 2
-        }
-    } else {
+    this.rotations = {
+        x: 0,
+        y: 0,
+        z: 0
+    }
+
+    this.init = function (x, y, z) {
         this.x = Math.round(x) || 0
         this.y = Math.round(y) || 0
         if (z) {
@@ -25,11 +20,10 @@ function Point(x, y, z) {
             this.d = 2
         }
     }
-
-    this.rotations = {
-        x: 0,
-        y: 0,
-        z: 0
+    if (x instanceof Array) {
+        this.init(x[0], x[1], x[2] || null)
+    } else {
+        this.init(x, y, z)
     }
 }
 
@@ -200,3 +194,4 @@ exports.xy2d = function (height, x, y) {
 }
 exports.d2xy = convertDistanceTo2dPoint
 exports.d2xyz = convertDistanceTo3dPoint
+exports.point = Point
