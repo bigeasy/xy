@@ -8,10 +8,10 @@ function Point(x, y, z) {
         if (x[2]) {
             this.z = Math.round(x[2]) || 0
             this.d = 3
+            this.n = 4 * this.z + 2 * this.y  + this.x
         } else {
             this.z = null
             this.d = 2
-            this.n = 4 * this.z + 2 * this.y  + this.x
         }
     } else {
         this.x = Math.round(x) || 0
@@ -19,6 +19,7 @@ function Point(x, y, z) {
         if (z) {
             this.z = Math.round(z) || 0
             this.d = 3
+            this.n = 4 * this.z + 2 * this.y  + this.x
         } else {
             this.z = null
             this.d = 2
