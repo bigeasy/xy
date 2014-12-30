@@ -11,7 +11,7 @@ function Point(x, y, z) {
     this.init = function (x, y, z) {
         this.x = Math.round(x) || 0
         this.y = Math.round(y) || 0
-        if (z) {
+        if (z != null) {
             this.z = Math.round(z) || 0
             this.d = 3
             this.n = 4 * this.z + 2 * this.y  + this.x
@@ -21,7 +21,7 @@ function Point(x, y, z) {
         }
     }
     if (x instanceof Array) {
-        this.init(x[0], x[1], x[2] || null)
+        this.init(x[0], x[1], x[2])
     } else {
         this.init(x, y, z)
     }
