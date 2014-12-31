@@ -36,3 +36,5 @@ Finally,
 Decoding is very similar, except that at each stage we Gray- decode D index bits from coordinate bits. At that point the decoder has the same information the encoder uses to calculate the orientation of the child cube for the next stage.
 
 N-dimensional mapping. http://www.dcs.bbk.ac.uk/~jkl/pubs/JL1_00a.pdf
+
+more spatial indexing info. http://blog.notdot.net/2009/11/Damn-Cool-Algorithms-Spatial-indexing-with-Quadtrees-and-Hilbert-Curves
