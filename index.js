@@ -193,5 +193,6 @@ exports.xy2d = function (height, x, y) {
     return convert2dPointToDistance(height, new Point(x, y))
 }
 exports.d2xy = convertDistanceTo2dPoint
+exports.xy2d = convert2dPointToDistance
 exports.d2xyz = convertDistanceTo3dPoint
-exports.point = Point
+exports.xyz2d = convert3dPointToDistance
