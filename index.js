@@ -105,7 +105,7 @@ function convert3dPointToDistance (height, x, y, z) { // :: Int -> Int -> Int ->
 }
 
 // Accepts height or width of a square/graph and distance
-function convertDistanceTo2dPoint (height, distance) { // :: Int -> Int -> [Int, Int]
+function convertDistanceTo2dPoint (distance, height) { // :: Int -> Int -> [Int, Int]
     distance = Math.floor(distance)
     var xbit, ybit, level
     var p = new Point(0, 0)
@@ -117,7 +117,7 @@ function convertDistanceTo2dPoint (height, distance) { // :: Int -> Int -> [Int,
         ybit = 1 & (distance / 2)
         xbit = 1 & (ybit ^ distance)
 
-        p = p.rotate2d(level, x, y, xbit, ybit)
+        p = p.rotate2d(level, p.x, p.y, xbit, ybit)
         p.x += level * xbit
         p.y += level * ybit
         distance = Math.floor(distance / 4)
