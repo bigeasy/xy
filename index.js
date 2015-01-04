@@ -70,7 +70,7 @@ Point.prototype.unrotate = function (n) {
 
 // Accepts the height or width of a square/graph, and the coordinates to
 // convert.
-function convert2dPointToDistance (height, p) { // :: Int -> Int -> Int -> Int
+function convert2dPointToDistance (p, height) { // :: Int -> Int -> Int -> Int
     var xbit, ybit, level, d = 0
     if (height < 2) {
         height = 2
@@ -93,7 +93,7 @@ function convert2dPointToDistance (height, p) { // :: Int -> Int -> Int -> Int
 }
 
 // height and coordinates.
-function convert3dPointToDistance (height, x, y, z) { // :: Int -> Int -> Int -> Int -> Int
+function convert3dPointToDistance (x, y, z, height) { // :: Int -> Int -> Int -> Int -> Int
     var s = 1, level = 0, p = new Point(x, y, z)
     var max = Math.max.apply(Math, p.toArray())
     for (; 2 * s <= max; s *= 2) {
@@ -127,7 +127,7 @@ function convertDistanceTo2dPoint (distance, height) { // :: Int -> Int -> [Int,
 }
 
 // height/width of a square/graph and distance
-function convertDistanceTo3dPoint (height, distance) { // Int -> Int -> [Int, Int, Int]
+function convertDistanceTo3dPoint (distance, height) { // Int -> Int -> [Int, Int, Int]
     distance = Math.floor(distance)
     var xbit, ybit, zbit, level, parity
     var iter = 2, log = 0, p = new Point(x, y, z)
@@ -189,8 +189,8 @@ function rotate3d(level, x, y, z) { // :: Int -> Int -> Int -> Int -> [Int, Int,
     }
 }
 
-exports.xy2d = function (height, x, y) {
-    return convert2dPointToDistance(height, new Point(x, y))
+exports.xy2d = function (x, y, height) {
+    return convert2dPointToDistance(new Point(x, y), height)
 }
 exports.d2xy = convertDistanceTo2dPoint
 exports.xy2d = convert2dPointToDistance
