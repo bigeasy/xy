@@ -93,8 +93,8 @@ function convert2dPointToDistance (p, height) { // :: Int -> Int -> Int -> Int
 }
 
 // height and coordinates.
-function convert3dPointToDistance (x, y, z, height) { // :: Int -> Int -> Int -> Int -> Int
-    var s = 1, level = 0, p = new Point(x, y, z)
+function convert3dPointToDistance (p, height) { // :: Int -> Int -> Int -> Int -> Int
+    var s = 1, level = 0
     var max = Math.max.apply(Math, p.toArray())
     for (; 2 * s <= max; s *= 2) {
         level = (level + 1) % 3
@@ -192,6 +192,8 @@ function rotate3d(level, x, y, z) { // :: Int -> Int -> Int -> Int -> [Int, Int,
 exports.xy2d = function (x, y, height) {
     return convert2dPointToDistance(new Point(x, y), height)
 }
+exports.xyz2d = function(x, y, z, height) {
+    return convert3dPointToDistance(new Point(x, y, z), height)
+}
 exports.d2xy = convertDistanceTo2dPoint
 exports.d2xyz = convertDistanceTo3dPoint
-exports.xyz2d = convert3dPointToDistance
