@@ -2,33 +2,37 @@
 // Will later expand to allow `n` dimensions.
 
 function Point(x, y, z) {
-    if (x instanceof Array) {
-        this.x = x[0]
-        this.y = x[1]
-        if (x[2]) {
-            this.z = x[2]
-                this.d = 3
-        } else {
-            this.z = null
-            this.d = 2
-        }
-    } else {
-        this.x = Math.round(x) || 0
-        this.y = Math.round(y) || 0
-        if (z) {
-            this.z = Math.round(z) || 0
-            this.d = 3
-        } else {
-            this.z = null
-            this.d = 2
-        }
-    }
-
     this.rotations = {
         x: 0,
         y: 0,
         z: 0
     }
+
+    this.init = function (x, y, z) {
+        this.x = Math.round(x) || 0
+        this.y = Math.round(y) || 0
+        if (z != null) {
+            this.z = Math.round(z) || 0
+            this.d = 3
+            this.n = 4 * this.z + 2 * this.y  + this.x
+        } else {
+            this.z = null
+            this.d = 2
+        }
+    }
+    if (x instanceof Array) {
+        this.init(x[0], x[1], x[2])
+    } else {
+        this.init(x, y, z)
+    }
+}
+
+Point.prototype.rotate = function (p, n) {
+    // record rotations
+    if (p.n == 0) return new Point(this.z, this.x, this.y)
+    if (p.n == 1 || p.n == 3) return new Point(this.y, this.z, this.x)
+    if (p.n == 2 || p.n == 6) return new Point(n - this.x, n - this.y, this.z)
+    return new Point(n - this.z, this.x, n - this.y)
 }
 
 Point.prototype.rotate2d = function (n, xbit, ybit) { // : Int -> Int -> Int -> Point
@@ -39,7 +43,7 @@ Point.prototype.rotate3d = function (level) { // :: Int -> Point
     return new Point(rotate3d(level, this.x, this.y, this.z))
 }
 
-Point.prototype.rotateLeft = function (n, xbit, ybit) { // :: Int -> Int -> Int -> Point
+Point.prototype.rotateLeft = function (n) { // :: Int -> Point
     if (n % 3 == 0) return this
     if (n % 3 == 1) return new Point(this.y, this.z, this.x)
     return new Point(this.z, this.x, this.y)
@@ -56,20 +60,17 @@ Point.prototype.toArray = function () { // Int :: -> [Int, Int]
         return [this.x, this.y]
 }
 
-Point.prototype.n = function () { // :: Int
-        return 4 * this.z + 2 * this.y  + this.x
-}
-
 Point.prototype.mod = function (n) { // :: Int -> Point
     return new Point(this.x % n, this.y % n, this.z % n)
 }
 
 Point.prototype.unrotate = function (n) {
+    // read this.rotations and undo
 }
 
 // Accepts the height or width of a square/graph, and the coordinates to
 // convert.
-function convert2dPointToDistance (height, p) { // :: Int -> Int -> Int -> Int
+function convert2dPointToDistance (p, height) { // :: Int -> Int -> Int -> Int
     var xbit, ybit, level, d = 0
     if (height < 2) {
         height = 2
@@ -92,15 +93,19 @@ function convert2dPointToDistance (height, p) { // :: Int -> Int -> Int -> Int
 }
 
 // height and coordinates.
-function convert3dPointToDistance (height, x, y, z) { // :: Int -> Int -> Int -> Int -> Int
-    var s = 1, level = 0, max = Math.max.apply(Math, [x, y, z]), p = new Point(x, y, z)
+function convert3dPointToDistance (x, y, z, height) { // :: Int -> Int -> Int -> Int -> Int
+    var s = 1, level = 0, p = new Point(x, y, z)
+    var max = Math.max.apply(Math, p.toArray())
     for (; 2 * s <= max; s *= 2) {
         level = (level + 1) % 3
     }
+
+    // shuffle axes
+    // rotate based on parity
 }
 
 // Accepts height or width of a square/graph and distance
-function convertDistanceTo2dPoint (height, distance) { // :: Int -> Int -> [Int, Int]
+function convertDistanceTo2dPoint (distance, height) { // :: Int -> Int -> [Int, Int]
     distance = Math.floor(distance)
     var xbit, ybit, level
     var p = new Point(0, 0)
@@ -112,7 +117,7 @@ function convertDistanceTo2dPoint (height, distance) { // :: Int -> Int -> [Int,
         ybit = 1 & (distance / 2)
         xbit = 1 & (ybit ^ distance)
 
-        p = p.rotate2d(level, x, y, xbit, ybit)
+        p = p.rotate2d(level, p.x, p.y, xbit, ybit)
         p.x += level * xbit
         p.y += level * ybit
         distance = Math.floor(distance / 4)
@@ -122,14 +127,17 @@ function convertDistanceTo2dPoint (height, distance) { // :: Int -> Int -> [Int,
 }
 
 // height/width of a square/graph and distance
-function convertDistanceTo3dPoint (height, distance) { // Int -> Int -> [Int, Int, Int]
+function convertDistanceTo3dPoint (distance, height) { // Int -> Int -> [Int, Int, Int]
     distance = Math.floor(distance)
-    var xbit, ybit, zbit, level
-    var x = 0, y = 0, z = 0
+    var xbit, ybit, zbit, level, parity
+    var iter = 2, log = 0, p = new Point(x, y, z)
+
     if (height < 2) {
         height = 2
     }
-    var parity = height % 3;
+
+    for (parity = 1; parity < height; parity *= 2, log++) {}
+    parity = log % 3;
 
     for (level = 1; level < height || distance > 0; level *=2) {
         xbit = distance & 1;
@@ -137,12 +145,16 @@ function convertDistanceTo3dPoint (height, distance) { // Int -> Int -> [Int, In
         zbit = (distance / 4) & 1;
 
         var temp = rotate3d(level - 1, xbit ^ ybit, ybit ^ zbit, zbit)
-        x = temp[0] * level + level - 1
-        y = temp[1] * level + level - 1
-        z = temp[2] * level + level - 1
+        p.x = temp[0] * level + level - 1
+        p.y = temp[1] * level + level - 1
+        p.z = temp[2] * level + level - 1
 
         distance = Math.floor(distance / 8)
+        level *= 2;
+        iter++;
     }
+
+    return p.rotateLeft(iter - parity + 1);
 }
 
 // Rotate the coordinate plane and (x,y)
@@ -177,7 +189,9 @@ function rotate3d(level, x, y, z) { // :: Int -> Int -> Int -> Int -> [Int, Int,
     }
 }
 
-exports.p2d = function (height, x, y) {
-    return convert2dPointToDistance(height, new Point(x, y))
+exports.xy2d = function (x, y, height) {
+    return convert2dPointToDistance(new Point(x, y), height)
 }
-exports.d2p = convertDistanceTo2dPoint
+exports.d2xy = convertDistanceTo2dPoint
+exports.d2xyz = convertDistanceTo3dPoint
+exports.xyz2d = convert3dPointToDistance
