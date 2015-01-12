@@ -123,7 +123,7 @@ function convertDistanceTo2dPoint (distance, height) { // :: Int -> Int -> [Int,
         distance = Math.floor(distance / 4)
     }
 
-    return p
+    return p.toArray()
 }
 
 // height/width of a square/graph and distance
@@ -154,7 +154,7 @@ function convertDistanceTo3dPoint (distance, height) { // Int -> Int -> [Int, In
         iter++;
     }
 
-    return p.rotateLeft(iter - parity + 1);
+    return p.rotateLeft(iter - parity + 1).toArray();
 }
 
 // Rotate the coordinate plane and (x,y)
