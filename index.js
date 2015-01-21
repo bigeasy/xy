@@ -72,9 +72,6 @@ Point.prototype.unrotate = function (n) {
 // convert.
 function convert2dPointToDistance (p, height) { // :: Int -> Int -> Int -> Int
     var xbit, ybit, level, d = 0
-    if (height < 2) {
-        height = 2
-    }
 
     // For each Hilbert level, we want to add an amount to
     // `d` based on which region we are in
@@ -109,11 +106,9 @@ function convertDistanceTo2dPoint (distance, height) { // :: Int -> Int -> [Int,
     distance = Math.floor(distance)
     var xbit, ybit, level
     var p = new Point(0, 0)
-    if (height < 2) {
-        height = 2
-    }
 
     for (level = 1; level < height || distance > 0; level *= 2) {
+        console.log(level)
         ybit = 1 & (distance / 2)
         xbit = 1 & (ybit ^ distance)
 
@@ -132,9 +127,7 @@ function convertDistanceTo3dPoint (distance, height) { // Int -> Int -> [Int, In
     var xbit, ybit, zbit, level, parity
     var iter = 2, log = 0, p = new Point(x, y, z)
 
-    if (height < 2) {
-        height = 2
-    }
+    height = height || 2
 
     for (parity = 1; parity < height; parity *= 2, log++) {}
     parity = log % 3;
@@ -190,9 +183,11 @@ function rotate3d(level, x, y, z) { // :: Int -> Int -> Int -> Int -> [Int, Int,
 }
 
 exports.xy2d = function (x, y, height) {
+    height = height || 2
     return convert2dPointToDistance(new Point(x, y), height)
 }
 exports.xyz2d = function(x, y, z, height) {
+    height = height || 2
     return convert3dPointToDistance(new Point(x, y, z), height)
 }
 exports.d2xy = convertDistanceTo2dPoint
