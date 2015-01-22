@@ -38,3 +38,5 @@ Decoding is very similar, except that at each stage we Gray- decode D index bits
 N-dimensional mapping. http://www.dcs.bbk.ac.uk/~jkl/pubs/JL1_00a.pdf
 
 more spatial indexing info. http://blog.notdot.net/2009/11/Damn-Cool-Algorithms-Spatial-indexing-with-Quadtrees-and-Hilbert-Curves
+
+hilbert curve scheduling. http://en.wikipedia.org/wiki/Hilbert_curve_scheduling
