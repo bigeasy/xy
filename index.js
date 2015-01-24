@@ -109,11 +109,14 @@ function convertDistanceTo2dPoint (distance, height) { // :: Int -> Int -> [Int,
     distance = Math.floor(distance)
     var xbit, ybit, level
     var p = new Point(0, 0)
-    if (height < 2) {
+    if (height <= Math.sqrt(distance))  {
         height = 2
+        while (height <= Math.sqrt(distance)) {
+            height *=2
+        }
     }
 
-    for (level = 1; level < height || distance > 0; level *= 2) {
+    for (level = 1; level < height; level *= 2) {
         ybit = 1 & (distance / 2)
         xbit = 1 & (ybit ^ distance)
 

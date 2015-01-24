@@ -1,7 +1,47 @@
 #!/usr/bin/env node
 
-require('proof')(1, function (equal) {
-  var hilbert = require('../..')
+require('proof')(7, function (equal) {
+    var hilbert = require('../..')
 
-  equal(hilbert.d2xy(16, 2), [4, 0])
+
+    equal(hilbert.d2xy(0, 2), [0, 0])
+    equal(hilbert.d2xy(0, 3), [0, 1])
+    equal(hilbert.d2xy(4, 2), [0, 2])
+    equal(hilbert.d2xy(15, 2), [3, 0])
+    equal(hilbert.d2xy(16, 2), [0, 4])
+    equal(hilbert.d2xy(63, 2), [7, 0])
+    equal(hilbert.d2xy(64, 2), [0, 8])
+
+    /*
+    console.log("0 " , hilbert.d2xy(0, 2))
+    console.log("1 " , hilbert.d2xy(1, 2))
+    console.log("2 " , hilbert.d2xy(2, 2))
+    console.log("3 " , hilbert.d2xy(3, 2))
+    console.log("4 " , hilbert.d2xy(4, 2))
+    console.log("5 " , hilbert.d2xy(5, 2))
+    console.log("6 " , hilbert.d2xy(6, 2))
+    console.log("7 " , hilbert.d2xy(7, 2))
+    console.log("8 " , hilbert.d2xy(8, 2))
+    console.log("9 " , hilbert.d2xy(9, 2))
+    console.log("10 " , hilbert.d2xy(10, 2))
+    console.log("11 " , hilbert.d2xy(11, 2))
+    console.log("12 " ,hilbert.d2xy(12, 2))
+    console.log("13 " ,hilbert.d2xy(13, 2))
+    console.log("14 " ,hilbert.d2xy(14, 2))
+    console.log("15 " ,hilbert.d2xy(15, 2))
+    console.log("16 " ,hilbert.d2xy(16, 2))
+    console.log("17 " ,hilbert.d2xy(17, 2))
+    console.log("18 " ,hilbert.d2xy(18, 2))
+    console.log("19 " ,hilbert.d2xy(19, 2))
+    console.log("20 " ,hilbert.d2xy(20, 2))
+    console.log("21 " ,hilbert.d2xy(21, 2))
+    console.log("22 " ,hilbert.d2xy(22, 2))
+    console.log("23 " ,hilbert.d2xy(23, 2))
+    console.log("24 " ,hilbert.d2xy(24, 2))
+    console.log("25 " ,hilbert.d2xy(25, 2))
+    console.log("26 " ,hilbert.d2xy(26, 2))
+    console.log("27 " ,hilbert.d2xy(27, 2))
+    console.log("28 " ,hilbert.d2xy(28, 2))
+    console.log("29 " ,hilbert.d2xy(29, 2))
+    */
 })
