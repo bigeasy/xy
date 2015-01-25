@@ -72,10 +72,13 @@ Point.prototype.unrotate = function (n) {
 // convert.
 function convert2dPointToDistance (p, height) { // :: Int -> Int -> Int -> Int
     var xbit, ybit, level, d = 0
-    if (height < 2) {
-        height = 2
-    }
+    var forHeight = p.x > p.y ? p.x : p.y
 
+    // needs some tests to make sure height is compatible
+    // What keeps the user from putting 54 down as the height
+    while (forHeight >= height) {
+            height *=2
+    }
     // For each Hilbert level, we want to add an amount to
     // `d` based on which region we are in
     for (level = height / 2; level > 0; level /= 2) {
@@ -86,7 +89,7 @@ function convert2dPointToDistance (p, height) { // :: Int -> Int -> Int -> Int
         d += level * level * ((3 * xbit) ^ ybit)
         // rotate so that we'll be in sync with the next
         // region.
-        p = p.rotate2d(height, p.x, p.y, xbit, ybit)
+        p = p.rotate2d(height, xbit, ybit)
     }
 
     return d
@@ -117,10 +120,10 @@ function convertDistanceTo2dPoint (distance, height) { // :: Int -> Int -> [Int,
     }
 
     for (level = 1; level < height; level *= 2) {
-        ybit = 1 & (distance / 2)
-        xbit = 1 & (ybit ^ distance)
+        xbit = 1 & (distance / 2)
+        ybit = 1 & (xbit ^ distance)
 
-        p = p.rotate2d(level, p.x, p.y, xbit, ybit)
+        p = p.rotate2d(level, xbit, ybit)
         p.x += level * xbit
         p.y += level * ybit
         distance = Math.floor(distance / 4)

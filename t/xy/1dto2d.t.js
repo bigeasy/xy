@@ -1,18 +1,16 @@
 #!/usr/bin/env node
 
-require('proof')(7, function (equal) {
+require('proof')(9, function (equal) {
     var hilbert = require('../..')
-
-
     equal(hilbert.d2xy(0, 2), [0, 0])
     equal(hilbert.d2xy(0, 3), [0, 1])
-    equal(hilbert.d2xy(4, 2), [0, 2])
+    equal(hilbert.d2xy(4, 2), [2, 0])
     equal(hilbert.d2xy(15, 2), [3, 0])
     equal(hilbert.d2xy(16, 2), [0, 4])
     equal(hilbert.d2xy(63, 2), [7, 0])
     equal(hilbert.d2xy(64, 2), [0, 8])
-
-    /*
+    equal(hilbert.d2xy(1023, 2), [31, 0])
+    equal(hilbert.d2xy(1024, 2), [0, 32])
     console.log("0 " , hilbert.d2xy(0, 2))
     console.log("1 " , hilbert.d2xy(1, 2))
     console.log("2 " , hilbert.d2xy(2, 2))
@@ -43,5 +41,4 @@ require('proof')(7, function (equal) {
     console.log("27 " ,hilbert.d2xy(27, 2))
     console.log("28 " ,hilbert.d2xy(28, 2))
     console.log("29 " ,hilbert.d2xy(29, 2))
-    */
 })
