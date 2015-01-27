@@ -72,10 +72,16 @@ Point.prototype.unrotate = function (n) {
 // convert.
 function convert2dPointToDistance (p, height) { // :: Int -> Int -> Int -> Int
     var xbit, ybit, level, d = 0
+    var forHeight = p.x > p.y ? p.x : p.y
 
+    // needs some tests to make sure height is compatible
+    // What keeps the user from putting 54 down as the height
+    while (forHeight >= height) {
+            height *=2
+    }
     // For each Hilbert level, we want to add an amount to
     // `d` based on which region we are in
-    for (level = height / 2; level > 0; level /= 2) {
+    for (level = height / 2; level > 0; level = Math.floor(level / 2)) {
         // Determine what region we're in
         xbit = (p.x & level) > 0
         ybit = (p.y & level) > 0
@@ -83,7 +89,9 @@ function convert2dPointToDistance (p, height) { // :: Int -> Int -> Int -> Int
         d += level * level * ((3 * xbit) ^ ybit)
         // rotate so that we'll be in sync with the next
         // region.
-        p = p.rotate2d(height, p.x, p.y, xbit, ybit)
+        p = p.rotate2d(level, xbit, ybit)
+        // HEAD
+        // p = p.rotate2d(height, xbit, ybit)
     }
 
     return d
@@ -104,15 +112,20 @@ function convert3dPointToDistance (p, height) { // :: Int -> Int -> Int -> Int -
 // Accepts height or width of a square/graph and distance
 function convertDistanceTo2dPoint (distance, height) { // :: Int -> Int -> [Int, Int]
     distance = Math.floor(distance)
-    var xbit, ybit, level
-    var p = new Point(0, 0)
+    var xbit, ybit, level, p = new Point(0, 0)
 
-    for (level = 1; level < height || distance > 0; level *= 2) {
-        console.log(level)
-        ybit = 1 & (distance / 2)
-        xbit = 1 & (ybit ^ distance)
+    if (height <= Math.sqrt(distance))  {
+        height = 2
+        while (height <= Math.sqrt(distance)) {
+            height *=2
+        }
+    }
 
-        p = p.rotate2d(level, p.x, p.y, xbit, ybit)
+    for (level = 1; level < height; level *= 2) {
+        xbit = 1 & (distance / 2)
+        ybit = 1 & (distance ^ xbit)
+
+        p = p.rotate2d(level, xbit, ybit)
         p.x += level * xbit
         p.y += level * ybit
         distance = Math.floor(distance / 4)
@@ -152,8 +165,8 @@ function convertDistanceTo3dPoint (distance, height) { // Int -> Int -> [Int, In
 
 // Rotate the coordinate plane and (x,y)
 function rotate2d (n, x, y, xbit, ybit) { // :: Int -> Int -> Int -> Int -> Int -> [Int, Int]
-    if (ybit === 0  ) {
-        if (xbit === 1) {
+    if (ybit == 0  ) {
+        if (xbit == 1) {
             x = n - 1 - x
             y = n - 1 - y
         }
