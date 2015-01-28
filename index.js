@@ -199,6 +199,8 @@ exports.xy2d = function (x, y, height) {
     height = height || 2
     return convert2dPointToDistance(new Point(x, y), height)
 }
+
+// This needs to be fixed to not return undefined.
 exports.xyz2d = function(x, y, z, height) {
     height = height || 2
     return convert3dPointToDistance(new Point(x, y, z), height)
