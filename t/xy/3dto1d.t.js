@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-require('proof')(1, function (equal) {
+require('proof')(1, function (deepEqual) {
   var hilbert = require('../..')
 
-  equal(hilbert.d2xyz(8, 16), [16, 2, 2])
+  deepEqual(hilbert.d2xyz(8, 16), [16, 2, 2])
 })
