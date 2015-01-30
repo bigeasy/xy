@@ -138,7 +138,7 @@ function convertDistanceTo2dPoint (distance, height) { // :: Int -> Int -> [Int,
 function convertDistanceTo3dPoint (distance, height) { // Int -> Int -> [Int, Int, Int]
     distance = Math.floor(distance)
     var xbit, ybit, zbit, level, parity
-    var iter = 2, log = 0, p = new Point(x, y, z)
+    var iter = 2, log = 0, p = new Point(0, 0, 0)
 
     height = height || 2
 
@@ -147,7 +147,7 @@ function convertDistanceTo3dPoint (distance, height) { // Int -> Int -> [Int, In
 
     for (level = 1; level < height || distance > 0; level *=2) {
         xbit = distance & 1;
-        ybit = (ditance / 2) & 1;
+        ybit = (distance / 2) & 1;
         zbit = (distance / 4) & 1;
 
         var temp = rotate3d(level - 1, xbit ^ ybit, ybit ^ zbit, zbit)
@@ -181,7 +181,7 @@ function rotate2d (n, x, y, xbit, ybit) { // :: Int -> Int -> Int -> Int -> Int 
 
 // Rotate the coordinate plane and (x,y, z)
 function rotate3d(level, x, y, z) { // :: Int -> Int -> Int -> Int -> [Int, Int, Int]
-    index = 4 * z + 2 * y + x
+    var index = 4 * z + 2 * y + x
     if (index == 0) {
         return [z, x, y]
     } else if (index == 1 || index == 3) {

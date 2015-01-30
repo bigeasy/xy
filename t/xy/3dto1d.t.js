@@ -3,5 +3,23 @@
 require('proof')(1, function (equal) {
   var hilbert = require('../..')
 
-  equal(hilbert.d2xyz(8, 16), [16, 2, 2])
+  equal(hilbert.xyz2d(16, 2, 2), 8)
+  /*
+  console.log(hilbert.xyz2d(0,0,0))
+  console.log(hilbert.xyz2d(0,1,0))
+  console.log(hilbert.xyz2d(0,1,1))
+  console.log(hilbert.xyz2d(0,0,1))
+  console.log(hilbert.xyz2d(1,0,1))
+  console.log(hilbert.xyz2d(1,1,1))
+  console.log(hilbert.xyz2d(1,1,0))
+  console.log(hilbert.xyz2d(1,0,0))
+  */
+  hilbert.xyz2d(0,0,0)
+  hilbert.xyz2d(0,1,0)
+  hilbert.xyz2d(0,1,1)
+  hilbert.xyz2d(0,0,1)
+  hilbert.xyz2d(1,0,1)
+  hilbert.xyz2d(1,1,1)
+  hilbert.xyz2d(1,1,0)
+  hilbert.xyz2d(1,0,0)
 })
