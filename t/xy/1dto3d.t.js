@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-require('proof')(1, function (equal) {
-  var hilbert = require('../..')
+require('proof')(1, function (assert) {
+    var hilbert = require('../..')
 
-  equal(hilbert.xyz2d(16, 2, 2), 8)
+    assert(hilbert.xyz2d(16, 2, 2), 8)
 })
