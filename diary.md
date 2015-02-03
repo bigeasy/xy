@@ -42,3 +42,5 @@ more spatial indexing info. http://blog.notdot.net/2009/11/Damn-Cool-Algorithms-
 hilbert curve scheduling. http://en.wikipedia.org/wiki/Hilbert_curve_scheduling
 
 derived key = sequence number of a point.
+
+3D curves: http://arxiv.org/pdf/1109.2323v1.pdf
