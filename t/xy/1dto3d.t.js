@@ -4,23 +4,23 @@ require('proof')(1, function (equal) {
     var hilbert = require('../..')
 
     equal(hilbert.d2xyz(8, 16), [16, 2, 2])
-    hilbert.d2xyz(0, 2)
-    hilbert.d2xyz(1, 2)
-    hilbert.d2xyz(2, 2)
-    hilbert.d2xyz(3, 2)
-    hilbert.d2xyz(4, 2)
-    hilbert.d2xyz(5, 2)
-    hilbert.d2xyz(6, 2)
-    hilbert.d2xyz(7, 2)
+    hilbert.d2xyz(0, 2) // 0,  0,  0
+    hilbert.d2xyz(1, 2) // 0,  0,  1
+    hilbert.d2xyz(2, 2) // 0,  1,  1
+    hilbert.d2xyz(3, 2) // 0,  1,  0
+    hilbert.d2xyz(4, 2) // 1,  1,  0
+    hilbert.d2xyz(5, 2) // 1,  1,  1
+    hilbert.d2xyz(6, 2) // 1,  0,  1
+    hilbert.d2xyz(7, 2) // 1,  0,  0
 
     console.log(hilbert.d2xyz(0, 2))
-    console.log(hilbert.d2xyz(1, 2))
-    console.log(hilbert.d2xyz(2, 2))
-    console.log(hilbert.d2xyz(3, 2))
-    console.log(hilbert.d2xyz(4, 2))
-    console.log(hilbert.d2xyz(5, 2))
-    console.log(hilbert.d2xyz(6, 2))
-    console.log(hilbert.d2xyz(7, 2))
+    console.log(hilbert.d2xyz(1, 2)) // 0,  0, 1
+    console.log(hilbert.d2xyz(2, 2)) // 1,  0, 1
+    console.log(hilbert.d2xyz(3, 2)) // 0, -1, 0
+    console.log(hilbert.d2xyz(4, 2)) // 0, -1, 1
+    console.log(hilbert.d2xyz(5, 2)) // 1, -1, -1
+    console.log(hilbert.d2xyz(6, 2)) // 0, -1, -1
+    console.log(hilbert.d2xyz(7, 2)) // -1, 0, 0
     console.log(hilbert.d2xyz(8, 2))
     console.log(hilbert.d2xyz(9, 2))
     console.log(hilbert.d2xyz(10, 2))

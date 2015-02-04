@@ -142,9 +142,11 @@ function convertDistanceTo3dPoint (distance, height) { // Int -> Int -> [Int, In
 
     height = height || 2
 
-    for (parity = 1; parity < height; parity *= 2, log++) {}
+    // vvv this is interesting.
+    for (parity = 1; parity < height; parity *= 2, ++log) {}
     parity = log % 3;
 
+    // the `|| distance` was removed from 2d version
     for (level = 1; level < height || distance > 0; level *=2) {
         xbit = distance & 1;
         ybit = (distance / 2) & 1;
