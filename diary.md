@@ -21,6 +21,13 @@ http://en.wikipedia.org/wiki/Rotation_matrix
 figure out how to keep track of rotations so we can unrotate.
 
 interesting hilbert implementation. https://github.com/ryan-williams/hilbert-js
+I am uncertain of this implementation of the hilbert curve. It iterates
+between 2 different hilbert curves as the dimensions increase.
+At n = 2 the curve's exit gate is 0,1,0. I would expect to be 1,0,0.
+At n = 4 the curve's exit gate is 0,0,3. I would expect to be 3,0,0.
+At n = 8 the curve's exit gate is 7,0,0, as is expected.
+At n = 16 the curve's exit gate is 0,15,0. I would expect to be 15,0,0.
+
 
 2D encoding algorithm:
 Outline of the Method
