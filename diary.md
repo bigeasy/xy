@@ -49,3 +49,6 @@ derived key = sequence number of a point.
 binary decomposition: when the scanning order can be defined by `d` rules R0, ..., Rd−1, where each rule Ri divides a region
     by an axis-parallel cutting plane into two regions of equal size, to each of which ruleR(i+1) mod `d` is applied.
     requires mono curve.
+
+According to the state diagram there are 12 states. Each state is rotation of
+state 0.
