@@ -40,3 +40,11 @@ N-dimensional mapping. http://www.dcs.bbk.ac.uk/~jkl/pubs/JL1_00a.pdf
 more spatial indexing info. http://blog.notdot.net/2009/11/Damn-Cool-Algorithms-Spatial-indexing-with-Quadtrees-and-Hilbert-Curves
 
 hilbert curve scheduling. http://en.wikipedia.org/wiki/Hilbert_curve_scheduling
+
+derived key = sequence number of a point.
+
+3D curves: http://arxiv.org/pdf/1109.2323v1.pdf
+
+binary decomposition: when the scanning order can be defined by `d` rules R0, ..., Rd−1, where each rule Ri divides a region
+    by an axis-parallel cutting plane into two regions of equal size, to each of which ruleR(i+1) mod `d` is applied.
+    requires mono curve.

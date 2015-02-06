@@ -138,16 +138,18 @@ function convertDistanceTo2dPoint (distance, height) { // :: Int -> Int -> [Int,
 function convertDistanceTo3dPoint (distance, height) { // Int -> Int -> [Int, Int, Int]
     distance = Math.floor(distance)
     var xbit, ybit, zbit, level, parity
-    var iter = 2, log = 0, p = new Point(x, y, z)
+    var iter = 2, log = 0, p = new Point(0, 0, 0)
 
     height = height || 2
 
-    for (parity = 1; parity < height; parity *= 2, log++) {}
+    // vvv this is interesting.
+    for (parity = 1; parity < height; parity *= 2, ++log) {}
     parity = log % 3;
 
+    // the `|| distance` was removed from 2d version
     for (level = 1; level < height || distance > 0; level *=2) {
         xbit = distance & 1;
-        ybit = (ditance / 2) & 1;
+        ybit = (distance / 2) & 1;
         zbit = (distance / 4) & 1;
 
         var temp = rotate3d(level - 1, xbit ^ ybit, ybit ^ zbit, zbit)
@@ -181,7 +183,7 @@ function rotate2d (n, x, y, xbit, ybit) { // :: Int -> Int -> Int -> Int -> Int 
 
 // Rotate the coordinate plane and (x,y, z)
 function rotate3d(level, x, y, z) { // :: Int -> Int -> Int -> Int -> [Int, Int, Int]
-    index = 4 * z + 2 * y + x
+    var index = 4 * z + 2 * y + x
     if (index == 0) {
         return [z, x, y]
     } else if (index == 1 || index == 3) {
@@ -199,6 +201,8 @@ exports.xy2d = function (x, y, height) {
     height = height || 2
     return convert2dPointToDistance(new Point(x, y), height)
 }
+
+// This needs to be fixed to not return undefined.
 exports.xyz2d = function(x, y, z, height) {
     height = height || 2
     return convert3dPointToDistance(new Point(x, y, z), height)
