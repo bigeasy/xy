@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-require('proof')(1, function (assert) {
+require('proof')(0, function (assert) {
     var hilbert = require('../..')
     /*
     // vv actul tests
