@@ -61,3 +61,5 @@ According to the state diagram there are 12 states. Each state is rotation of
 state 0.
 
 example of axis rotation: https://github.com/Isinlor/Cube3D/blob/master/index.html
+
+geometric description of Butz' implementation. https://www.cs.dal.ca/sites/default/files/technical_reports/CS-2006-07.pdf
