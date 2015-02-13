@@ -197,7 +197,8 @@ function rotate3d(level, x, y, z) { // :: Int -> Int -> Int -> Int -> [Int, Int,
     }
 }
 
-function grayInverse (g) {
+// returns a non-negative int 'inverse' such that graycode(inverse) = g
+function grayInverse (g) { // : Int -> Int
     var m = bits(g), inverse = g, j = 1
     while (j < m) {
         inverse = inverse ^ (g >> j)
@@ -206,13 +207,56 @@ function grayInverse (g) {
     return inverse
 }
 
-function bits (n) {
+// Returns the number of bits required to store an integer
+function bits (n) { // :: Int > Int
     var ret = 0
     while (n > 0) {
         ret++
         n = n >> 1
     }
     return ret
+}
+
+function bitwiseRotateRight (x, n) {
+    var y = (x >> n) & ~(-1 << (32 - n))
+    var z = x << (32 - n)
+    return y | z
+}
+
+function bitwiseRotateLeft (x, n) {
+    var y = (x << n) & ~(-1 >> (32 - n))
+    var z = x >> (32 - n)
+    return y | z
+}
+
+function grayTransform (entry, direction, x) {
+    return bitwiseRotateRight((x ^ entry), direction + 1)
+}
+
+function hilbertIndex(dim, precision, point) {
+    var index = 0, entry = 0, direction = 0, i = precision - 1, mask, code
+
+    while (i >= 0) {
+        var arr = point.toArray()
+        var bits = 0
+
+        for (var k = 0; k < arr.length; k++) {
+            mask = arr[arr.length - k] << (i - 1)
+            bits |= mask
+            console.log(bits)
+        }
+
+        bits = grayTransform(entry, direction, bits)
+        code = grayInverse(bits)
+
+        entry = entry ^ bitwiseRotateLeft((entry * code), direction + 1)
+        direction = direction + (direction * code) + (1 % dim)
+        index = (index << dim) | code
+
+        i--
+    }
+
+    return index
 }
 
 exports.xy2d = function (x, y, height) {
@@ -227,3 +271,6 @@ exports.xyz2d = function(x, y, z, height) {
 }
 exports.d2xy = convertDistanceTo2dPoint
 exports.d2xyz = convertDistanceTo3dPoint
+exports.hilbert = function (dim, m, x, y, z) {
+    return hilbertIndex(dim, m, new Point(x, y, z))
+}
