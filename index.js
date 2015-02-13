@@ -197,6 +197,24 @@ function rotate3d(level, x, y, z) { // :: Int -> Int -> Int -> Int -> [Int, Int,
     }
 }
 
+function grayInverse (g) {
+    var m = bits(g), inverse = g, j = 1
+    while (j < m) {
+        inverse = inverse ^ (g >> j)
+        j++
+    }
+    return inverse
+}
+
+function bits (n) {
+    var ret = 0
+    while (n > 0) {
+        ret++
+        n = n >> 1
+    }
+    return ret
+}
+
 exports.xy2d = function (x, y, height) {
     height = height || 2
     return convert2dPointToDistance(new Point(x, y), height)
