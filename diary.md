@@ -9,6 +9,7 @@ http://arxiv.org/abs/1109.2323
 Axis rotation: http://www.siggraph.org/education/materials/HyperGraph/modeling/mod_tran/3drota.htm#X-Axis%20Rotation
 
 parity: http://en.wikipedia.org/wiki/Parity_%28mathematics%29 http://en.wikipedia.org/wiki/Parity_bit
+parity: the number of bits in a byte which are set to 1
 
 Want to express axis rotations internally without creating a point object.
 or perhaps use one internally but return an array.
@@ -20,6 +21,13 @@ http://en.wikipedia.org/wiki/Rotation_matrix
 figure out how to keep track of rotations so we can unrotate.
 
 interesting hilbert implementation. https://github.com/ryan-williams/hilbert-js
+I am uncertain of this implementation of the hilbert curve. It iterates
+between 2 different hilbert curves as the dimensions increase.
+At n = 2 the curve's exit gate is 0,1,0. I would expect to be 1,0,0.
+At n = 4 the curve's exit gate is 0,0,3. I would expect to be 3,0,0.
+At n = 8 the curve's exit gate is 7,0,0, as is expected.
+At n = 16 the curve's exit gate is 0,15,0. I would expect to be 15,0,0.
+
 
 2D encoding algorithm:
 Outline of the Method
@@ -48,3 +56,10 @@ derived key = sequence number of a point.
 binary decomposition: when the scanning order can be defined by `d` rules R0, ..., Rd−1, where each rule Ri divides a region
     by an axis-parallel cutting plane into two regions of equal size, to each of which ruleR(i+1) mod `d` is applied.
     requires mono curve.
+
+According to the state diagram there are 12 states. Each state is rotation of
+state 0.
+
+example of axis rotation: https://github.com/Isinlor/Cube3D/blob/master/index.html
+
+geometric description of Butz' implementation. https://www.cs.dal.ca/sites/default/files/technical_reports/CS-2006-07.pdf

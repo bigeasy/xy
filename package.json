@@ -22,7 +22,8 @@
     }],
     "devDependencies":
     {
-                        "proof": "*"
+                        "proof": "*",
+                        "gray-code": "*"
     },
     "licenses":
     [{
