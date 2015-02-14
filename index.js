@@ -244,8 +244,8 @@ function hilbertIndex(dim, precision, point) {
             bits = bits.concat(arr[arr.length - k] << (i - 1))
         }
 
-        console.log(parseInt(bits))
-        bits = grayTransform(entry, direction, parseInt(bits))
+        console.log(parseInt(bits, 2))
+        bits = grayTransform(entry, direction, parseInt(bits, 2))
         code = grayInverse(bits)
 
         entry = entry ^ bitwiseRotateLeft((entry * code), direction + 1)
