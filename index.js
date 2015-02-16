@@ -238,14 +238,17 @@ function hilbertIndex(dim, precision, point) {
 
     while (i >= 0) {
         var arr = point.toArray()
-        var bits = ''
+        var bits = 0
 
         for (var k = 0; k < arr.length; k++) {
-            bits = bits.concat(arr[arr.length - k] << (i - 1))
+            if (arr[arr.length - k] & (1 << (i - 1))) {
+                bits |= 1 << (i - 1)
+            } else {
+                bits &= ~(1 << (i-1))
+            }
         }
 
-        console.log(parseInt(bits, 2))
-        bits = grayTransform(entry, direction, parseInt(bits, 2))
+        bits = grayTransform(entry, direction, bits)
         code = grayInverse(bits)
 
         entry = entry ^ bitwiseRotateLeft((entry * code), direction + 1)
