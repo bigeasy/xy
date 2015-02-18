@@ -232,10 +232,9 @@ function grayTransform (entry, direction, x) {
 }
 
 function hilbertIndex(dim, precision, point) {
-    var index = 0, entry = 0, direction = 0, i = precision - 1, code
+    var index = 0, entry = 0, direction = 0, i = precision - 1, arr = point.toArray(), code
 
     while (i >= 0) {
-        var arr = point.toArray()
         var bits = 0
 
         for (var k = 0; k < arr.length; k++) {
