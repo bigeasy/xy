@@ -224,9 +224,7 @@ function bitwiseRotateRight (x, n) {
 }
 
 function bitwiseRotateLeft (x, n) {
-    var y = (x << n) & ~(-1 >> (32 - n))
-    var z = x >> (32 - n)
-    return y | z
+    return (x << n) | (x >> (32 - n)) & ~(-1 << n)
 }
 
 function grayTransform (entry, direction, x) {
@@ -234,19 +232,20 @@ function grayTransform (entry, direction, x) {
 }
 
 function hilbertIndex(dim, precision, point) {
-    var index = 0, entry = 0, direction = 0, i = precision - 1, mask, code
+    var index = 0, entry = 0, direction = 0, i = precision - 1, code
 
     while (i >= 0) {
         var arr = point.toArray()
         var bits = 0
 
         for (var k = 0; k < arr.length; k++) {
-            if (arr[arr.length - k] & (1 << (i - 1))) {
-                bits |= 1 << (i - 1)
-            } else {
-                bits &= ~(1 << (i-1))
+            if (arr[arr.length - (k+1)] & (1 << (i - 1))) {
+                // need to set kth bit, not ith
+                bits |= 1 << k
             }
         }
+
+        console.log(bits.toString(2))
 
         bits = grayTransform(entry, direction, bits)
         code = grayInverse(bits)
