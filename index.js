@@ -239,12 +239,9 @@ function hilbertIndex(dim, precision, point) {
 
         for (var k = 0; k < arr.length; k++) {
             if (arr[arr.length - (k+1)] & (1 << (i - 1))) {
-                // need to set kth bit, not ith
                 bits |= 1 << k
             }
         }
-
-        console.log(bits.toString(2))
 
         bits = grayTransform(entry, direction, bits)
         code = grayInverse(bits)
