@@ -235,8 +235,17 @@ function grayTransform (entry, direction, x) { // :: Int -> Int -> Int -> Int
 
 function hilbertIndex(dim, precision, point) {
     var index = 0, entry = 0, direction = 0, i = precision - 1, arr = point.toArray(), code
+    // dim = n
+    // precision = m
+    // p = point (5,6)
+    // vvv this transformation needs to happen
+    // entry = e
+    // direction = d <- this is n-1. Interesting its set as 0.
+    // code = w
+    // index = h
 
     while (i >= 0) {
+        // l = [bit(p sub n-1 ; i), bit(p sub n 0 ; i)] [11], [10], [01]
         var bits = 0
 
         for (var k = 0; k < arr.length; k++) {
@@ -245,17 +254,20 @@ function hilbertIndex(dim, precision, point) {
             }
         }
 
-        bits = grayTransform(entry, direction, bits)
-        code = grayInverse(bits)
+        // vv look into each of these variables as well as the functions
+        // does bits go in as a string?
+        bits = grayTransform(entry, direction, bits) // transform <- 3, 2, 1
+        code = grayInverse(bits) // 2, 3, 1
 
-        entry = entry ^ bitwiseRotateLeft((entry * code), direction + 1)
-        direction = direction + (direction * code) + (1 % dim)
-        index = (index << dim) | code
+        // vvv new entry direction and index
+        entry = entry ^ bitwiseRotateLeft((entry * code), direction + 1)//0,3,3
+        direction = direction + (direction * code) + (1 % dim) //<- 1,0,0
+        index = (index << dim) | code // <-2, 11, 45
 
         i--
     }
 
-    return index
+    return index // set B subscript M
 }
 
 exports.xy2d = function (x, y, height) {
@@ -273,3 +285,4 @@ exports.d2xyz = convertDistanceTo3dPoint
 exports.hilbert = function (dim, m, x, y, z) {
     return hilbertIndex(dim, m, new Point(x, y, z))
 }
+exports.gt = grayTransform
