@@ -217,17 +217,19 @@ function bits (n) { // :: Int > Int
     return ret
 }
 
-function bitwiseRotateRight (x, n) {
+// Rotates the bits of x to the right by n. no sign preservation.
+function bitwiseRotateRight (x, n) { // :: Int -> Int -> Int
     var y = (x >> n) & ~(-1 << (32 - n))
     var z = x << (32 - n)
     return y | z
 }
 
-function bitwiseRotateLeft (x, n) {
+// Rotates the bits of x to the left by n. ''
+function bitwiseRotateLeft (x, n) { // :: Int -> Int -> Int
     return (x << n) | (x >> (32 - n)) & ~(-1 << n)
 }
 
-function grayTransform (entry, direction, x) {
+function grayTransform (entry, direction, x) { // :: Int -> Int -> Int -> Int
     return bitwiseRotateRight((x ^ entry), direction + 1)
 }
 
