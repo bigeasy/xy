@@ -143,22 +143,6 @@ function rotate2d (n, x, y, xbit, ybit) { // :: Int -> Int -> Int -> Int -> Int 
     return [x, y]
 }
 
-// Rotate the coordinate plane and (x,y, z)
-function rotate3d(level, x, y, z) { // :: Int -> Int -> Int -> Int -> [Int, Int, Int]
-    var index = 4 * z + 2 * y + x
-    if (index == 0) {
-        return [z, x, y]
-    } else if (index == 1 || index == 3) {
-        return [y, z, x]
-    } else if (index == 2 || index == 6) {
-        return [level - x, level - y, z]
-    } else if (index == 5 || index == 7) {
-        return [y, level - z, level - x]
-    } else {
-        return [level - z, x, level - y]
-    }
-}
-
 function grayCode (sequence) { // :: Int -> Int
     return sequence ^ (sequence >> 1)
 }
