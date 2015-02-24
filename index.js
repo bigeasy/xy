@@ -199,7 +199,7 @@ function rotate3d(level, x, y, z) { // :: Int -> Int -> Int -> Int -> [Int, Int,
 
 // returns a non-negative int 'inverse' such that graycode(inverse) = g
 function grayInverse (g) { // : Int -> Int
-    var m = bits(g), inverse = g, j = 1
+    var m = precision(g), inverse = g, j = 1
     while (j < m) {
         inverse = inverse ^ (g >> j)
         j++
@@ -208,7 +208,7 @@ function grayInverse (g) { // : Int -> Int
 }
 
 // Returns the number of bits required to store an integer
-function bits (n) { // :: Int > Int
+function precision (n) { // :: Int > Int
     var ret = 0
     while (n > 0) {
         ret++
@@ -222,19 +222,24 @@ function bitwiseRotateRight (x, n) { // :: Int -> Int -> Int
     var y = (x >> n) & ~(-1 << (32 - n))
     var z = x << (32 - n)
     return y | z
+    /*
+    return (x >> n) | (x << (32 - n)) & ~(-1 >> n)
+    */
 }
 
 // Rotates the bits of x to the left by n. ''
 function bitwiseRotateLeft (x, n) { // :: Int -> Int -> Int
     return (x << n) | (x >> (32 - n)) & ~(-1 << n)
+    //return (x << n) | (x >> (precision(x) - n)) & ~(-1 << n)
 }
 
 function grayTransform (entry, direction, x) { // :: Int -> Int -> Int -> Int
     return bitwiseRotateRight((x ^ entry), direction + 1)
 }
 
-function hilbertIndex(dim, precision, point) {
-    var index = 0, entry = 0, direction = 0, i = precision - 1, arr = point.toArray(), code
+function hilbertIndex(dim, point) {
+    var index = 0, entry = 0, direction = 0, arr = point.toArray(), code,
+        i = precision(Math.max.apply(null, arr)) - 1
     // dim = n
     // precision = m
     // p = point (5,6)
@@ -282,7 +287,8 @@ exports.xyz2d = function(x, y, z, height) {
 }
 exports.d2xy = convertDistanceTo2dPoint
 exports.d2xyz = convertDistanceTo3dPoint
-exports.hilbert = function (dim, m, x, y, z) {
-    return hilbertIndex(dim, m, new Point(x, y, z))
+exports.hilbert = function (dim, x, y, z) {
+    return hilbertIndex(dim, new Point(x, y, z))
 }
-exports.gt = grayTransform
+exports.rotl = bitwiseRotateLeft
+exports.rotr = bitwiseRotateRight
