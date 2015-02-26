@@ -217,20 +217,22 @@ function precision (n) { // :: Int > Int
     return ret
 }
 
-// Rotates the bits of x to the right by n. no sign preservation.
+// Rotates the significant bits of x to the right by n. no sign preservation.
 function bitwiseRotateRight (x, n) { // :: Int -> Int -> Int
+    /*
     var y = (x >> n) & ~(-1 << (32 - n))
     var z = x << (32 - n)
     return y | z
-    /*
     return (x >> n) | (x << (32 - n)) & ~(-1 >> n)
     */
+    var m = precision(x), mask = (0xffffffff >> 32 - m << 32 - m)
+    return (x >> n & mask) | (x << m - n)
 }
 
-// Rotates the bits of x to the left by n. ''
+// Rotates the significant bits of x to the left by n. ''
 function bitwiseRotateLeft (x, n) { // :: Int -> Int -> Int
-    return (x << n) | (x >> (32 - n)) & ~(-1 << n)
-    //return (x << n) | (x >> (precision(x) - n)) & ~(-1 << n)
+    var m = precision(x), mask = (0xffffffff << 32 - m >>> 32 - m)
+    return (x << n & mask) | (x >>> m - n)
 }
 
 function grayTransform (entry, direction, x) { // :: Int -> Int -> Int -> Int
@@ -240,17 +242,9 @@ function grayTransform (entry, direction, x) { // :: Int -> Int -> Int -> Int
 function hilbertIndex(dim, point) {
     var index = 0, entry = 0, direction = 0, arr = point.toArray(), code,
         i = precision(Math.max.apply(null, arr)) - 1
-    // dim = n
-    // precision = m
-    // p = point (5,6)
-    // vvv this transformation needs to happen
-    // entry = e
-    // direction = d <- this is n-1. Interesting its set as 0.
-    // code = w
-    // index = h
 
     while (i >= 0) {
-        // l = [bit(p sub n-1 ; i), bit(p sub n 0 ; i)] [11], [10], [01]
+        // l = [bit(p sub n-1 ; i), bit(p sub n 0 ; i)]
         var bits = 0
 
         for (var k = 0; k < arr.length; k++) {
@@ -259,20 +253,17 @@ function hilbertIndex(dim, point) {
             }
         }
 
-        // vv look into each of these variables as well as the functions
-        // does bits go in as a string?
-        bits = grayTransform(entry, direction, bits) // transform <- 3, 2, 1
-        code = grayInverse(bits) // 2, 3, 1
+        bits = grayTransform(entry, direction, bits)
+        code = grayInverse(bits)
 
-        // vvv new entry direction and index
-        entry = entry ^ bitwiseRotateLeft((entry * code), direction + 1)//0,3,3
-        direction = direction + (direction * code) + (1 % dim) //<- 1,0,0
-        index = (index << dim) | code // <-2, 11, 45
+        entry = entry ^ bitwiseRotateLeft((entry * code), direction + 1)
+        direction = direction + (direction * code) + (1 % dim)
+        index = (index << dim) | code
 
         i--
     }
 
-    return index // set B subscript M
+    return index
 }
 
 exports.xy2d = function (x, y, height) {
@@ -280,7 +271,6 @@ exports.xy2d = function (x, y, height) {
     return convert2dPointToDistance(new Point(x, y), height)
 }
 
-// This needs to be fixed to not return undefined.
 exports.xyz2d = function(x, y, z, height) {
     height = height || 2
     return convert3dPointToDistance(new Point(x, y, z), height)
