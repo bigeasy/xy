@@ -7,4 +7,5 @@ require('proof')(3, function (assert) {
     assert(hilbert.xy2d(16, 2, 2), 8)
     assert(hilbert.xy2d(0, 0, 2), 0)
     assert(hilbert.xy2d(0, 1, 3), 1)
+    hilbert.hilbert(2, 3, 5, 6)
 })
