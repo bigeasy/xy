@@ -218,20 +218,20 @@ function precision (n) { // :: Int > Int
 }
 
 // Rotates the significant bits of x to the right by n. no sign preservation.
-function bitwiseRotateRight (x, n, m) { // :: Int -> Int -> Int
+function bitwiseRotateLeft (x, n, m) { // :: Int -> Int -> Int
     /*
     var y = (x >> n) & ~(-1 << (32 - n))
     var z = x << (32 - n)
     return y | z
     return (x >> n) | (x << (32 - n)) & ~(-1 >> n)
     */
-    mask = (0xffffffff >> 32 - m << 32 - m)
+    var mask = (0xffffffff >> 32 - m << 32 - m)
     return (x >> n & mask) | (x << m - n)
 }
 
 // Rotates the significant bits of x to the left by n. ''
-function bitwiseRotateLeft (x, n, m) { // :: Int -> Int -> Int
-    mask = (0xffffffff << 32 - m >>> 32 - m)
+function bitwiseRotateRight (x, n, m) { // :: Int -> Int -> Int
+    var mask = (0xffffffff << 32 - m >>> 32 - m)
     return (x << n & mask) | (x >>> m - n)
 }
 
