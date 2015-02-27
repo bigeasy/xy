@@ -197,15 +197,90 @@ function rotate3d(level, x, y, z) { // :: Int -> Int -> Int -> Int -> [Int, Int,
     }
 }
 
+// returns a non-negative int 'inverse' such that graycode(inverse) = g
+function grayInverse (g) { // : Int -> Int
+    var m = precision(g), inverse = g, j = 1
+    while (j < m) {
+        inverse = inverse ^ (g >> j)
+        j++
+    }
+    return inverse
+}
+
+// Returns the number of bits required to store an integer
+function precision (n) { // :: Int > Int
+    var ret = 0
+    while (n > 0) {
+        ret++
+        n = n >> 1
+    }
+    return ret
+}
+
+// Rotates the significant (m) bits of x to the right by n. no sign preservation.
+function bitwiseRotateRight (x, shift, width) { // :: Int -> Int -> Int
+    /*
+    var y = (x >> n) & ~(-1 << (32 - n))
+    var z = x << (32 - n)
+    return y | z
+    return (x >> n) | (x << (32 - n)) & ~(-1 >> n)
+    */
+    width = width || 0
+    mask = (0xffffffff >>> 32 - width << 32 - width)
+    return (x >>> shift & mask) | (x << width - shift)
+}
+
+// Rotates the significant (m) bits of x to the left by n. ''
+function bitwiseRotateLeft (x, shift, width) { // :: Int -> Int -> Int
+    width = width || 0
+    mask = (0xffffffff << 32 - width >>> 32 - width)
+    return (x << shift & mask) | (x >>> width - shift)
+}
+
+function grayTransform (entry, direction, x, dim) { // :: Int -> Int -> Int -> Int
+    return bitwiseRotateRight((x ^ entry), direction + 1, dim)
+}
+
+function hilbertIndex(dim, point) {
+    var index = 0, entry = 0, direction = 0, arr = point.toArray(), code,
+        i = precision(Math.max.apply(null, arr)) - 1
+
+    while (i >= 0) {
+        // l = [bit(p sub n-1 ; i), bit(p sub n 0 ; i)]
+        var bits = 0
+
+        for (var k = 0; k < arr.length; k++) {
+            if (arr[arr.length - (k+1)] & (1 << (i - 1))) {
+                bits |= 1 << k
+            }
+        }
+
+        bits = grayTransform(entry, direction, bits, dim)
+        code = grayInverse(bits)
+
+        entry = entry ^ bitwiseRotateLeft((entry * code), direction + 1, dim)
+        direction = direction + (direction * code) + (1 % dim)
+        index = (index << dim) | code
+
+        i--
+    }
+
+    return index
+}
+
 exports.xy2d = function (x, y, height) {
     height = height || 2
     return convert2dPointToDistance(new Point(x, y), height)
 }
 
-// This needs to be fixed to not return undefined.
 exports.xyz2d = function(x, y, z, height) {
     height = height || 2
     return convert3dPointToDistance(new Point(x, y, z), height)
 }
 exports.d2xy = convertDistanceTo2dPoint
 exports.d2xyz = convertDistanceTo3dPoint
+exports.hilbert = function (dim, x, y, z) {
+    return hilbertIndex(dim, new Point(x, y, z))
+}
+exports.rotl = bitwiseRotateLeft
+exports.rotr = bitwiseRotateRight

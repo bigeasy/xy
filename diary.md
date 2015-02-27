@@ -1,5 +1,3 @@
-the function convertPointToDistance requires 'height' to be a power of 2. Looking into ways to rewrite that, or determine if a rewrite is necessary.
-
 http://www.win.tue.nl/~hermanh/stack/dagstuhl08-talk.pdf
 
 pseudo-code: http://www.fundza.com/algorithmic/space_filling/hilbert/basics/index.html
@@ -11,14 +9,7 @@ Axis rotation: http://www.siggraph.org/education/materials/HyperGraph/modeling/m
 parity: http://en.wikipedia.org/wiki/Parity_%28mathematics%29 http://en.wikipedia.org/wiki/Parity_bit
 parity: the number of bits in a byte which are set to 1
 
-Want to express axis rotations internally without creating a point object.
-or perhaps use one internally but return an array.
-
-move Point to own module for reuse in Voronoi diagram calculator and r-tree
-
 http://en.wikipedia.org/wiki/Rotation_matrix
-
-figure out how to keep track of rotations so we can unrotate.
 
 interesting hilbert implementation. https://github.com/ryan-williams/hilbert-js
 I am uncertain of this implementation of the hilbert curve. It iterates
@@ -63,3 +54,5 @@ state 0.
 example of axis rotation: https://github.com/Isinlor/Cube3D/blob/master/index.html
 
 geometric description of Butz' implementation. https://www.cs.dal.ca/sites/default/files/technical_reports/CS-2006-07.pdf
+
+http://people.csail.mit.edu/jaffer/Geometry/MDSFC
