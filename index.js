@@ -1,3 +1,5 @@
+var bitwise = require('./bitwise.js')
+
 // Use Hilbert curve point generation to map 2D data to 1D space and vice-versa.
 // Will later expand to allow `n` dimensions.
 
@@ -217,14 +219,15 @@ function precision (n) { // :: Int > Int
     return ret
 }
 
+/*
 // Rotates the significant (m) bits of x to the right by n. no sign preservation.
 function bitwiseRotateRight (x, shift, width) { // :: Int -> Int -> Int
-    /*
+    //
     var y = (x >> n) & ~(-1 << (32 - n))
     var z = x << (32 - n)
     return y | z
     return (x >> n) | (x << (32 - n)) & ~(-1 >> n)
-    */
+    //
     width = width || 0
     mask = (0xffffffff >>> 32 - width << 32 - width)
     return (x >>> shift & mask) | (x << width - shift)
@@ -236,9 +239,10 @@ function bitwiseRotateLeft (x, shift, width) { // :: Int -> Int -> Int
     mask = (0xffffffff << 32 - width >>> 32 - width)
     return (x << shift & mask) | (x >>> width - shift)
 }
+*/
 
 function grayTransform (entry, direction, x, dim) { // :: Int -> Int -> Int -> Int
-    return bitwiseRotateRight((x ^ entry), direction + 1, dim)
+    return bitwise.rotateRight((x ^ entry), dim, 0, direction + 1)
 }
 
 function hilbertIndex(dim, point) {
@@ -258,7 +262,7 @@ function hilbertIndex(dim, point) {
         bits = grayTransform(entry, direction, bits, dim)
         code = grayInverse(bits)
 
-        entry = entry ^ bitwiseRotateLeft((entry * code), direction + 1, dim)
+        entry = entry ^ bitwise.rotateLeft((entry * code), dim , 0, direction + 1)
         direction = direction + (direction * code) + (1 % dim)
         index = (index << dim) | code
 
@@ -282,5 +286,3 @@ exports.d2xyz = convertDistanceTo3dPoint
 exports.hilbert = function (dim, x, y, z) {
     return hilbertIndex(dim, new Point(x, y, z))
 }
-exports.rotl = bitwiseRotateLeft
-exports.rotr = bitwiseRotateRight
