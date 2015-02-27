@@ -1,0 +1,20 @@
+exports.bits = function (n, width) {
+    var padded = (new Array(width).join('0') + n.toString(2))
+    return padded.substr(-width)
+}
+
+exports.rotateLeft = function (number, width, offset, count) {
+    var mask = 0xffffffff >>> (32 - width) << offset >>> 0
+    var bits = number & mask
+    var top = bits << count
+    var bottom = bits >>> (width - count)
+    return ((top & mask) | (bottom & mask) | (number & ~mask)) >>> 0
+}
+
+exports.rotateRight = function (number, width, offset, count) {
+    var mask = 0xffffffff >>> (32 - width) << offset >>> 0
+    var bits = number & mask
+    var bottom = bits >>> count
+    var top = bits << (width - count)
+    return ((top & mask) | (bottom & mask) | (number & ~mask)) >>> 0
+}
