@@ -260,10 +260,10 @@ function hilbertIndex(dim, point) {
     while (i >= 0) {
         // l = [bit(p sub n-1 ; i), bit(p sub n 0 ; i)]
         var bits = 0
-        var mask = 1 << dim
+        var mask = 1 << dim - 1 // [10]
 
         for (var k = 0; k < arr.length; k++) {
-            if (arr[arr.length - (k+1)] & (1 << (i - 1))) {
+            if (arr[arr.length - (k+1)] & (1 << i)) {
                 bits |= mask
             }
             mask >>>= 1
