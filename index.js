@@ -199,6 +199,10 @@ function rotate3d(level, x, y, z) { // :: Int -> Int -> Int -> Int -> [Int, Int,
     }
 }
 
+function grayCode (sequence) {
+    return sequence ^ (sequence >> 1)
+}
+
 // returns a non-negative int 'inverse' such that graycode(inverse) = g
 function grayInverse (g) { // : Int -> Int
     var m = precision(g), inverse = g, j = 1
@@ -245,6 +249,10 @@ function grayTransform (entry, direction, x, dim) { // :: Int -> Int -> Int -> I
     return bitwise.rotateRight((x ^ entry), dim, 0, direction + 1)
 }
 
+function grayInverseTransform (entry, direction, x, dim) {
+    return grayTransform(bitwise.rotateRight(entry, dim, 0, direction + 1), dim - direction - 1)
+}
+
 function hilbertIndex(dim, point) {
     var index = 0, entry = 0, direction = 0, arr = point.toArray(), code,
         i = precision(Math.max.apply(null, arr)) - 1
@@ -252,11 +260,13 @@ function hilbertIndex(dim, point) {
     while (i >= 0) {
         // l = [bit(p sub n-1 ; i), bit(p sub n 0 ; i)]
         var bits = 0
+        var mask = 1 << dim
 
         for (var k = 0; k < arr.length; k++) {
             if (arr[arr.length - (k+1)] & (1 << (i - 1))) {
-                bits |= 1 << k
+                bits |= mask
             }
+            mask >>>= 1
         }
 
         bits = grayTransform(entry, direction, bits, dim)
