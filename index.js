@@ -260,7 +260,7 @@ function hilbertIndex(dim, point) {
     while (i >= 0) {
         // l = [bit(p sub n-1 ; i), bit(p sub n 0 ; i)]
         var bits = 0
-        var mask = 1 << dim - 1 // [10]
+        var mask = 1 << dim - 1
 
         for (var k = 0; k < arr.length; k++) {
             if (arr[arr.length - (k+1)] & (1 << i)) {
@@ -272,7 +272,7 @@ function hilbertIndex(dim, point) {
         bits = grayTransform(entry, direction, bits, dim)
         code = grayInverse(bits)
 
-        entry = entry ^ bitwise.rotateLeft((entry * code), dim , 0, direction + 1)
+        entry = entry ^ bitwise.rotateLeft((entry * code), dim, 0, direction + 1)
         direction = direction + (direction * code) + (1 % dim)
         index = (index << dim) | code
 
@@ -296,3 +296,5 @@ exports.d2xyz = convertDistanceTo3dPoint
 exports.hilbert = function (dim, x, y, z) {
     return hilbertIndex(dim, new Point(x, y, z))
 }
+exports.grayInverse = grayInverse
+exports.grayCode = grayCode
