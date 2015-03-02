@@ -1,3 +1,5 @@
+var bitwise = require('./bitwise.js')
+
 // Use Hilbert curve point generation to map 2D data to 1D space and vice-versa.
 // Will later expand to allow `n` dimensions.
 
@@ -197,6 +199,10 @@ function rotate3d(level, x, y, z) { // :: Int -> Int -> Int -> Int -> [Int, Int,
     }
 }
 
+function grayCode (sequence) {
+    return sequence ^ (sequence >> 1)
+}
+
 // returns a non-negative int 'inverse' such that graycode(inverse) = g
 function grayInverse (g) { // : Int -> Int
     var m = precision(g), inverse = g, j = 1
@@ -217,28 +223,12 @@ function precision (n) { // :: Int > Int
     return ret
 }
 
-// Rotates the significant (m) bits of x to the right by n. no sign preservation.
-function bitwiseRotateRight (x, shift, width) { // :: Int -> Int -> Int
-    /*
-    var y = (x >> n) & ~(-1 << (32 - n))
-    var z = x << (32 - n)
-    return y | z
-    return (x >> n) | (x << (32 - n)) & ~(-1 >> n)
-    */
-    width = width || 0
-    mask = (0xffffffff >>> 32 - width << 32 - width)
-    return (x >>> shift & mask) | (x << width - shift)
-}
-
-// Rotates the significant (m) bits of x to the left by n. ''
-function bitwiseRotateLeft (x, shift, width) { // :: Int -> Int -> Int
-    width = width || 0
-    mask = (0xffffffff << 32 - width >>> 32 - width)
-    return (x << shift & mask) | (x >>> width - shift)
-}
-
 function grayTransform (entry, direction, x, dim) { // :: Int -> Int -> Int -> Int
-    return bitwiseRotateRight((x ^ entry), direction + 1, dim)
+    return bitwise.rotateRight((x ^ entry), dim, 0, direction + 1)
+}
+
+function grayInverseTransform (entry, direction, x, dim) {
+    return grayTransform(bitwise.rotateRight(entry, dim, 0, direction + 1), dim - direction - 1)
 }
 
 function hilbertIndex(dim, point) {
@@ -248,18 +238,20 @@ function hilbertIndex(dim, point) {
     while (i >= 0) {
         // l = [bit(p sub n-1 ; i), bit(p sub n 0 ; i)]
         var bits = 0
+        var mask = 1 << dim - 1
 
         for (var k = 0; k < arr.length; k++) {
-            if (arr[arr.length - (k+1)] & (1 << (i - 1))) {
-                bits |= 1 << k
+            if (arr[arr.length - (k+1)] & (1 << i)) {
+                bits |= mask
             }
+            mask >>>= 1
         }
 
         bits = grayTransform(entry, direction, bits, dim)
         code = grayInverse(bits)
 
-        entry = entry ^ bitwiseRotateLeft((entry * code), direction + 1, dim)
-        direction = direction + (direction * code) + (1 % dim)
+        entry = entry ^ bitwise.rotateLeft((entry * code), dim, 0, direction + 1)
+        direction = direction + ((direction * code) + 1) % dim
         index = (index << dim) | code
 
         i--
@@ -282,5 +274,5 @@ exports.d2xyz = convertDistanceTo3dPoint
 exports.hilbert = function (dim, x, y, z) {
     return hilbertIndex(dim, new Point(x, y, z))
 }
-exports.rotl = bitwiseRotateLeft
-exports.rotr = bitwiseRotateRight
+exports.grayInverse = grayInverse
+exports.grayCode = grayCode
