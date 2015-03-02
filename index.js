@@ -238,6 +238,17 @@ function entrySequence (i) {
     return 0
 }
 
+function directionSequence(i, dim) {
+    if (i == 0) return 0
+    if (i % 2 == 0) return trailingSetBits(i - 1) % dim
+    return trailingSetBits(i) % dim
+}
+
+function trailingSetBits (i) {
+    var ones = ~i & (i + 1)
+    return Math.log(ones) / Math.log(2)
+}
+
 function hilbertIndex(dim, point) {
     var index = 0, entry = 0, direction = 0, arr = point.toArray(), code,
         i = precision(Math.max.apply(null, arr)) - 1
@@ -257,7 +268,7 @@ function hilbertIndex(dim, point) {
         code = grayInverse(bits)
 
         entry = entry ^ bitwise.rotateLeft(entrySequence(code), dim, 0, direction + 1)
-        direction = (direction + (direction * code) + 1) % dim
+        direction = (direction + directionSequence(code, dim) + 1) % dim
         index = (index << dim) | code
 
         console.log('bits: ' + bits)
