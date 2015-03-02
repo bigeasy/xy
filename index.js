@@ -241,17 +241,22 @@ function entrySequence (i) {
 function hilbertIndex(dim, point) {
     var index = 0, entry = 0, direction = 0, arr = point.toArray(), code,
         i = precision(Math.max.apply(null, arr)) - 1
-
+    console.log("ENTER HILBERT")
     while (i >= 0) {
         var bits = 0
         var mask = 1 << dim - 1
 
+        console.log("---- begin for loop----")
         for (var k = 0; k < arr.length; k++) {
             if (arr[arr.length - (k+1)] & (1 << i)) {
+                console.log("bit change")
                 bits |= mask
             }
             mask >>>= 1
+            console.log("bits " + bits +  " mask " + mask)
         }
+
+        console.log("---- end for loop----")
 
         bits = grayTransform(entry, direction, bits, dim)
         code = grayInverse(bits)
@@ -264,12 +269,17 @@ function hilbertIndex(dim, point) {
         console.log('entry: ' + entry)
         console.log('direction: ' + direction)
         console.log('code: ' + code)
-        console.log('index: ' + index)
+        console.log('index: ' + index + '\n')
 
         i--
     }
 
+    console.log("EXIT HILBERT\n")
     return index
+}
+
+function hilbertIndexInverse(dim, index) {
+
 }
 
 exports.xy2d = function (x, y, height) {
@@ -286,5 +296,9 @@ exports.d2xyz = convertDistanceTo3dPoint
 exports.hilbert = function (dim, x, y, z) {
     return hilbertIndex(dim, new Point(x, y, z))
 }
+exports.hilbertInverse = function (dim, index) {
+    return hilbertIndexInverse(dim, index)
+}
+
 exports.grayInverse = grayInverse
 exports.grayCode = grayCode
