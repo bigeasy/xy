@@ -231,6 +231,13 @@ function grayInverseTransform (entry, direction, x, dim) {
     return grayTransform(bitwise.rotateRight(entry, dim, 0, direction + 1), dim - direction - 1)
 }
 
+function entrySequence (i) {
+    if (i) {
+        return grayCode(2 * Math.floor((i-2) / 2))
+    }
+    return 0
+}
+
 function hilbertIndex(dim, point) {
     var index = 0, entry = 0, direction = 0, arr = point.toArray(), code,
         i = precision(Math.max.apply(null, arr)) - 1
@@ -249,7 +256,7 @@ function hilbertIndex(dim, point) {
         bits = grayTransform(entry, direction, bits, dim)
         code = grayInverse(bits)
 
-        entry = entry ^ bitwise.rotateLeft((entry * code), dim, 0, direction + 1)
+        entry = entry ^ bitwise.rotateLeft(entrySequence(code), dim, 0, direction + 1)
         direction = (direction + (direction * code) + 1) % dim
         index = (index << dim) | code
 
