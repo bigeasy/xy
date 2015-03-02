@@ -236,7 +236,6 @@ function hilbertIndex(dim, point) {
         i = precision(Math.max.apply(null, arr)) - 1
 
     while (i >= 0) {
-        // l = [bit(p sub n-1 ; i), bit(p sub n 0 ; i)]
         var bits = 0
         var mask = 1 << dim - 1
 
@@ -251,8 +250,14 @@ function hilbertIndex(dim, point) {
         code = grayInverse(bits)
 
         entry = entry ^ bitwise.rotateLeft((entry * code), dim, 0, direction + 1)
-        direction = direction + ((direction * code) + 1) % dim
+        direction = (direction + (direction * code) + 1) % dim
         index = (index << dim) | code
+
+        console.log('bits: ' + bits)
+        console.log('entry: ' + entry)
+        console.log('direction: ' + direction)
+        console.log('code: ' + code)
+        console.log('index: ' + index)
 
         i--
     }
