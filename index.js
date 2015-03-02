@@ -223,28 +223,6 @@ function precision (n) { // :: Int > Int
     return ret
 }
 
-/*
-// Rotates the significant (m) bits of x to the right by n. no sign preservation.
-function bitwiseRotateRight (x, shift, width) { // :: Int -> Int -> Int
-    //
-    var y = (x >> n) & ~(-1 << (32 - n))
-    var z = x << (32 - n)
-    return y | z
-    return (x >> n) | (x << (32 - n)) & ~(-1 >> n)
-    //
-    width = width || 0
-    mask = (0xffffffff >>> 32 - width << 32 - width)
-    return (x >>> shift & mask) | (x << width - shift)
-}
-
-// Rotates the significant (m) bits of x to the left by n. ''
-function bitwiseRotateLeft (x, shift, width) { // :: Int -> Int -> Int
-    width = width || 0
-    mask = (0xffffffff << 32 - width >>> 32 - width)
-    return (x << shift & mask) | (x >>> width - shift)
-}
-*/
-
 function grayTransform (entry, direction, x, dim) { // :: Int -> Int -> Int -> Int
     return bitwise.rotateRight((x ^ entry), dim, 0, direction + 1)
 }
@@ -273,7 +251,7 @@ function hilbertIndex(dim, point) {
         code = grayInverse(bits)
 
         entry = entry ^ bitwise.rotateLeft((entry * code), dim, 0, direction + 1)
-        direction = direction + (direction * code) + (1 % dim)
+        direction = direction + ((direction * code) + 1) % dim
         index = (index << dim) | code
 
         i--
