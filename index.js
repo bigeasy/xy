@@ -246,6 +246,7 @@ function directionSequence(i, dim) {
 
 function trailingSetBits (i) {
     var ones = ~i & (i + 1)
+    console.log("g: " + Math.log(ones) / Math.log(2))
     return Math.log(ones) / Math.log(2)
 }
 
