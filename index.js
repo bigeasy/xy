@@ -233,7 +233,7 @@ function grayInverseTransform (entry, direction, x, dim) {
 
 function entrySequence (i) {
     if (i) {
-        return grayCode(2 * Math.floor((i-2) / 2))
+        return grayCode(2 * Math.floor((i-1) / 2))
     }
     return 0
 }
@@ -282,6 +282,7 @@ function hilbertIndex(dim, point) {
         console.log('direction: ' + direction)
         console.log('code: ' + code)
         console.log('index: ' + index + '\n')
+        console.log('index: ' + index)
 
         i--
     }
