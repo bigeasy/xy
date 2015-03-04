@@ -293,7 +293,7 @@ function hilbertIndexInverse(dim, index) {
 
         for (var k = dim - 1; k >= 0; k--) {
             if (index & (mask << k)) {
-                bits |= (mask << k)
+                bits |= (1 << k)
             }
         }
 
