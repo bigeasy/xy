@@ -228,7 +228,7 @@ function grayTransform (entry, direction, x, dim) { // :: Int -> Int -> Int -> I
 }
 
 function grayInverseTransform (entry, direction, x, dim) {
-    return grayTransform(bitwise.rotateRight(entry, dim, 0, direction + 1), dim - direction - 1)
+    return grayTransform(bitwise.rotateRight(entry, dim, 0, direction + 1), dim - direction - 1, x, dim)
 }
 
 function entrySequence (i) {
@@ -269,6 +269,13 @@ function hilbertIndex(dim, point) {
         }
 
         //console.log("---- end for loop----")
+        for (var k = 0; k < arr.length; k++) {
+            if (arr[arr.length - (k+1)] & (1 << i)) {
+                bits |= mask
+            }
+            mask >>>= 1
+        }
+
 
         bits = grayTransform(entry, direction, bits, dim)
         code = grayInverse(bits)
@@ -283,6 +290,11 @@ function hilbertIndex(dim, point) {
         //console.log('code: ' + code)
         //console.log('index: ' + index + '\n')
         //console.log('index: ' + index)
+        console.log('bits: ' + bits)
+        console.log('entry: ' + entry)
+        console.log('direction: ' + direction)
+        console.log('code: ' + code)
+        console.log('index: ' + index + '\n')
 
         i--
     }
@@ -292,7 +304,32 @@ function hilbertIndex(dim, point) {
 }
 
 function hilbertIndexInverse(dim, index) {
+    var entry = 0, direction = 0, m = precision(index)
+    var p = Array.apply(null, new Array(dim)).map(Number.prototype.valueOf,0);
 
+    for (var i = m - 1; i >= 0; i--) {
+
+        var mask = 1 << (i * dim), bits = 0, code
+
+        for (var k = dim - 1; k >= 0; k--) {
+            if (index & (mask << k)) {
+                bits |= (1 << k)
+            }
+        }
+
+        code = grayInverseTransform(entry, direction, grayCode(bits), dim)
+
+        for (var k = 0; k < dim; k++) {
+            if (code & (1 << k)) {
+                p[k] |= (1 << i)
+            }
+        }
+
+        entry = entry ^ bitwise.rotateLeft(entrySequence(bits), dim, 0, direction + 1)
+        direction = (direction + directionSequence(bits, dim) + 1) % dim
+    }
+
+    return p
 }
 
 exports.xy2d = function (x, y, height) {
