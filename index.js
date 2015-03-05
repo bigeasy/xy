@@ -250,14 +250,14 @@ function trailingSetBits (i) {
 }
 
 function hilbertIndex(dim, point) {
-    var index = 0, entry = 0, direction = 0, arr = point.toArray(), code,
-        i = precision(Math.max.apply(null, arr)) - 1
+    var index = 0, entry = 0, direction = 0, code,
+        i = precision(Math.max.apply(null, point)) - 1
     while (i >= 0) {
         var bits = 0
         var mask = 1 << dim - 1
 
-        for (var k = 0; k < arr.length; k++) {
-            if (arr[arr.length - (k+1)] & (1 << i)) {
+        for (var k = 0; k < point.length; k++) {
+            if (point[point.length - (k+1)] & (1 << i)) {
                 bits |= mask
             }
             mask >>>= 1
@@ -323,8 +323,8 @@ exports.xyz2d = function(x, y, z, height) {
 }
 exports.d2xy = convertDistanceTo2dPoint
 exports.d2xyz = convertDistanceTo3dPoint
-exports.hilbert = function (dim, x, y, z) {
-    return hilbertIndex(dim, new Point(x, y, z))
+exports.hilbert = function (dim, x, y, z, etc) {
+    return hilbertIndex(dim, Array.prototype.slice.call(arguments, 1))
 }
 exports.hilbertInverse = function (dim, index) {
     return hilbertIndexInverse(dim, index)
