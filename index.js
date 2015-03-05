@@ -246,29 +246,29 @@ function directionSequence(i, dim) {
 
 function trailingSetBits (i) {
     var ones = ~i & (i + 1)
-    console.log("g: " + Math.log(ones) / Math.log(2))
+    //console.log("g: " + Math.log(ones) / Math.log(2))
     return Math.log(ones) / Math.log(2)
 }
 
 function hilbertIndex(dim, point) {
-    var index = 0, entry = 0, direction = 0, arr = point.toArray(), code,
+    var index = 0, entry = 0, direction = dim - 1, arr = point.toArray(), code,
         i = precision(Math.max.apply(null, arr)) - 1
-    console.log("ENTER HILBERT")
+    //console.log("ENTER HILBERT")
     while (i >= 0) {
         var bits = 0
         var mask = 1 << dim - 1
 
-        console.log("---- begin for loop----")
+        //console.log("---- begin for loop----")
         for (var k = 0; k < arr.length; k++) {
             if (arr[arr.length - (k+1)] & (1 << i)) {
-                console.log("bit change")
+                //console.log("bit change")
                 bits |= mask
             }
             mask >>>= 1
-            console.log("bits " + bits +  " mask " + mask)
+            //console.log("bits " + bits +  " mask " + mask)
         }
 
-        console.log("---- end for loop----")
+        //console.log("---- end for loop----")
 
         bits = grayTransform(entry, direction, bits, dim)
         code = grayInverse(bits)
@@ -277,17 +277,17 @@ function hilbertIndex(dim, point) {
         direction = (direction + directionSequence(code, dim) + 1) % dim
         index = (index << dim) | code
 
-        console.log('bits: ' + bits)
-        console.log('entry: ' + entry)
-        console.log('direction: ' + direction)
-        console.log('code: ' + code)
-        console.log('index: ' + index + '\n')
-        console.log('index: ' + index)
+        //console.log('bits: ' + bits)
+        //console.log('entry: ' + entry)
+        //console.log('direction: ' + direction)
+        //console.log('code: ' + code)
+        //console.log('index: ' + index + '\n')
+        //console.log('index: ' + index)
 
         i--
     }
 
-    console.log("EXIT HILBERT\n")
+    //console.log("EXIT HILBERT\n")
     return index
 }
 
