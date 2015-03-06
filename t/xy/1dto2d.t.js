@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-require('proof')(0, prove)
+require('proof')(9, prove)
 
 function prove (assert) {
     var hilbert = require('../..')
@@ -37,6 +37,5 @@ function prove (assert) {
     console.log(hilbert.hilbertInverse(3,18))
     console.log(hilbert.hilbertInverse(3,19))
     console.log(hilbert.hilbertInverse(3,20))
-/*
-
+*/
 }
