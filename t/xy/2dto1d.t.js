@@ -83,28 +83,146 @@ function prove (assert) {
     console.log(hilbert.hilbert(3,2,0,1))// 61
     console.log(hilbert.hilbert(3,3,0,1))// 62
     console.log(hilbert.hilbert(3,3,0,0))// 63
+*/
+//next block
     console.log(hilbert.hilbert(3,0,4,0))// 64
-    //next block
-    console.log(hilbert.hilbert(3,0,4,0))// 0
-    console.log(hilbert.hilbert(3,0,1,0))// 1
-    console.log(hilbert.hilbert(3,0,1,1))// 2
-    console.log(hilbert.hilbert(3,0,0,1))// 3
-    console.log(hilbert.hilbert(3,1,0,1))// 4
-    console.log(hilbert.hilbert(3,1,1,1))// 5
-    console.log(hilbert.hilbert(3,1,1,0))// 6
-    console.log(hilbert.hilbert(3,1,0,0))// 7
-    console.log(hilbert.hilbert(3,0,2,0))// 8 <- this is strange.
-    console.log(hilbert.hilbert(3,1,2,0))// 9
-    console.log(hilbert.hilbert(3,1,3,0))// 10
-    console.log(hilbert.hilbert(3,0,3,0))// 11
-    console.log(hilbert.hilbert(3,0,3,1))// 12
-    console.log(hilbert.hilbert(3,1,3,1))// 13
-    console.log(hilbert.hilbert(3,1,2,1))// 14
-    console.log(hilbert.hilbert(3,0,2,1))// 15
+    console.log(hilbert.hilbert(3,0,5,0))// 65
+    console.log(hilbert.hilbert(3,0,5,1))// 66
+    console.log(hilbert.hilbert(3,0,4,1))// 67
+    console.log(hilbert.hilbert(3,1,4,1))// 68
+    console.log(hilbert.hilbert(3,1,5,1))// 69
+    console.log(hilbert.hilbert(3,1,5,0))// 70
+    console.log(hilbert.hilbert(3,1,4,0))// 71
+
+    console.log(hilbert.hilbert(3,2,4,0))// 72
+    console.log(hilbert.hilbert(3,2,4,1))// 73
+    console.log(hilbert.hilbert(3,3,4,1))// 74
+    console.log(hilbert.hilbert(3,3,4,0))// 75
+    console.log(hilbert.hilbert(3,3,5,0))// 76
+    console.log(hilbert.hilbert(3,3,5,1))// 77
+    console.log(hilbert.hilbert(3,2,5,1))// 78
+    console.log(hilbert.hilbert(3,2,5,0))// 79
+
+    console.log(hilbert.hilbert(3,2,6,0))// 80
+    console.log(hilbert.hilbert(3,2,6,1))// 81
+    console.log(hilbert.hilbert(3,3,6,1))// 82
+    console.log(hilbert.hilbert(3,3,6,0))// 83
+    console.log(hilbert.hilbert(3,3,7,0))// 84
+    console.log(hilbert.hilbert(3,3,7,1))// 85
+    console.log(hilbert.hilbert(3,2,7,1))// 86
+    console.log(hilbert.hilbert(3,2,7,0))// 87
+
+    console.log(hilbert.hilbert(3,1,7,0))// 88
+    console.log(hilbert.hilbert(3,0,7,0))// 89
+    console.log(hilbert.hilbert(3,0,6,0))// 90
+    console.log(hilbert.hilbert(3,1,6,0))// 91
+    console.log(hilbert.hilbert(3,1,6,1))// 92
+    console.log(hilbert.hilbert(3,0,6,1))// 93
+    console.log(hilbert.hilbert(3,0,7,1))// 94
+    console.log(hilbert.hilbert(3,1,7,1))// 95
+
+    console.log(hilbert.hilbert(3,1,7,2))// 96
+    console.log(hilbert.hilbert(3,0,7,2))// 97
+    console.log(hilbert.hilbert(3,0,6,2))// 98
+    console.log(hilbert.hilbert(3,1,6,2))// 99
+    console.log(hilbert.hilbert(3,1,6,3))// 100
+    console.log(hilbert.hilbert(3,0,6,3))// 101
+    console.log(hilbert.hilbert(3,0,7,3))// 102
+    console.log(hilbert.hilbert(3,1,7,3))// 103
+
+    console.log(hilbert.hilbert(3,2,7,3))// 104
+    console.log(hilbert.hilbert(3,2,7,2))// 105
+    console.log(hilbert.hilbert(3,3,7,2))// 106
+    console.log(hilbert.hilbert(3,3,7,3))// 107
+    console.log(hilbert.hilbert(3,3,6,3))// 108
+    console.log(hilbert.hilbert(3,3,6,2))// 109
+    console.log(hilbert.hilbert(3,2,6,2))// 110
+    console.log(hilbert.hilbert(3,2,6,3))// 111
+
+    console.log(hilbert.hilbert(3,2,5,3))// 112
+    console.log(hilbert.hilbert(3,2,5,2))// 113
+    console.log(hilbert.hilbert(3,3,5,2))// 114
+    console.log(hilbert.hilbert(3,3,5,3))// 115
+    console.log(hilbert.hilbert(3,3,4,3))// 116
+    console.log(hilbert.hilbert(3,3,4,2))// 117
+    console.log(hilbert.hilbert(3,2,4,2))// 118
+    console.log(hilbert.hilbert(3,2,4,3))// 119
+
+    console.log(hilbert.hilbert(3,1,4,3))// 120
+    console.log(hilbert.hilbert(3,1,5,3))// 121
+    console.log(hilbert.hilbert(3,1,5,2))// 122
+    console.log(hilbert.hilbert(3,1,4,2))// 123
+    console.log(hilbert.hilbert(3,0,4,2))// 124
+    console.log(hilbert.hilbert(3,0,5,2))// 125
+    console.log(hilbert.hilbert(3,0,5,3))// 126
+    console.log(hilbert.hilbert(3,0,4,3))// 127
+
+    console.log(hilbert.hilbert(3,0,4,4))// 128
+    console.log(hilbert.hilbert(3,3,4,7))// 180
+    console.log(hilbert.hilbert(3,3,4,6))// 181
+    console.log(hilbert.hilbert(3,3,3,7))// 255
+    console.log(hilbert.hilbert(3,4,4,7))// 331
+/*
+    console.log("testing")
+    console.log(hilbert.hilbert(3,0,4,2))// 119
+    console.log("testing")
+
+    console.log(hilbert.hilbert(3,7,0,1))// 504
+    console.log(hilbert.hilbert(3,6,0,1))// 505
+    console.log(hilbert.hilbert(3,6,1,1))// 506
+    console.log(hilbert.hilbert(3,7,1,1))// 507
+    console.log(hilbert.hilbert(3,7,1,0))// 508
+    console.log(hilbert.hilbert(3,6,1,0))// 509
+    console.log(hilbert.hilbert(3,6,0,0))// 510
+    console.log(hilbert.hilbert(3,7,0,0))// 511
+    console.log(hilbert.hilbert(3,0,5,0))// 65
+    console.log(hilbert.hilbert(3,0,5,1))// 66
+    console.log(hilbert.hilbert(3,0,4,1))// 67
+    console.log(hilbert.hilbert(3,1,4,1))// 68
+    console.log(hilbert.hilbert(3,1,5,1))// 69
+    console.log(hilbert.hilbert(3,1,5,0))// 70
+    console.log(hilbert.hilbert(3,1,4,0))// 71
+
+
     console.log(hilbert.hilbert(3,0,2,2))// 16
     console.log(hilbert.hilbert(3,1,2,2))// 17
     console.log(hilbert.hilbert(3,1,3,2))// 18
     console.log(hilbert.hilbert(3,0,3,2))// 19
+    console.log(hilbert.hilbert(3,0,3,3))// 20
+    console.log(hilbert.hilbert(3,1,3,3))// 21
+    console.log(hilbert.hilbert(3,1,2,3))// 22
+    console.log(hilbert.hilbert(3,0,2,3))// 23
+    console.log(hilbert.hilbert(3,0,1,3))// 24
+    console.log(hilbert.hilbert(3,0,0,3))// 25
+    console.log(hilbert.hilbert(3,0,0,2))// 26
+    console.log(hilbert.hilbert(3,0,1,2))// 27
+    console.log(hilbert.hilbert(3,1,1,2))// 28
+    console.log(hilbert.hilbert(3,1,0,2))// 29
+    console.log(hilbert.hilbert(3,1,0,3))// 30
+    console.log(hilbert.hilbert(3,1,1,3))// 31
+    console.log(hilbert.hilbert(3,2,1,3))// 32
+    console.log(hilbert.hilbert(3,2,0,3))// 33
+    console.log(hilbert.hilbert(3,2,0,2))// 34
+    console.log(hilbert.hilbert(3,2,1,2))// 35
+    console.log(hilbert.hilbert(3,3,1,2))// 36
+    console.log(hilbert.hilbert(3,3,0,2))// 37
+    console.log(hilbert.hilbert(3,3,0,3))// 38
+    console.log(hilbert.hilbert(3,3,1,3))// 39
+    console.log(hilbert.hilbert(3,3,2,3))// 40
+
+    console.log(hilbert.hilbert(3,1,7,0))// 88
+    console.log(hilbert.hilbert(3,0,7,0))// 89
+    console.log(hilbert.hilbert(3,0,6,0))// 90
+    console.log(hilbert.hilbert(3,1,6,0))// 91
+    console.log(hilbert.hilbert(3,1,6,1))// 92
+    console.log(hilbert.hilbert(3,0,6,1))// 93
+    console.log(hilbert.hilbert(3,0,7,1))// 94
+    console.log(hilbert.hilbert(3,1,7,1))// 95
+    console.log(hilbert.hilbert(3,1,7,2))// 96
+    console.log(hilbert.hilbert(3,0,7,2))// 97
+    console.log(hilbert.hilbert(3,0,6,2))// 98
+    console.log(hilbert.hilbert(3,1,6,2))// 99
+/*
     console.log(hilbert.hilbert(3,0,3,3))// 20
     console.log(hilbert.hilbert(3,1,3,3))// 21
     console.log(hilbert.hilbert(3,1,2,3))// 22
@@ -218,39 +336,6 @@ function prove (assert) {
     console.log(hilbert.hilbert(3,3,1,0))// 56
     console.log(hilbert.hilbert(3,3,0,0))// 63
 
-*/
-    assert(hilbert.hilbertInverse(3,0), [0,0,0], "index 0 equals point [0,0,0]")
-    assert(hilbert.hilbertInverse(3,1), [0,1,0], "index 1 equals [0,1,0]")
-    assert(hilbert.hilbertInverse(3,2), [0,1,1], "index 2 equals [0,1,1]")
-    assert(hilbert.hilbertInverse(3,3), [0,0,1], "index 3 equals [0,0,1]")
-    assert(hilbert.hilbertInverse(3,4), [1,0,1], "index 4 equals [1,0,1]")
-    assert(hilbert.hilbertInverse(3,5), [1,1,1], "index 5 equals [1,1,1]")
-    assert(hilbert.hilbertInverse(3,6), [1,1,0], "index 6 equals [1,1,0]")
-    assert(hilbert.hilbertInverse(3,7), [1,0,0], "index 7 equals [1,0,0]")
-    assert(hilbert.hilbertInverse(3,8), [0,2,0], "index 8 equals [0,2,0]")
-
-/*
-    console.log(hilbert.hilbertInverse(3,0))
-    console.log(hilbert.hilbertInverse(3,1))
-    console.log(hilbert.hilbertInverse(3,2))
-    console.log(hilbert.hilbertInverse(3,3))
-    console.log(hilbert.hilbertInverse(3,4))
-    console.log(hilbert.hilbertInverse(3,5))
-    console.log(hilbert.hilbertInverse(3,6))
-    console.log(hilbert.hilbertInverse(3,7))
-    console.log(hilbert.hilbertInverse(3,8))
-    console.log(hilbert.hilbertInverse(3,9))
-    console.log(hilbert.hilbertInverse(3,10))
-    console.log(hilbert.hilbertInverse(3,11))
-    console.log(hilbert.hilbertInverse(3,12))
-    console.log(hilbert.hilbertInverse(3,13))
-    console.log(hilbert.hilbertInverse(3,14))
-    console.log(hilbert.hilbertInverse(3,15))
-    console.log(hilbert.hilbertInverse(3,16))
-    console.log(hilbert.hilbertInverse(3,17))
-    console.log(hilbert.hilbertInverse(3,18))
-    console.log(hilbert.hilbertInverse(3,19))
-    console.log(hilbert.hilbertInverse(3,20))
 /*
     console.log("Point (0,0) " + hilbert.hilbert(2, 0, 0) + " above ^^^ \n")
     console.log("Point (1,0) " + hilbert.hilbert(2, 1, 0) + " above ^^^ \n")
