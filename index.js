@@ -246,31 +246,25 @@ function directionSequence(i, dim) {
 
 function trailingSetBits (i) {
     var ones = ~i & (i + 1)
-    //console.log("g: " + (Math.log(ones) / Math.log(2)))
     return Math.log(ones) / Math.log(2)
 }
 
-function hilbertIndex(dim, point) {
-    var index = 0, entry = 0, direction = 0, code,
+function hilbertIndex(point) {
+    var index = 0, entry = 0, direction = 0, code, dim = point.length,
         i = precision(Math.max.apply(null, point)) - 1
-    //console.log("ENTER HILBERT")
-    //console.log('point: '+ point)
+
     while (i >= 0) {
-        //console.log("---while loop---")
+
         var bits = 0
         var mask = 1 << dim - 1
-        //console.log('mask: ' + mask.toString(2))
-        //console.log('---for loop--- ')
+
         for (var k = 0; k < point.length; k++) {
-        console.log("P: "+point[point.length-(k+1)]+' mask '+mask.toString(2))
-            if (point[point.length - (k+1)] & (1 << i)) {
-            console.log("BIT CHANGE.")
+            if (point[dim - (k+1)] & (1 << i)) {
                 bits |= mask
             }
             mask >>>= 1
-            console.log("bits: "+bits.toString(2)+" mask "+ mask.toString(2))
         }
-        //console.log('---end for loop---')
+
         bits = grayTransform(entry, direction, bits, dim)
         code = grayInverse(bits)
 
@@ -278,23 +272,15 @@ function hilbertIndex(dim, point) {
         direction = (direction + directionSequence(code, dim) + 1) % dim
         index = (index << dim) | code
 
-        //console.log('bits: '+ bits.toString(2))
-        //console.log('code: '+ code.toString(2))
-        //console.log('entry: '+ entry)
-        //console.log('direction: '+ direction)
-        //console.log('index: '+ index)
-        //console.log('')
-
         i--
     }
 
-    console.log("EXIT HILBERT")
     return index
 }
 
 function hilbertIndexInverse(dim, index) {
     var entry = 0, direction = 0, m = precision(index)
-    var p = Array.apply(null, new Array(dim)).map(Number.prototype.valueOf,0);
+    var p = Array.apply(null, new Array(dim)).map(Number.prototype.valueOf,0)
 
     for (var i = m - 1; i >= 0; i--) {
 
@@ -332,8 +318,8 @@ exports.xyz2d = function(x, y, z, height) {
 }
 exports.d2xy = convertDistanceTo2dPoint
 exports.d2xyz = convertDistanceTo3dPoint
-exports.hilbert = function (dim, x, y, z, etc) {
-    return hilbertIndex(dim, Array.prototype.slice.call(arguments, 1))
+exports.hilbert = function (x, y, z, etc) {
+    return hilbertIndex(Array.prototype.slice.call(arguments, 1))
 }
 exports.hilbertInverse = function (dim, index) {
     return hilbertIndexInverse(dim, index)
