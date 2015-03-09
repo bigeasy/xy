@@ -54,6 +54,7 @@ Point.prototype.mod = function (n) { // :: Int -> Point
     return new Point(this.x % n, this.y % n, this.z % n)
 }
 
+
 // Accepts the height or width of a square/graph, and the coordinates to
 // convert.
 function convert2dPointToDistance (p, height) { // :: Int -> Int -> Int -> Int
@@ -233,7 +234,7 @@ function trailingSetBits (i) {
     return Math.log(ones) / Math.log(2)
 }
 
-function hilbertIndex(point) {
+function hilbertIndex(point) { // :: [Int, Int, ..] -> Int
     var index = 0, entry = 0, direction = 0, code, dim = point.length,
         i = precision(Math.max.apply(null, point)) - 1
 
@@ -262,7 +263,7 @@ function hilbertIndex(point) {
     return index
 }
 
-function hilbertIndexInverse(dim, index) {
+function hilbertIndexInverse(dim, index) { // :: Int -> Int -> [Int, Int, ..]
     var entry = 0, direction = 0, m = precision(index)
     var p = Array.apply(null, new Array(dim)).map(Number.prototype.valueOf,0)
 
