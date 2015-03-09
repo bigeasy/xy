@@ -4,7 +4,7 @@ require('proof')(0, prove)
 
 function prove (assert) {
     var hilbert = require('../..')
-    /*
+    // 2 dimensions
     assert(hilbert.hilbert(2,3,0), 15, "(3,0) index equals 15")
     assert(hilbert.hilbert(2,0,4), 16, "(0,4) index equals 16")
     assert(hilbert.hilbert(2,7,0), 63, "(7,0) index equals 63")
@@ -16,8 +16,22 @@ function prove (assert) {
     assert(hilbert.hilbert(2,63,0), 4095, "(63,0) index equals 4095")
     assert(hilbert.hilbert(2,0,64), 4096, "(0,64) index equals 4096")
     assert(hilbert.hilbert(2,16383,0), 268435455, "(16383,0) index equals 2684355455")
+
+    // highest 2d dimension
     assert(hilbert.hilbert(2,32767,0), 1073741823, "(32767,0) index equals 1073741823")
     assert(hilbert.hilbert(2,0,32768), 1073741824, "(0,32768) index equals 1073741824")
+
+    // 3 dimensions
+    assert(hilbert.hilbert(3,3,0,0), 63, "(3,0,0) index equals 63")
+    assert(hilbert.hilbert(3,0,4,0), 64, "(0,4,0) index equals 64")
+    assert(hilbert.hilbert(3,7,0,0), 511, "(7,0,0) index equals 511")
+    assert(hilbert.hilbert(3,0,8,0), 512, "(0,8,0) index equals 512")
+
+    // highest 3d dimension
+    assert(hilbert.hilbert(3,1023,0,0),1073741823, "(1023,0,0) index equals 1073741823")
+    assert(hilbert.hilbert(3,0,1024,0),1073741824, "(0,1024,0) index equals 1073741824")
+
+/*
 // Point order created by `index` function.
     console.log(hilbert.hilbert(3,0,0,0))// 0
     console.log(hilbert.hilbert(3,0,1,0))// 1
@@ -83,8 +97,8 @@ function prove (assert) {
     console.log(hilbert.hilbert(3,2,0,1))// 61
     console.log(hilbert.hilbert(3,3,0,1))// 62
     console.log(hilbert.hilbert(3,3,0,0))// 63
-*/
-//next block
+
+//second block
     console.log(hilbert.hilbert(3,0,4,0))// 64
     console.log(hilbert.hilbert(3,0,5,0))// 65
     console.log(hilbert.hilbert(3,0,5,1))// 66
@@ -157,16 +171,27 @@ function prove (assert) {
     console.log(hilbert.hilbert(3,0,5,3))// 126
     console.log(hilbert.hilbert(3,0,4,3))// 127
 
+    // third-cube 128-191
     console.log(hilbert.hilbert(3,0,4,4))// 128
     console.log(hilbert.hilbert(3,3,4,7))// 180
     console.log(hilbert.hilbert(3,3,4,6))// 181
-    console.log(hilbert.hilbert(3,3,3,7))// 255
-    console.log(hilbert.hilbert(3,4,4,7))// 331
-/*
-    console.log("testing")
-    console.log(hilbert.hilbert(3,0,4,2))// 119
-    console.log("testing")
+    console.log(hilbert.hilbert(3,3,5,6))// 178
+    console.log(hilbert.hilbert(3,2,5,7))// 176
+    console.log(hilbert.hilbert(3,2,5,6))// 177
+    console.log(hilbert.hilbert(3,0,4,7))// 191
 
+    // fourth-cube 192-255
+    console.log(hilbert.hilbert(3,3,3,7))// 255
+
+    // fifth-cube 256-319
+    console.log(hilbert.hilbert(3,4,3,7))
+    // sixth-cube 320-383
+    console.log(hilbert.hilbert(3,4,4,7))// 331
+
+    // seventh-cube 384-447
+
+/*
+    // eigth-cube 448-511
     console.log(hilbert.hilbert(3,7,0,1))// 504
     console.log(hilbert.hilbert(3,6,0,1))// 505
     console.log(hilbert.hilbert(3,6,1,1))// 506
@@ -175,6 +200,7 @@ function prove (assert) {
     console.log(hilbert.hilbert(3,6,1,0))// 509
     console.log(hilbert.hilbert(3,6,0,0))// 510
     console.log(hilbert.hilbert(3,7,0,0))// 511
+
     console.log(hilbert.hilbert(3,0,5,0))// 65
     console.log(hilbert.hilbert(3,0,5,1))// 66
     console.log(hilbert.hilbert(3,0,4,1))// 67
