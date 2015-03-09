@@ -15,7 +15,7 @@ function prove (assert) {
     assert(hilbert.hilbert(2,0,32), 1024, "(0,32) index equals 1024")
     assert(hilbert.hilbert(2,63,0), 4095, "(63,0) index equals 4095")
     assert(hilbert.hilbert(2,0,64), 4096, "(0,64) index equals 4096")
-    assert(hilbert.hilbert(2,16383,0), 268435455, "(16383,0) index equals 2684355455")
+    assert(hilbert.hilbert(2,16383,0), 268435455, "(16383,0) index equals 268435455")
 
     // highest 2d dimension
     assert(hilbert.hilbert(2,32767,0), 1073741823, "(32767,0) index equals 1073741823")

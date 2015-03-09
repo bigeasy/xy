@@ -262,13 +262,13 @@ function hilbertIndex(dim, point) {
         //console.log('mask: ' + mask.toString(2))
         //console.log('---for loop--- ')
         for (var k = 0; k < point.length; k++) {
-        console.log("P: "+point[point.length-(k+1)]+' mask '+mask.toString(2))
+        //console.log("P: "+point[point.length-(k+1)]+' mask '+mask.toString(2))
             if (point[point.length - (k+1)] & (1 << i)) {
-            console.log("BIT CHANGE.")
+            //console.log("BIT CHANGE.")
                 bits |= mask
             }
             mask >>>= 1
-            console.log("bits: "+bits.toString(2)+" mask "+ mask.toString(2))
+            //console.log("bits: "+bits.toString(2)+" mask "+ mask.toString(2))
         }
         //console.log('---end for loop---')
         bits = grayTransform(entry, direction, bits, dim)
@@ -288,7 +288,7 @@ function hilbertIndex(dim, point) {
         i--
     }
 
-    console.log("EXIT HILBERT")
+    //console.log("EXIT HILBERT")
     return index
 }
 
