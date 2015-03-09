@@ -45,18 +45,6 @@ Point.prototype.rotate3d = function (level) { // :: Int -> Point
     return new Point(rotate3d(level, this.x, this.y, this.z))
 }
 
-Point.prototype.rotateLeft = function (n) { // :: Int -> Point
-    if (n % 3 == 0) return this
-    if (n % 3 == 1) return new Point(this.y, this.z, this.x)
-    return new Point(this.z, this.x, this.y)
-}
-
-Point.prototype.rotateRight = function (n) { // :: Int -> Point
-    if (n % 3 == 0) return this
-    if (n % 3 == 1) return new Point(this.z, this.x, this.y)
-    return new Point(this.y, this.z, this.x)
-}
-
 Point.prototype.toArray = function () { // :: -> [Int, Int]
         if (this.d == 3) { return [this.x, this.y, this.z] }
         return [this.x, this.y]
@@ -66,9 +54,6 @@ Point.prototype.mod = function (n) { // :: Int -> Point
     return new Point(this.x % n, this.y % n, this.z % n)
 }
 
-Point.prototype.unrotate = function (n) {
-    // read this.rotations and undo
-}
 
 // Accepts the height or width of a square/graph, and the coordinates to
 // convert.
@@ -246,44 +231,39 @@ function directionSequence(i, dim) {
 
 function trailingSetBits (i) {
     var ones = ~i & (i + 1)
-    //console.log("g: " + (Math.log(ones) / Math.log(2)))
     return Math.log(ones) / Math.log(2)
 }
 
-function hilbertIndex(dim, point) {
-    var index = 0, entry = 0, direction = 0, code,
-        i = precision(Math.max.apply(null, point)) - 1
-    //console.log("ENTER HILBERT")
-    //console.log('point: '+ point)
+function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
+    var index = 0, code,
+        entry = options.entry || 0,
+        direction = options.direction || 0,
+        i = options.precision || precision(Math.max.apply(null, point)) - 1,
+        dim = point.length
+
     while (i >= 0) {
-        //console.log("---while loop---")
+
         var bits = 0
         var mask = 1 << dim - 1
-        //console.log('mask: ' + mask.toString(2))
-        //console.log('---for loop--- ')
+
         for (var k = 0; k < point.length; k++) {
         //console.log("P: "+point[point.length-(k+1)]+' mask '+mask.toString(2))
             if (point[point.length - (k+1)] & (1 << i)) {
             //console.log("BIT CHANGE.")
                 bits |= mask
             }
-            mask >>>= 1
             //console.log("bits: "+bits.toString(2)+" mask "+ mask.toString(2))
+            if (point[dim - (k+1)] & (1 << i)) {
+                bits |= mask
+            }
         }
-        //console.log('---end for loop---')
+
         bits = grayTransform(entry, direction, bits, dim)
         code = grayInverse(bits)
 
         entry = entry ^ bitwise.rotateLeft(entrySequence(code), dim, 0, direction + 1)
         direction = (direction + directionSequence(code, dim) + 1) % dim
         index = (index << dim) | code
-
-        //console.log('bits: '+ bits.toString(2))
-        //console.log('code: '+ code.toString(2))
-        //console.log('entry: '+ entry)
-        //console.log('direction: '+ direction)
-        //console.log('index: '+ index)
-        //console.log('')
 
         i--
     }
@@ -292,9 +272,9 @@ function hilbertIndex(dim, point) {
     return index
 }
 
-function hilbertIndexInverse(dim, index) {
+function hilbertIndexInverse(dim, index) { // :: Int -> Int -> [Int, Int, ..]
     var entry = 0, direction = 0, m = precision(index)
-    var p = Array.apply(null, new Array(dim)).map(Number.prototype.valueOf,0);
+    var p = Array.apply(null, new Array(dim)).map(Number.prototype.valueOf,0)
 
     for (var i = m - 1; i >= 0; i--) {
 
@@ -332,12 +312,8 @@ exports.xyz2d = function(x, y, z, height) {
 }
 exports.d2xy = convertDistanceTo2dPoint
 exports.d2xyz = convertDistanceTo3dPoint
-exports.hilbert = function (dim, x, y, z, etc) {
-    return hilbertIndex(dim, Array.prototype.slice.call(arguments, 1))
-}
-exports.hilbertInverse = function (dim, index) {
-    return hilbertIndexInverse(dim, index)
-}
+exports.hilbert = hilbertIndex
+exports.hilbertInverse = hilbertIndexInverse
 
 exports.grayInverse = grayInverse
 exports.grayCode = grayCode
