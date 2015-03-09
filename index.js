@@ -234,9 +234,12 @@ function trailingSetBits (i) {
     return Math.log(ones) / Math.log(2)
 }
 
-function hilbertIndex(point) { // :: [Int, Int, ..] -> Int
-    var index = 0, entry = 0, direction = 0, code, dim = point.length,
-        i = precision(Math.max.apply(null, point)) - 1
+function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
+    var index = 0, code,
+        entry = options.entry || 0,
+        direction = options.direction || 0,
+        i = options.precision || precision(Math.max.apply(null, point)) - 1,
+        dim = point.length
 
     while (i >= 0) {
 
@@ -303,12 +306,8 @@ exports.xyz2d = function(x, y, z, height) {
 }
 exports.d2xy = convertDistanceTo2dPoint
 exports.d2xyz = convertDistanceTo3dPoint
-exports.hilbert = function (x, y, z, etc) {
-    return hilbertIndex(Array.prototype.slice.call(arguments, 1))
-}
-exports.hilbertInverse = function (dim, index) {
-    return hilbertIndexInverse(dim, index)
-}
+exports.hilbert = hilbertIndex
+exports.hilbertInverse = hilbertIndexInverse
 
 exports.grayInverse = grayInverse
 exports.grayCode = grayCode
