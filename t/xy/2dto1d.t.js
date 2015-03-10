@@ -5,8 +5,19 @@ require('proof')(0, prove)
 function prove (assert) {
     var hilbert = require('../..')
     // 2 dimensions
-    assert(hilbert.hilbert(2,3,0), 15, "(3,0) index equals 15")
-    assert(hilbert.hilbert(2,0,4), 16, "(0,4) index equals 16")
+    var options = { precision: 2 }
+
+    assert(hilbert.hilbert([0,0], options), 0, "(0,0) index equals 0")
+    assert(hilbert.hilbert([0,1], options), 1, "(0,1) index equals 1")
+    assert(hilbert.hilbert([1,1], options), 2, "(1,1) index equals 2")
+    assert(hilbert.hilbert([1,0], options), 3, "(1,0) index equals 3")
+
+    var options = { precision: 3 }
+/*
+    assert(hilbert.hilbert([3,0], options), 15, "(3,0) index equals 15")
+    assert(hilbert.hilbert([4,0], options), 16, "(0,4) index equals 16")
+*/
+ /*
     assert(hilbert.hilbert(2,7,0), 63, "(7,0) index equals 63")
     assert(hilbert.hilbert(2,0,8), 64, "(0,8) index equals 64")
     assert(hilbert.hilbert(2,15,0), 255, "(15,0) index equals 255")
@@ -31,6 +42,16 @@ function prove (assert) {
     assert(hilbert.hilbert(3,1023,0,0),1073741823, "(1023,0,0) index equals 1073741823")
     assert(hilbert.hilbert(3,0,1024,0),1073741824, "(0,1024,0) index equals 1073741824")
 
+    // 4 dimensions
+    console.log(hilbert.hilbert(4,0,0,0,0))// 0
+    console.log(hilbert.hilbert(4,0,1,0,0))// 1
+    console.log(hilbert.hilbert(4,0,1,1,0))// 2
+    console.log(hilbert.hilbert(4,0,0,1,0))// 3
+    console.log(hilbert.hilbert(4,1,0,1,0))// 4
+    console.log(hilbert.hilbert(4,1,1,1,0))// 5
+    console.log(hilbert.hilbert(4,1,1,0,0))// 6
+    console.log(hilbert.hilbert(4,1,0,0,0))// 7
+*/
 /*
 // Point order created by `index` function.
     console.log(hilbert.hilbert(3,0,0,0))// 0
