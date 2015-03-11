@@ -216,20 +216,20 @@ function grayInverseTransform (entry, direction, x, dim) {
     return grayTransform(bitwise.rotateRight(entry, dim, 0, direction + 1), dim - direction - 1, x, dim)
 }
 
-function entrySequence (i) {
+function entrySequence (i) { // :: Int -> Int
     if (i) {
         return grayCode(2 * Math.floor((i-1) / 2))
     }
     return 0
 }
 
-function directionSequence(i, dim) {
+function directionSequence(i, dim) { // :: Int -> Int -> Int
     if (i == 0) return 0
     if (i % 2 == 0) return trailingSetBits(i - 1) % dim
     return trailingSetBits(i) % dim
 }
 
-function trailingSetBits (i) {
+function trailingSetBits (i) { // :: Int -> Int
     var ones = ~i & (i + 1)
     return Math.log(ones) / Math.log(2)
 }
