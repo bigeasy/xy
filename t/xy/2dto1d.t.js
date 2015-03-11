@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-require('proof')(0, prove)
+require('proof')(25, prove)
 
 function prove (assert) {
     var hilbert = require('../..')
