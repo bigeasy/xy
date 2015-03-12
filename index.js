@@ -235,6 +235,7 @@ function trailingSetBits (i) {
 }
 
 function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
+    options = options || {}
     var index = 0, code,
         entry = options.entry || 0,
         direction = options.direction || 0,
