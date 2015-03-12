@@ -212,7 +212,7 @@ function grayTransform (entry, direction, x, dim) { // :: Int -> Int -> Int -> I
     return bitwise.rotateRight((x ^ entry), dim, 0, direction + 1)
 }
 
-function grayInverseTransform (entry, direction, x, dim) {
+function grayInverseTransform (entry, direction, x, dim) { // :: Int -> Int -> Int -> Int
     return grayTransform(bitwise.rotateRight(entry, dim, 0, direction + 1), dim - direction - 1, x, dim)
 }
 
@@ -267,9 +267,12 @@ function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
     return index
 }
 
-function hilbertIndexInverse(dim, index) { // :: Int -> Int -> [Int, Int, ..]
-    var entry = 0, direction = 0, m = precision(index)
-    var p = Array.apply(null, new Array(dim)).map(Number.prototype.valueOf,0)
+function hilbertIndexInverse(dim, index, options) { // :: Int -> Int -> [Int, Int, ..]
+    options = options || {}
+    var entry = options.entry || 0,
+        direction = options.direction || 0,
+        m = precision(index),
+        p = Array.apply(null, new Array(dim)).map(Number.prototype.valueOf,0)
 
     for (var i = m - 1; i >= 0; i--) {
 
