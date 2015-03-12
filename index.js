@@ -270,29 +270,43 @@ function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
 function hilbertIndexInverse(dim, index) { // :: Int -> Int -> [Int, Int, ..]
     var entry = 0, direction = 0, m = precision(index)
     var p = Array.apply(null, new Array(dim)).map(Number.prototype.valueOf,0)
+    console.log("\nEnter Inverse")
+    console.log("index: " + index)
+    console.log("---Outer For Loop---")
 
     for (var i = m - 1; i >= 0; i--) {
-
+    console.log("m: " + m)
         var mask = 1 << (i * dim), bits = 0, code
+        console.log("mask set: " + mask.toString(2))
 
+        console.log("---FIRST inner For Loop---")
         for (var k = dim - 1; k >= 0; k--) {
             if (index & (mask << k)) {
                 bits |= (1 << k)
+                console.log("BIT CHANGE")
             }
+            console.log("mask: "+mask.toString(2)+" bits: "+bits.toString(2))
         }
 
         code = grayInverseTransform(entry, direction, grayCode(bits), dim)
 
+        console.log("Code: " + code.toString(2))
+        console.log("--- SECOND inner For Loop---")
+
         for (var k = 0; k < dim; k++) {
             if (code & (1 << k)) {
                 p[k] |= (1 << i)
+                console.log("P CHANGE")
             }
+            console.log("k: "+k+" p[k]: "+ p[k]+" "+p[k].toString(2))
         }
 
         entry = entry ^ bitwise.rotateLeft(entrySequence(bits), dim, 0, direction + 1)
         direction = (direction + directionSequence(bits, dim) + 1) % dim
+        console.log("Entry: " + entry.toString(2))
+        console.log("Direction: " + direction.toString(2))
+        console.log("P: "+ p)
     }
-
     return p
 }
 
