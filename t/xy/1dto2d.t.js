@@ -1,8 +1,5 @@
 #!/usr/bin/env node
 
-// Created `order` function in `index` to fix precision. Unfortunately, it fails
-// at index 64.
-
 require('proof')(34, prove)
 
 function prove (assert) {
@@ -45,9 +42,15 @@ function prove (assert) {
     assert(hilbert.hilbertInverse(3,21), [1,3,3], "index 21 equals [1,3,3]")
     assert(hilbert.hilbertInverse(3,63), [3,0,0], "index 63 equals [3,0,0]")
 
-
-
     // works when precision is 4
-    assert(hilbert.hilbertInverse(3,64), [0,4,0], "index 64 equals [0,4,0]")// Fails
+    assert(hilbert.hilbertInverse(3,64), [0,4,0], "index 64 equals [0,4,0]")
     assert(hilbert.hilbertInverse(3,511), [7,0,0], "index 511 equals [7,0,0]")
+
+    assert(hilbert.hilbertInverse(3,1073741823), [1023,0,0], "Index 1073741823 equals [1023,0,0]") // broken
+    assert(hilbert.hilbertInverse(3,1073741824), [0,1024,0], "Index 1073741824 equals [0,1024,0]")
+
+    // examine broken test -> hilbert.hilbertInverse(3,1073741823)
+    var options = { precision: 3 }
+    console.log(hilbert.hilbert([2047, 1023, 4095], options)) // <- 2763
+    assert(hilbert.hilbertInverse(3,2763), [1023,0,0], "index 2763  equals [1023,0,0]")
 }
