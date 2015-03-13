@@ -271,7 +271,7 @@ function hilbertIndexInverse(dim, index, options) { // :: Int -> Int -> [Int, In
     options = options || {}
     var entry = options.entry || 0,
         direction = options.direction || 0,
-        m = precision(index),
+        m = options.precision || precision(index),
         p = Array.apply(null, new Array(dim)).map(Number.prototype.valueOf,0)
 
     for (var i = m - 1; i >= 0; i--) {
@@ -299,6 +299,18 @@ function hilbertIndexInverse(dim, index, options) { // :: Int -> Int -> [Int, In
     return p
 }
 
+function nthRoot(num, nArg, precArg) {
+  var n = nArg || 2;
+  var prec = precArg || 12;
+ 
+  var x = 1; // Initial guess.
+  for (var i=0; i<prec; i++) {
+    x = 1/n * ((n-1)*x + (num / Math.pow(x, n-1)));
+  }
+ 
+  return x;
+}
+
 exports.xy2d = function (x, y, height) {
     height = height || 2
     return convert2dPointToDistance(new Point(x, y), height)
@@ -315,3 +327,4 @@ exports.hilbertInverse = hilbertIndexInverse
 
 exports.grayInverse = grayInverse
 exports.grayCode = grayCode
+exports.nthRoot = nthRoot
