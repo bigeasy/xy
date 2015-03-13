@@ -272,7 +272,7 @@ function hilbertIndexInverse(dim, index, options) { // :: Int -> Int -> [Int, In
     var entry = options.entry || 0,
         direction = options.direction || 0,
         m = options.precision || precision(index),
-        p = Array.apply(null, new Array(dim)).map(Number.prototype.valueOf,0)
+        p = Array.apply(null, new Array(dim)).map(Number.prototype.valueOf, 0)
 
     for (var i = m - 1; i >= 0; i--) {
 
@@ -324,7 +324,3 @@ exports.d2xy = convertDistanceTo2dPoint
 exports.d2xyz = convertDistanceTo3dPoint
 exports.hilbert = hilbertIndex
 exports.hilbertInverse = hilbertIndexInverse
-
-exports.grayInverse = grayInverse
-exports.grayCode = grayCode
-exports.nthRoot = nthRoot
