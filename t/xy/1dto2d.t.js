@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 
-require('proof')(34, prove)
+require('proof')(38, prove)
 
 function prove (assert) {
     var hilbert = require('../..')
-
     assert(hilbert.hilbertInverse(2,0), [0,0], "index 0 equals point [0,0]")
     assert(hilbert.hilbertInverse(2,1), [0,1], "index 1 equals point [0,1]")
     assert(hilbert.hilbertInverse(2,2), [1,1], "index 2 equals point [1,1]")
@@ -45,12 +44,14 @@ function prove (assert) {
     // works when precision is 4
     assert(hilbert.hilbertInverse(3,64), [0,4,0], "index 64 equals [0,4,0]")
     assert(hilbert.hilbertInverse(3,511), [7,0,0], "index 511 equals [7,0,0]")
+    // precision should be 9
+    assert(hilbert.hilbertInverse(3,16777215), [255,0,0], "Index 16777215 equals [255,0,0]")
 
-    assert(hilbert.hilbertInverse(3,1073741823), [1023,0,0], "Index 1073741823 equals [1023,0,0]") // broken
-    assert(hilbert.hilbertInverse(3,1073741824), [0,1024,0], "Index 1073741824 equals [0,1024,0]")
 
-    // examine broken test -> hilbert.hilbertInverse(3,1073741823)
-    var options = { precision: 3 }
-    console.log(hilbert.hilbert([2047, 1023, 4095], options)) // <- 2763
-    assert(hilbert.hilbertInverse(3,2763), [1023,0,0], "index 2763  equals [1023,0,0]")
+    // precision should be 10
+    assert(hilbert.hilbertInverse(3,16777216), [0,256,0], "Index 16777216 equals [0,256,0]")
+    assert(hilbert.hilbertInverse(3,134217727), [511,0,0], "Index 134217727 equals [511,0,0]")
+    // precision should be 11
+    assert(hilbert.hilbertInverse(3,1073741823), [1023,0,0], "Index 1073741823 equals [1023,0,0]")
+
 }

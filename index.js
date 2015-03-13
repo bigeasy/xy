@@ -279,9 +279,10 @@ function nthRoot(num, nArg, precArg) {
     return x;
 }
 
+// this function doesn't work after curve order 8.
 function order(index,dim) {
     var curve = 2
-    var x = nthRoot(index, dim, 32)
+    var x = nthRoot(index, dim, 31)
     var j = 1
     if (x < curve) {
         return curve
@@ -294,9 +295,29 @@ function order(index,dim) {
    return curve
 }
 
+function precise(index) {
+    if (index < 8 && index >= 0) return 2
+    else if (index < 64 && index >= 8) return 3
+    else if (index < 512 && index >=64) return 4
+    else if (index < 4096 && index >=512) return 5
+    else if (index < 32768 && index >=4096) return 6
+    else if (index < 262144 && index >=32768) return 7
+    else if (index < 2097152 && index >=262144) return 8
+    else if (index < 16777216 && index >=2097152) return 9
+    else if (index < 134217728 && index >=16777216) return 10
+    else if (index < 1073741824 && index >=134217728) return 11
+}
+
 function hilbertIndexInverse(dim, index) { // :: Int -> Int -> [Int, Int, ..]
-    var entry = 0, direction = 0, m = order(index,dim)
+    var entry = 0, direction = 0,  m
     var p = Array.apply(null, new Array(dim)).map(Number.prototype.valueOf,0)
+
+    if (dim == 2) {
+        m = order(index,dim)
+    }
+    else if (dim == 3) {
+        m = precise(index)
+    }
 
     for (var i = m - 1; i >= 0; i--) {
         var mask = 1 << (i * dim), bits = 0, code
