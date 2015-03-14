@@ -29,14 +29,6 @@ function Point(x, y, z) {
     }
 }
 
-Point.prototype.rotate = function (p, n) { // :: Point -> Int -> Point
-    // record rotations
-    if (p.n == 0) return new Point(this.z, this.x, this.y)
-    if (p.n == 1 || p.n == 3) return new Point(this.y, this.z, this.x)
-    if (p.n == 2 || p.n == 6) return new Point(n - this.x, n - this.y, this.z)
-    return new Point(n - this.z, this.x, n - this.y)
-}
-
 Point.prototype.rotate2d = function (n, xbit, ybit) { // : Int -> Int -> Int -> Point
     return new Point(rotate2d(n, this.x, this.y, xbit, ybit))
 }
@@ -49,11 +41,6 @@ Point.prototype.toArray = function () { // :: -> [Int, Int]
         if (this.d == 3) { return [this.x, this.y, this.z] }
         return [this.x, this.y]
 }
-
-Point.prototype.mod = function (n) { // :: Int -> Point
-    return new Point(this.x % n, this.y % n, this.z % n)
-}
-
 
 // Accepts the height or width of a square/graph, and the coordinates to
 // convert.
