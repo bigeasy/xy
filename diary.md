@@ -56,3 +56,6 @@ example of axis rotation: https://github.com/Isinlor/Cube3D/blob/master/index.ht
 geometric description of Butz' implementation. https://www.cs.dal.ca/sites/default/files/technical_reports/CS-2006-07.pdf
 
 http://people.csail.mit.edu/jaffer/Geometry/MDSFC
+
+Added an order function function for the inverse. It takes the cubed root of the
+index, but unfortunately it doesn't work with some of the higher order curves.
