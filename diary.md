@@ -59,3 +59,18 @@ http://people.csail.mit.edu/jaffer/Geometry/MDSFC
 
 Added an order function function for the inverse. It takes the cubed root of the
 index, but unfortunately it doesn't work with some of the higher order curves.
+
+Am using this table to decide on m:
+```
+dim         index       xyz axis    m       bits
+1            0-7        0<=x<2      2       3
+2           0-63        2<=x<4      3       6
+3           0-511       4<=x<8      4       9
+4           4095        8<=x<16     5       12
+5           32767       16<=x<32    6       15
+6         262,144       32<=x<64    7       18
+7       2,097,151       64<=x<128   8       21
+8       16,777,215      128<=x<256  9       24
+9       134,217,727     254<=x<512  10      27
+10      1,073,741,823   512<=x<1024 11      30
+```
