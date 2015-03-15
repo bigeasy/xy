@@ -71,18 +71,6 @@ function convert2dPointToDistance (p, height) { // :: Int -> Int -> Int -> Int
     return d
 }
 
-// height and coordinates.
-function convert3dPointToDistance (p, height) { // :: Int -> Int -> Int -> Int -> Int
-    var s = 1, level = 0
-    var max = Math.max.apply(Math, p.toArray())
-    for (; 2 * s <= max; s *= 2) {
-        level = (level + 1) % 3
-    }
-
-    // shuffle axes
-    // rotate based on parity
-}
-
 // Accepts height or width of a square/graph and distance
 function convertDistanceTo2dPoint (distance, height) { // :: Int -> Int -> [Int, Int]
     distance = Math.floor(distance)
