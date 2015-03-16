@@ -3,7 +3,7 @@ var bitwise = require('./bitwise.js')
 // Use Hilbert curve point generation to map 2D data to 1D space and vice-versa.
 // Will later expand to allow `n` dimensions.
 
-function Point(x, y, z) {
+function Point(x, y, z) { // :: Int -> Int -> Int -> Point
     this.rotations = {
         x: 0,
         y: 0,
@@ -159,7 +159,7 @@ function rotate3d(level, x, y, z) { // :: Int -> Int -> Int -> Int -> [Int, Int,
     }
 }
 
-function grayCode (sequence) {
+function grayCode (sequence) { // :: Int -> Int
     return sequence ^ (sequence >> 1)
 }
 
@@ -274,7 +274,7 @@ function hilbertIndexInverse(dim, index, options) { // :: Int -> Int -> [Int, In
     return p
 }
 
-function nthRoot(num, nArg, precArg) {
+function nthRoot(num, nArg, precArg) { // : Int -> Int -> Int -> Int
   var n = nArg || 2;
   var prec = precArg || 12;
  
