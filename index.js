@@ -3,7 +3,7 @@ var bitwise = require('./bitwise.js')
 // Use Hilbert curve point generation to map 2D data to 1D space and vice-versa.
 // Will later expand to allow `n` dimensions.
 
-function Point(x, y, z) { // :: Int -> Int -> Int -> Point
+function Point(x, y, z) {
     this.rotations = {
         x: 0,
         y: 0,
@@ -29,6 +29,14 @@ function Point(x, y, z) { // :: Int -> Int -> Int -> Point
     }
 }
 
+Point.prototype.rotate = function (p, n) { // :: Point -> Int -> Point
+    // record rotations
+    if (p.n == 0) return new Point(this.z, this.x, this.y)
+    if (p.n == 1 || p.n == 3) return new Point(this.y, this.z, this.x)
+    if (p.n == 2 || p.n == 6) return new Point(n - this.x, n - this.y, this.z)
+    return new Point(n - this.z, this.x, n - this.y)
+}
+
 Point.prototype.rotate2d = function (n, xbit, ybit) { // : Int -> Int -> Int -> Point
     return new Point(rotate2d(n, this.x, this.y, xbit, ybit))
 }
@@ -41,6 +49,11 @@ Point.prototype.toArray = function () { // :: -> [Int, Int]
         if (this.d == 3) { return [this.x, this.y, this.z] }
         return [this.x, this.y]
 }
+
+Point.prototype.mod = function (n) { // :: Int -> Point
+    return new Point(this.x % n, this.y % n, this.z % n)
+}
+
 
 // Accepts the height or width of a square/graph, and the coordinates to
 // convert.
@@ -69,6 +82,18 @@ function convert2dPointToDistance (p, height) { // :: Int -> Int -> Int -> Int
     }
 
     return d
+}
+
+// height and coordinates.
+function convert3dPointToDistance (p, height) { // :: Int -> Int -> Int -> Int -> Int
+    var s = 1, level = 0
+    var max = Math.max.apply(Math, p.toArray())
+    for (; 2 * s <= max; s *= 2) {
+        level = (level + 1) % 3
+    }
+
+    // shuffle axes
+    // rotate based on parity
 }
 
 // Accepts height or width of a square/graph and distance
@@ -159,7 +184,7 @@ function rotate3d(level, x, y, z) { // :: Int -> Int -> Int -> Int -> [Int, Int,
     }
 }
 
-function grayCode (sequence) { // :: Int -> Int
+function grayCode (sequence) {
     return sequence ^ (sequence >> 1)
 }
 
@@ -187,24 +212,24 @@ function grayTransform (entry, direction, x, dim) { // :: Int -> Int -> Int -> I
     return bitwise.rotateRight((x ^ entry), dim, 0, direction + 1)
 }
 
-function grayInverseTransform (entry, direction, x, dim) { // :: Int -> Int -> Int -> Int
+function grayInverseTransform (entry, direction, x, dim) {
     return grayTransform(bitwise.rotateRight(entry, dim, 0, direction + 1), dim - direction - 1, x, dim)
 }
 
-function entrySequence (i) { // :: Int -> Int
+function entrySequence (i) {
     if (i) {
         return grayCode(2 * Math.floor((i-1) / 2))
     }
     return 0
 }
 
-function directionSequence(i, dim) { // :: Int -> Int -> Int
+function directionSequence(i, dim) {
     if (i == 0) return 0
     if (i % 2 == 0) return trailingSetBits(i - 1) % dim
     return trailingSetBits(i) % dim
 }
 
-function trailingSetBits (i) { // :: Int -> Int
+function trailingSetBits (i) {
     var ones = ~i & (i + 1)
     return Math.log(ones) / Math.log(2)
 }
@@ -242,15 +267,59 @@ function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
     return index
 }
 
-function hilbertIndexInverse(dim, index, options) { // :: Int -> Int -> [Int, Int, ..]
-    options = options || {}
-    var entry = options.entry || 0,
-        direction = options.direction || 0,
-        m = options.precision || precision(index),
-        p = Array.apply(null, new Array(dim)).map(Number.prototype.valueOf, 0)
+function nthRoot(num, nArg, precArg) {
+    var n = nArg || 2;
+    var prec = precArg || 12;
+
+    var x = 1;
+    for (var i=0; i<prec; i++) {
+        x = 1/n * ((n-1)*x + (num / Math.pow(x, n-1)));
+    }
+
+    return x;
+}
+
+// this function doesn't work after curve order 8.
+function order(index,dim) {
+    var curve = 2
+    var x = nthRoot(index, dim, 31)
+    var j = 1
+    if (x < curve) {
+        return curve
+    } else {
+        while (x >= Math.pow(2,j)) {
+            j++
+            curve++
+        }
+    }
+   return curve
+}
+
+function precise(index) {
+    if (index < 8 && index >= 0) return 2
+    else if (index < 64 && index >= 8) return 3
+    else if (index < 512 && index >=64) return 4
+    else if (index < 4096 && index >=512) return 5
+    else if (index < 32768 && index >=4096) return 6
+    else if (index < 262144 && index >=32768) return 7
+    else if (index < 2097152 && index >=262144) return 8
+    else if (index < 16777216 && index >=2097152) return 9
+    else if (index < 134217728 && index >=16777216) return 10
+    else if (index < 1073741824 && index >=134217728) return 11
+}
+
+function hilbertIndexInverse(dim, index) { // :: Int -> Int -> [Int, Int, ..]
+    var entry = 0, direction = 0,  m
+    var p = Array.apply(null, new Array(dim)).map(Number.prototype.valueOf,0)
+
+    if (dim == 2) {
+        m = order(index,dim)
+    }
+    else if (dim == 3) {
+        m = precise(index)
+    }
 
     for (var i = m - 1; i >= 0; i--) {
-
         var mask = 1 << (i * dim), bits = 0, code
 
         for (var k = dim - 1; k >= 0; k--) {
@@ -260,7 +329,6 @@ function hilbertIndexInverse(dim, index, options) { // :: Int -> Int -> [Int, In
         }
 
         code = grayInverseTransform(entry, direction, grayCode(bits), dim)
-
         for (var k = 0; k < dim; k++) {
             if (code & (1 << k)) {
                 p[k] |= (1 << i)
@@ -270,20 +338,7 @@ function hilbertIndexInverse(dim, index, options) { // :: Int -> Int -> [Int, In
         entry = entry ^ bitwise.rotateLeft(entrySequence(bits), dim, 0, direction + 1)
         direction = (direction + directionSequence(bits, dim) + 1) % dim
     }
-
     return p
-}
-
-function nthRoot(num, nArg, precArg) { // : Int -> Int -> Int -> Int
-  var n = nArg || 2;
-  var prec = precArg || 12;
- 
-  var x = 1; // Initial guess.
-  for (var i=0; i<prec; i++) {
-    x = 1/n * ((n-1)*x + (num / Math.pow(x, n-1)));
-  }
- 
-  return x;
 }
 
 exports.xy2d = function (x, y, height) {
@@ -299,3 +354,6 @@ exports.d2xy = convertDistanceTo2dPoint
 exports.d2xyz = convertDistanceTo3dPoint
 exports.hilbert = hilbertIndex
 exports.hilbertInverse = hilbertIndexInverse
+
+exports.grayInverse = grayInverse
+exports.grayCode = grayCode
