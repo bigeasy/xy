@@ -244,26 +244,11 @@ function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
 
 
 function precise(index, dim) {
-    if (dim == 2) return order(index, dim)
+    var n = Math.pow(2, dim)
 
+    // vvv 11 will be too low a number for 2d and too many for 4d
     for (var i=1; i < 11; i++) {
-        if (index < Math.pow(8, i)) return i+1
-    }
-
-    function order(index,dim) {
-    // this function doesn't work after curve order 8.
-        var curve = 2
-        var x = nthRoot(index, dim, 31)
-        var j = 1
-        if (x < curve) {
-            return curve
-        } else {
-            while (x >= Math.pow(2,j)) {
-                j++
-                curve++
-            }
-        }
-       return curve
+        if (index < Math.pow(n, i)) return i+1
     }
 }
 
