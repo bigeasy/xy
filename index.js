@@ -242,25 +242,28 @@ function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
     return index
 }
 
-// this function doesn't work after curve order 8.
-function order(index,dim) {
-    var curve = 2
-    var x = nthRoot(index, dim, 31)
-    var j = 1
-    if (x < curve) {
-        return curve
-    } else {
-        while (x >= Math.pow(2,j)) {
-            j++
-            curve++
-        }
-    }
-   return curve
-}
 
-function precise(index) {
+function precise(index, dim) {
+    if (dim == 2) return order(index, dim)
+
     for (var i=1; i < 11; i++) {
         if (index < Math.pow(8, i)) return i+1
+    }
+
+    function order(index,dim) {
+    // this function doesn't work after curve order 8.
+        var curve = 2
+        var x = nthRoot(index, dim, 31)
+        var j = 1
+        if (x < curve) {
+            return curve
+        } else {
+            while (x >= Math.pow(2,j)) {
+                j++
+                curve++
+            }
+        }
+       return curve
     }
 }
 
@@ -268,15 +271,8 @@ function hilbertIndexInverse(dim, index, options) { // :: Int -> Int -> [Int, In
     options = options || {}
     var entry = options.entry || 0,
         direction = options.direction || 0,
-        m = options.precision || precision(index),
+        m = precise(index, dim),
         p = Array.apply(null, new Array(dim)).map(Number.prototype.valueOf, 0)
-
-    if (dim == 2) {
-        m = order(index,dim)
-    }
-    else {
-        m = precise(index)
-    }
 
     for (var i = m - 1; i >= 0; i--) {
         var mask = 1 << (i * dim), bits = 0, code
