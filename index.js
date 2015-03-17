@@ -245,9 +245,11 @@ function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
 
 function precise(index, dim) {
     var n = Math.pow(2, dim)
+    var bits = 32
 
-    // vvv 11 will be too low a number for 2d and too many for 4d
-    for (var i=1; i < 11; i++) {
+    while(bits % dim != 0) --bits
+
+    for (var i=1; i < bits; i++) {
         if (index < Math.pow(n, i)) return i+1
     }
 }
