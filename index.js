@@ -96,37 +96,6 @@ function convertDistanceTo2dPoint (distance, height) { // :: Int -> Int -> [Int,
     return p.toArray()
 }
 
-// height/width of a square/graph and distance
-function convertDistanceTo3dPoint (distance, height) { // Int -> Int -> [Int, Int, Int]
-    distance = Math.floor(distance)
-    var xbit, ybit, zbit, level, parity
-    var iter = 2, log = 0, p = new Point(0, 0, 0)
-
-    height = height || 2
-
-    // vvv this is interesting.
-    for (parity = 1; parity < height; parity *= 2, ++log) {}
-    parity = log % 3;
-
-    // the `|| distance` was removed from 2d version
-    for (level = 1; level < height || distance > 0; level *=2) {
-        xbit = distance & 1;
-        ybit = (distance / 2) & 1;
-        zbit = (distance / 4) & 1;
-
-        var temp = rotate3d(level - 1, xbit ^ ybit, ybit ^ zbit, zbit)
-        p.x = temp[0] * level + level - 1
-        p.y = temp[1] * level + level - 1
-        p.z = temp[2] * level + level - 1
-
-        distance = Math.floor(distance / 8)
-        level *= 2;
-        iter++;
-    }
-
-    return p.rotateLeft(iter - parity + 1).toArray();
-}
-
 // Rotate the coordinate plane and (x,y)
 function rotate2d (n, x, y, xbit, ybit) { // :: Int -> Int -> Int -> Int -> Int -> [Int, Int]
     if (ybit == 0  ) {
