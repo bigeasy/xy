@@ -64,8 +64,6 @@ function convert2dPointToDistance (p, height) { // :: Int -> Int -> Int -> Int
         // rotate so that we'll be in sync with the next
         // region.
         p = p.rotate2d(level, xbit, ybit)
-        // HEAD
-        // p = p.rotate2d(height, xbit, ybit)
     }
 
     return d
