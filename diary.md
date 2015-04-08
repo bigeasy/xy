@@ -64,3 +64,16 @@ dim         index       xyz axis    m       bits
 9       134,217,727     254<=x<512  10      27
 10      1,073,741,823   512<=x<1024 11      30
 ```
+
+
+## Presentation Notes:
+"Calculation of Mappings Between One and n-dimensional Values Using the Hilbert Space-filling Curve"
+
+The concept of a space-filling curve emerged in the 19th Century. It is originally attributed to Peano. The first graphical, or geometrical, representation of the space-filling curve is attributed to David Hilbert.
+
+Hilbert Curves pass through every point in an n-dimensional space once and once only in some particular order according to some algorithm. As such they graphically express a mapping between one-dimensional values and the coordinates of points, regarded as multi-dimensional values, since the points are placed in a sequence according to the order in which the curve passes through them.
+
+Hilbert Curve
+A square is initially divided into 4 sub-squares which are then ordered such that any pair of consecutive sub-squares share a common edge.
+
+The Hilbert Curve manifests a useful property in which consecutively ordered points are adjacent to each other in space.
