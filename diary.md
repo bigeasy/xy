@@ -12,13 +12,6 @@ parity: the number of bits in a byte which are set to 1
 http://en.wikipedia.org/wiki/Rotation_matrix
 
 interesting hilbert implementation. https://github.com/ryan-williams/hilbert-js
-I am uncertain of this implementation of the hilbert curve. It iterates
-between 2 different hilbert curves as the dimensions increase.
-At n = 2 the curve's exit gate is 0,1,0. I would expect to be 1,0,0.
-At n = 4 the curve's exit gate is 0,0,3. I would expect to be 3,0,0.
-At n = 8 the curve's exit gate is 7,0,0, as is expected.
-At n = 16 the curve's exit gate is 0,15,0. I would expect to be 15,0,0.
-
 
 2D encoding algorithm:
 Outline of the Method
@@ -56,9 +49,6 @@ example of axis rotation: https://github.com/Isinlor/Cube3D/blob/master/index.ht
 geometric description of Butz' implementation. https://www.cs.dal.ca/sites/default/files/technical_reports/CS-2006-07.pdf
 
 http://people.csail.mit.edu/jaffer/Geometry/MDSFC
-
-Added an order function function for the inverse. It takes the cubed root of the
-index, but unfortunately it doesn't work with some of the higher order curves.
 
 Am using this table to decide on m:
 ```
