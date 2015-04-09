@@ -77,3 +77,8 @@ Hilbert Curve
 A square is initially divided into 4 sub-squares which are then ordered such that any pair of consecutive sub-squares share a common edge.
 
 The Hilbert Curve manifests a useful property in which consecutively ordered points are adjacent to each other in space.
+
+"Using Space-filling Curves for Multidimensional Indexing"
+
+the points on the line are plainly ordered and this ordering thus gives the points of the square an ordering now known as the Hilbert Curve. Since this curve passes through every point in the square once and once only it is said to be space filling. The curve is everywhere contiunuous and nowhere differentiable.
+Intuitively one can see that the continuity results from the persistence of the adjacency property at every step and the non-differentiability from the sharp changes of direction at each step.
