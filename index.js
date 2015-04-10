@@ -123,6 +123,14 @@ function grayInverse (g) { // : Int -> Int
     return inverse
 }
 
+function grayTransform (entry, direction, x, dim) { // :: Int -> Int -> Int -> Int
+    return bitwise.rotateRight((x ^ entry), dim, 0, direction + 1)
+}
+
+function grayInverseTransform (entry, direction, x, dim) { // :: Int -> Int -> Int -> Int
+    return grayTransform(bitwise.rotateRight(entry, dim, 0, direction + 1), dim - direction - 1, x, dim)
+}
+
 // Returns the number of bits required to store an integer
 function precision (n) { // :: Int > Int
     var ret = 0
@@ -131,14 +139,6 @@ function precision (n) { // :: Int > Int
         n = n >> 1
     }
     return ret
-}
-
-function grayTransform (entry, direction, x, dim) { // :: Int -> Int -> Int -> Int
-    return bitwise.rotateRight((x ^ entry), dim, 0, direction + 1)
-}
-
-function grayInverseTransform (entry, direction, x, dim) { // :: Int -> Int -> Int -> Int
-    return grayTransform(bitwise.rotateRight(entry, dim, 0, direction + 1), dim - direction - 1, x, dim)
 }
 
 function entrySequence (i) { // :: Int -> Int
@@ -157,6 +157,29 @@ function directionSequence(i, dim) { // :: Int -> Int -> Int
 function trailingSetBits (i) { // :: Int -> Int
     var ones = ~i & (i + 1)
     return Math.log(ones) / Math.log(2)
+}
+
+function precise(index, dim) {
+    var n = Math.pow(2, dim)
+    var bits = 32
+
+    while(bits % dim != 0) --bits
+
+    for (var i=1; i < bits; i++) {
+        if (index < Math.pow(n, i)) return i+1
+    }
+}
+
+function nthRoot(num, nArg, precArg) { // : Int -> Int -> Int -> Int
+  var n = nArg || 2;
+  var prec = precArg || 12;
+ 
+  var x = 1; // Initial guess.
+  for (var i=0; i<prec; i++) {
+    x = 1/n * ((n-1)*x + (num / Math.pow(x, n-1)));
+  }
+ 
+  return x;
 }
 
 function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
@@ -193,16 +216,6 @@ function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
 }
 
 
-function precise(index, dim) {
-    var n = Math.pow(2, dim)
-    var bits = 32
-
-    while(bits % dim != 0) --bits
-
-    for (var i=1; i < bits; i++) {
-        if (index < Math.pow(n, i)) return i+1
-    }
-}
 
 function hilbertIndexInverse(dim, index, options) { // :: Int -> Int -> [Int, Int, ..]
     options = options || {}
@@ -231,18 +244,6 @@ function hilbertIndexInverse(dim, index, options) { // :: Int -> Int -> [Int, In
         direction = (direction + directionSequence(bits, dim) + 1) % dim
     }
     return p
-}
-
-function nthRoot(num, nArg, precArg) { // : Int -> Int -> Int -> Int
-  var n = nArg || 2;
-  var prec = precArg || 12;
- 
-  var x = 1; // Initial guess.
-  for (var i=0; i<prec; i++) {
-    x = 1/n * ((n-1)*x + (num / Math.pow(x, n-1)));
-  }
- 
-  return x;
 }
 
 exports.xy2d = function (x, y, height) {
