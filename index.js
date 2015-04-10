@@ -254,6 +254,5 @@ exports.xyz2d = function(x, y, z, height) {
     height = height || 2
     return convert3dPointToDistance(new Point(x, y, z), height)
 }
-exports.d2xy = convertDistanceTo2dPoint
 exports.hilbert = hilbertIndex
 exports.hilbertInverse = hilbertIndexInverse
