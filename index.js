@@ -216,7 +216,6 @@ function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
 }
 
 
-
 function hilbertIndexInverse(dim, index, options) { // :: Int -> Int -> [Int, Int, ..]
     options = options || {}
     var entry = options.entry || 0,
@@ -246,14 +245,5 @@ function hilbertIndexInverse(dim, index, options) { // :: Int -> Int -> [Int, In
     return p
 }
 
-exports.xy2d = function (x, y, height) {
-    height = height || 2
-    return convert2dPointToDistance(new Point(x, y), height)
-}
-
-exports.xyz2d = function(x, y, z, height) {
-    height = height || 2
-    return convert3dPointToDistance(new Point(x, y, z), height)
-}
 exports.hilbert = hilbertIndex
 exports.hilbertInverse = hilbertIndexInverse
