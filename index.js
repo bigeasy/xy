@@ -41,6 +41,9 @@ Point.prototype.toArray = function () { // :: -> [Int, Int]
         return [this.x, this.y]
 }
 
+
+// Old 2D conversions.
+
 // Accepts the height or width of a square/graph, and the coordinates to
 // convert.
 function convert2dPointToDistance (p, height) { // :: Int -> Int -> Int -> Int
@@ -108,6 +111,9 @@ function rotate2d (n, x, y, xbit, ybit) { // :: Int -> Int -> Int -> Int -> Int 
 
     return [x, y]
 }
+
+
+// Helpers for new Hilbert index.
 
 function grayCode (sequence) { // :: Int -> Int
     return sequence ^ (sequence >> 1)
@@ -182,6 +188,9 @@ function nthRoot(num, nArg, precArg) { // : Int -> Int -> Int -> Int
   return x;
 }
 
+
+//N-dimensional conversions.
+
 function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
     options = options || {}
     var index = 0, code,
@@ -214,7 +223,6 @@ function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
 
     return index
 }
-
 
 function hilbertIndexInverse(dim, index, options) { // :: Int -> Int -> [Int, Int, ..]
     options = options || {}
