@@ -32,15 +32,10 @@ Point.prototype.rotate2d = function (n, xbit, ybit) { // : Int -> Int -> Int -> 
     return new Point(rotate2d(n, this.x, this.y, xbit, ybit))
 }
 
-Point.prototype.rotate3d = function (level) { // :: Int -> Point
-    return new Point(rotate3d(level, this.x, this.y, this.z))
-}
-
 Point.prototype.toArray = function () { // :: -> [Int, Int]
         if (this.d == 3) { return [this.x, this.y, this.z] }
         return [this.x, this.y]
 }
-
 
 // Old 2D conversions.
 
@@ -111,7 +106,6 @@ function rotate2d (n, x, y, xbit, ybit) { // :: Int -> Int -> Int -> Int -> Int 
 
     return [x, y]
 }
-
 
 // Helpers for new Hilbert index.
 
@@ -187,7 +181,6 @@ function nthRoot(num, nArg, precArg) { // : Int -> Int -> Int -> Int
  
   return x;
 }
-
 
 //N-dimensional conversions.
 
