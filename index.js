@@ -32,14 +32,12 @@ Point.prototype.rotate2d = function (n, xbit, ybit) { // : Int -> Int -> Int -> 
     return new Point(rotate2d(n, this.x, this.y, xbit, ybit))
 }
 
-Point.prototype.rotate3d = function (level) { // :: Int -> Point
-    return new Point(rotate3d(level, this.x, this.y, this.z))
-}
-
 Point.prototype.toArray = function () { // :: -> [Int, Int]
         if (this.d == 3) { return [this.x, this.y, this.z] }
         return [this.x, this.y]
 }
+
+// Old 2D conversions.
 
 // Accepts the height or width of a square/graph, and the coordinates to
 // convert.
@@ -109,6 +107,8 @@ function rotate2d (n, x, y, xbit, ybit) { // :: Int -> Int -> Int -> Int -> Int 
     return [x, y]
 }
 
+// Helpers for new Hilbert index.
+
 function grayCode (sequence) { // :: Int -> Int
     return sequence ^ (sequence >> 1)
 }
@@ -123,6 +123,14 @@ function grayInverse (g) { // : Int -> Int
     return inverse
 }
 
+function grayTransform (entry, direction, x, dim) { // :: Int -> Int -> Int -> Int
+    return bitwise.rotateRight((x ^ entry), dim, 0, direction + 1)
+}
+
+function grayInverseTransform (entry, direction, x, dim) { // :: Int -> Int -> Int -> Int
+    return grayTransform(bitwise.rotateRight(entry, dim, 0, direction + 1), dim - direction - 1, x, dim)
+}
+
 // Returns the number of bits required to store an integer
 function precision (n) { // :: Int > Int
     var ret = 0
@@ -131,14 +139,6 @@ function precision (n) { // :: Int > Int
         n = n >> 1
     }
     return ret
-}
-
-function grayTransform (entry, direction, x, dim) { // :: Int -> Int -> Int -> Int
-    return bitwise.rotateRight((x ^ entry), dim, 0, direction + 1)
-}
-
-function grayInverseTransform (entry, direction, x, dim) { // :: Int -> Int -> Int -> Int
-    return grayTransform(bitwise.rotateRight(entry, dim, 0, direction + 1), dim - direction - 1, x, dim)
 }
 
 function entrySequence (i) { // :: Int -> Int
@@ -158,6 +158,31 @@ function trailingSetBits (i) { // :: Int -> Int
     var ones = ~i & (i + 1)
     return Math.log(ones) / Math.log(2)
 }
+
+function precise(index, dim) {
+    var n = Math.pow(2, dim)
+    var bits = 32
+
+    while(bits % dim != 0) --bits
+
+    for (var i=1; i < bits; i++) {
+        if (index < Math.pow(n, i)) return i+1
+    }
+}
+
+function nthRoot(num, nArg, precArg) { // : Int -> Int -> Int -> Int
+  var n = nArg || 2;
+  var prec = precArg || 12;
+ 
+  var x = 1; // Initial guess.
+  for (var i=0; i<prec; i++) {
+    x = 1/n * ((n-1)*x + (num / Math.pow(x, n-1)));
+  }
+ 
+  return x;
+}
+
+//N-dimensional conversions.
 
 function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
     options = options || {}
@@ -192,18 +217,6 @@ function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
     return index
 }
 
-
-function precise(index, dim) {
-    var n = Math.pow(2, dim)
-    var bits = 32
-
-    while(bits % dim != 0) --bits
-
-    for (var i=1; i < bits; i++) {
-        if (index < Math.pow(n, i)) return i+1
-    }
-}
-
 function hilbertIndexInverse(dim, index, options) { // :: Int -> Int -> [Int, Int, ..]
     options = options || {}
     var entry = options.entry || 0,
@@ -233,27 +246,5 @@ function hilbertIndexInverse(dim, index, options) { // :: Int -> Int -> [Int, In
     return p
 }
 
-function nthRoot(num, nArg, precArg) { // : Int -> Int -> Int -> Int
-  var n = nArg || 2;
-  var prec = precArg || 12;
- 
-  var x = 1; // Initial guess.
-  for (var i=0; i<prec; i++) {
-    x = 1/n * ((n-1)*x + (num / Math.pow(x, n-1)));
-  }
- 
-  return x;
-}
-
-exports.xy2d = function (x, y, height) {
-    height = height || 2
-    return convert2dPointToDistance(new Point(x, y), height)
-}
-
-exports.xyz2d = function(x, y, z, height) {
-    height = height || 2
-    return convert3dPointToDistance(new Point(x, y, z), height)
-}
-exports.d2xy = convertDistanceTo2dPoint
 exports.hilbert = hilbertIndex
 exports.hilbertInverse = hilbertIndexInverse
