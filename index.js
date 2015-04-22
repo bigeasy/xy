@@ -159,7 +159,8 @@ function trailingSetBits (i) { // :: Int -> Int
     return Math.log(ones) / Math.log(2)
 }
 
-function precise(index, dim) {
+// curve precision
+function precise(index, dim) { // :: Int -> Int -> Int
     var n = Math.pow(2, dim)
     var bits = 32
 
