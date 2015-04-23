@@ -132,7 +132,7 @@ function grayInverseTransform (entry, direction, x, dim) { // :: Int -> Int -> I
 }
 
 // Returns the number of bits required to store an integer
-function precision (n) { // :: Int > Int
+function bitPrecision (n) { // :: Int > Int
     var ret = 0
     while (n > 0) {
         ret++
@@ -160,7 +160,7 @@ function trailingSetBits (i) { // :: Int -> Int
 }
 
 // curve precision
-function precise(index, dim) { // :: Int -> Int -> Int
+function curvePrecision(index, dim) { // :: Int -> Int -> Int
     var n = Math.pow(2, dim)
     var bits = 32
 
@@ -190,7 +190,7 @@ function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
     var index = 0, code,
         entry = options.entry || 0,
         direction = options.direction || 0,
-        i = options.precision || precision(Math.max.apply(null, point)) - 1,
+        i = options.bitPrecision || bitPrecision(Math.max.apply(null, point)) - 1,
         dim = point.length
 
     while (i >= 0) {
@@ -222,7 +222,7 @@ function hilbertIndexInverse(dim, index, options) { // :: Int -> Int -> [Int, In
     options = options || {}
     var entry = options.entry || 0,
         direction = options.direction || 0,
-        m = precise(index, dim),
+        m = curvePrecision(index, dim),
         p = Array.apply(null, new Array(dim)).map(Number.prototype.valueOf, 0)
 
     for (var i = m - 1; i >= 0; i--) {
