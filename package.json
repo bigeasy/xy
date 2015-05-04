@@ -22,7 +22,7 @@
     }],
     "devDependencies":
     {
-                        "proof": "*",
+                        "proof": "*"
     },
     "licenses":
     [{
