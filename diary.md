@@ -82,3 +82,6 @@ By considering the order on which the curve visits the points in an n- dimension
 
 The key property of the Hilbert curve is that successive points are immediate neighbors in the lattice. Thus, to maintain this property we are looking for a walk through the 2^n points such that every point will be enumerated, and successive points will be neighboring corners of the hypercube.
 
+##TODO
+
+Put sequence functions somewhere else, or export them only to tests somehow
