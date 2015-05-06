@@ -5,6 +5,7 @@
 <body onload="run()">
     <input type="text" name="length" onchange="run()"/>
     <input type="text" name="precision" onchange="run()" />
+    <input type="text" name="grid" onchange="run()" />
   <canvas id="canvas" style="border: none;" width="1500" height="1500"></canvas>
 </body>
 
@@ -232,14 +233,16 @@ function run () {
 
     var canvas = document.getElementById('canvas')
     var ctx = canvas.getContext('2d');
+    var vars = [], length = document.querySelectorAll('input[name=length')[0].value || 256,
+        grid = document.querySelectorAll('input[name=grid]')[0].value
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.strokeStyle = "blue";
     ctx.lineWidth = 1;
     function drawBoard(){
         ctx.beginPath()
         //grid width and height
-        var bw = 1500;
-        var bh = 1500;
+        var bw = grid * 100;
+        var bh = grid * 100;
         //padding around grid
         var p = 0;
         for (var x = 0; x <= bw; x += 100) {
@@ -262,14 +265,13 @@ function run () {
     ctx.lineWidth = 5;
     ctx.strokeStyle = 'black';
 
-    var vars = []
-    for (var i = 0; i < (document.querySelectorAll('input[name=length')[0].value || 256); i++) {
+    for (var i = 0; i < length; i++) {
         vars.push(hilbertIndexInverse(2, i, {precision: (document.querySelectorAll('input[name=precision]')[0].value || 4)}).map(function (e) {
             return e * 100 + 50
         }))
     }
     console.log(vars)
-    for (var i = 1; i < 256; i++) {
+    for (var i = 1; i < length; i++) {
         ctx.moveTo.apply(ctx, vars[i - 1]);
         ctx.lineTo.apply(ctx, vars[i]);
         ctx.stroke();
