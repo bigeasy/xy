@@ -3,7 +3,9 @@
 <script type="./bitwise.js"></script>
 </head>
 <body onload="run()">
-  <canvas id="canvas" style="border: none;" width="1000" height="500"></canvas>
+    <input type="text" name="length" onchange="run()"/>
+    <input type="text" name="precision" onchange="run()" />
+  <canvas id="canvas" style="border: none;" width="1500" height="1500"></canvas>
 </body>
 
 <script type="text/javascript">
@@ -230,43 +232,44 @@ function run () {
 
     var canvas = document.getElementById('canvas')
     var ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.strokeStyle = "blue";
+    ctx.lineWidth = 1;
+    function drawBoard(){
+        ctx.beginPath()
+        //grid width and height
+        var bw = 1500;
+        var bh = 1500;
+        //padding around grid
+        var p = 0;
+        for (var x = 0; x <= bw; x += 100) {
+            ctx.moveTo(0.5 + x + p, p);
+            ctx.lineTo(0.5 + x + p, bh + p);
+        }
+
+
+        for (var x = 0; x <= bh; x += 100) {
+            ctx.moveTo(p, 0.5 + x + p);
+            ctx.lineTo(bw + p, 0.5 + x + p);
+        }
+
+        ctx.stroke();
+    }
+
+    drawBoard();
+
+    ctx.beginPath()
     ctx.lineWidth = 5;
     ctx.strokeStyle = 'black';
 
-    /*
-    var vertices = [
-        [10, 10],
-        [20, 10],
-        [20, 20],
-        [10, 20],
-        [10, 30],
-        [10, 40],
-        [20, 40],
-        [20, 30],
-        [30, 30],
-        [30, 40],
-        [40, 40],
-        [40, 30],
-        [40, 20],
-        [30, 20],
-        [30, 10],
-        [40, 10]
-    ];
-    for (var i = 1; i < vertices.length; i++) {
-        ctx.moveTo(vertices[i-1][0] * 20, vertices[i-1][1] * 20);
-        ctx.lineTo(vertices[i][0] * 20, vertices[i][1] * 20);
-        ctx.stroke();
-    }
-    */
-
     var vars = []
-    for (var i = 0; i < 17; i++) {
-        vars.push(hilbertIndexInverse(2, i, {precision: 2}).map(function (e) {
-            return e * 100
+    for (var i = 0; i < (document.querySelectorAll('input[name=length')[0].value || 256); i++) {
+        vars.push(hilbertIndexInverse(2, i, {precision: (document.querySelectorAll('input[name=precision]')[0].value || 4)}).map(function (e) {
+            return e * 100 + 50
         }))
     }
     console.log(vars)
-    for (var i = 1; i < 16; i++) {
+    for (var i = 1; i < 256; i++) {
         ctx.moveTo.apply(ctx, vars[i - 1]);
         ctx.lineTo.apply(ctx, vars[i]);
         ctx.stroke();
