@@ -6,7 +6,7 @@
     <input type="text" name="length" onchange="run()"/>
     <input type="text" name="precision" onchange="run()" />
     <input type="text" name="grid" onchange="run()" />
-  <canvas id="canvas" style="border: none;" width="1500" height="1500"></canvas>
+  <canvas id="canvas" style="border: none;" width="2000" height="2000"></canvas>
 </body>
 
 <script type="text/javascript">
@@ -235,9 +235,11 @@ function run () {
     var ctx = canvas.getContext('2d');
     var vars = [], length = document.querySelectorAll('input[name=length')[0].value || 256,
         grid = document.querySelectorAll('input[name=grid]')[0].value
+
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.strokeStyle = "blue";
     ctx.lineWidth = 1;
+
     function drawBoard(){
         ctx.beginPath()
         //grid width and height
@@ -270,7 +272,9 @@ function run () {
             return e * 100 + 50
         }))
     }
+
     console.log(vars)
+
     for (var i = 1; i < length; i++) {
         ctx.moveTo.apply(ctx, vars[i - 1]);
         ctx.lineTo.apply(ctx, vars[i]);
