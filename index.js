@@ -3,12 +3,6 @@ var bitwise = require('./bitwise.js')
 // Use Hilbert curve point generation to map n-dimensional data to 1D space and vice-versa.
 
 function Point(x, y, z) { // :: Int -> Int -> Int -> Point
-    this.rotations = {
-        x: 0,
-        y: 0,
-        z: 0
-    }
-
     this.init = function (x, y, z) {
         this.x = Math.round(x) || 0
         this.y = Math.round(y) || 0
