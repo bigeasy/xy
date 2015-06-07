@@ -10,6 +10,7 @@ N-dimensional Hilbert curve mapping in JS.
 
     License:        MIT
 
-To learn everything you want to know about Xy start here:
-
-    http://bigeasy.github.io/xy
+`xy.hilbert([15,0]) // <-- "255"`
+`xy.hilbert([1,1,0,1]) // <-- "9"`
+`xy.hilbertInverse(2,0) // <-- "[0,0]"`
+`xy.hilbertInverse(3,63) // <-- "[3,0,0]"`
