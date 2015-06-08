@@ -26,11 +26,6 @@ Point.prototype.rotate2d = function (n, xbit, ybit) { // : Int -> Int -> Int -> 
     return new Point(rotate2d(n, this.x, this.y, xbit, ybit))
 }
 
-Point.prototype.toArray = function () { // :: -> [Int, Int]
-        if (this.d == 3) { return [this.x, this.y, this.z] }
-        return [this.x, this.y]
-}
-
 // Old 2D conversions.
 
 // Accepts the height or width of a square/graph, and the coordinates to
@@ -82,7 +77,7 @@ function convertDistanceTo2dPoint (distance, height) { // :: Int -> Int -> [Int,
         distance = Math.floor(distance / 4)
     }
 
-    return p.toArray()
+    return [p.x, p.y]
 }
 
 // Rotate the coordinate plane and (x,y)
