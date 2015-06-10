@@ -130,6 +130,7 @@ function bitPrecision (n) { // :: Int > Int
     return ret
 }
 
+// generate entry points
 function entrySequence (i) { // :: Int -> Int
     if (i) {
         return grayCode(2 * Math.floor((i-1) / 2))
@@ -137,6 +138,7 @@ function entrySequence (i) { // :: Int -> Int
     return 0
 }
 
+// calculate direction at each iteration
 function directionSequence(i, dim) { // :: Int -> Int -> Int
     if (i == 0) return 0
     if (i % 2 == 0) return trailingSetBits(i - 1) % dim
