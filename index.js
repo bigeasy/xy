@@ -141,13 +141,8 @@ function entrySequence (i) { // :: Int -> Int
 // calculate direction at each iteration
 function directionSequence(i, dim) { // :: Int -> Int -> Int
     if (i == 0) return 0
-    if (i % 2 == 0) return trailingSetBits(i - 1) % dim
-    return trailingSetBits(i) % dim
-}
-
-function trailingSetBits (i) { // :: Int -> Int
-    var ones = ~i & (i + 1)
-    return Math.log(ones) / Math.log(2)
+    if (i % 2 == 0) return bitwise.trailingSetBits(i - 1) % dim
+    return bitwise.trailingSetBits(i) % dim
 }
 
 // curve precision
