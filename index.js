@@ -9,7 +9,6 @@ function Point(x, y, z) { // :: Int -> Int -> Int -> Point
         if (z != null) {
             this.z = Math.round(z) || 0
             this.d = 3
-            this.n = 4 * this.z + 2 * this.y  + this.x
         } else {
             this.z = null
             this.d = 2
