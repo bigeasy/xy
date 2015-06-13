@@ -6,18 +6,11 @@ function Point(x, y, z) { // :: Int -> Int -> Int -> Point
     this.init = function (x, y, z) {
         this.x = Math.round(x) || 0
         this.y = Math.round(y) || 0
-        if (z != null) {
-            this.z = Math.round(z) || 0
-            this.d = 3
-        } else {
-            this.z = null
-            this.d = 2
-        }
     }
     if (x instanceof Array) {
-        this.init(x[0], x[1], x[2])
+        this.init(x[0], x[1])
     } else {
-        this.init(x, y, z)
+        this.init(x, y)
     }
 }
 
