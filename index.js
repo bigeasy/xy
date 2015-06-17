@@ -1,6 +1,8 @@
+// Use Hilbert curve point generation to map n-dimensional data to 1D space and vice-versa.
+
 var bitwise = require('./bitwise.js')
 
-// Use Hilbert curve point generation to map n-dimensional data to 1D space and vice-versa.
+
 
 // Helpers for new Hilbert index.
 
