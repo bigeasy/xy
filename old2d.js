@@ -1,3 +1,19 @@
+function Point(x, y) { // :: Int -> Int -> Int -> Point
+    this.init = function (x, y) {
+        this.x = Math.round(x) || 0
+        this.y = Math.round(y) || 0
+    }
+    if (x instanceof Array) {
+        this.init(x[0], x[1])
+    } else {
+        this.init(x, y)
+    }
+}
+
+Point.prototype.rotate2d = function (n, xbit, ybit) { // : Int -> Int -> Int -> Point
+    return new Point(rotate2d(n, this.x, this.y, xbit, ybit))
+}
+
 function convert2dPointToDistance (p, height) { // :: Int -> Int -> Int -> Int
     var xbit, ybit, level, d = 0
     var forHeight = p.x > p.y ? p.x : p.y
