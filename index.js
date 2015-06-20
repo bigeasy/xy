@@ -2,10 +2,9 @@
 
 var bitwise = require('./bitwise.js')
 
+// Helpers index generation
 
-
-// Helpers for new Hilbert index.
-
+// reflected binary code
 function grayCode (sequence) { // :: Int -> Int
     return sequence ^ (sequence >> 1)
 }
