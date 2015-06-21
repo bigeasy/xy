@@ -64,6 +64,7 @@ function curvePrecision(index, dim) { // :: Int -> Int -> Int
     }
 }
 
+// general sqrt-ing
 function nthRoot(num, nArg, precArg) { // : Int -> Int -> Int -> Int
   var n = nArg || 2;
   var prec = precArg || 12;
@@ -76,8 +77,10 @@ function nthRoot(num, nArg, precArg) { // : Int -> Int -> Int -> Int
   return x;
 }
 
-//N-dimensional conversions.
+// Hilbert conversions
 
+
+// Returns Hilbert index of given cardinal point
 function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
     options = options || {}
     var index = 0, code,
@@ -111,6 +114,7 @@ function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
     return index
 }
 
+// Returns cardinal point given Hilbert index
 function hilbertIndexInverse(dim, index, options) { // :: Int -> Int -> [Int, Int, ..]
     options = options || {}
     var entry = options.entry || 0,
