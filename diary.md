@@ -83,3 +83,5 @@ Due to the recursive geometric nature of the orig- inal construction, the Hilber
 By considering the order on which the curve visits the points in an n- dimensional lattice with 2^m points per dimension, we may assign an index to each point between 0 and 2^mn − 1. In the context of database systems this enumeration is used to sort the points while preserving data locality, meaning that points close in the multi-dimensional space remain close in the linear ordering. This in turn translates to data structures with excellent range query performance.
 
 he key property of the Hilbert curve is that successive points are immediate neighbors in the lattice. Thus, to maintain this property we are looking for a walk through the 2^n points such that every point will be enumerated, and successive points will be neighboring corners of the hypercube.
+
+http://www.ijert.org/view-pdf/12372/higher-confidentiality-through-grouping-hilbert-and-voronoi-over-validation-of-k-nearest-neighbor-query-on-spatial-network
