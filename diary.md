@@ -87,3 +87,5 @@ he key property of the Hilbert curve is that successive points are immediate nei
 http://www.ijert.org/view-pdf/12372/higher-confidentiality-through-grouping-hilbert-and-voronoi-over-validation-of-k-nearest-neighbor-query-on-spatial-network
 
 HIlbert space https://en.wikipedia.org/wiki/Hilbert_space
+
+Hilbert spaces and linear regression http://pages.stat.wisc.edu/~myuan/papers/flr.final.pdf
