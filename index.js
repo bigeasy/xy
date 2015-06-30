@@ -64,7 +64,7 @@ function curvePrecision(index, dim) { // :: Int -> Int -> Int
     }
 }
 
-// general sqrt-ing
+// general nth root-ing
 function nthRoot(num, nArg, precArg) { // : Int -> Int -> Int -> Int
   var n = nArg || 2;
   var prec = precArg || 12;
