@@ -1,13 +1,8 @@
 http://www.win.tue.nl/~hermanh/stack/dagstuhl08-talk.pdf
 
-pseudo-code: http://www.fundza.com/algorithmic/space_filling/hilbert/basics/index.html
-
 http://arxiv.org/abs/1109.2323
 
 Axis rotation: http://www.siggraph.org/education/materials/HyperGraph/modeling/mod_tran/3drota.htm#X-Axis%20Rotation
-
-parity: http://en.wikipedia.org/wiki/Parity_%28mathematics%29 http://en.wikipedia.org/wiki/Parity_bit
-parity: the number of bits in a byte which are set to 1
 
 http://en.wikipedia.org/wiki/Rotation_matrix
 
