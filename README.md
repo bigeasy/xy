@@ -10,6 +10,12 @@ N-dimensional Hilbert curve mapping in JS.
 
     License:        MIT
 
-To learn everything you want to know about Xy start here:
+Usage:
 
-    http://bigeasy.github.io/xy
+Get the Hilbert index of an N-dimensional point.
+`xy.hilbert([15,0]) // <-- "255"`
+`xy.hilbert([1,1,0,1]) // <-- "9"`
+
+Get a point given dimension and Hilbert index.
+`xy.hilbertInverse(2,0) // <-- "[0,0]"`
+`xy.hilbertInverse(3,63) // <-- "[3,0,0]"`

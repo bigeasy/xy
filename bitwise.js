@@ -18,3 +18,8 @@ exports.rotateRight = function (number, width, offset, count) {
     var top = bits << (width - count)
     return ((top & mask) | (bottom & mask) | (number & ~mask)) >>> 0
 }
+
+exports.trailingSetBits = function (i) { // :: Int -> Int
+    var ones = ~i & (i + 1)
+    return Math.log(ones) / Math.log(2)
+}

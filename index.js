@@ -1,114 +1,10 @@
-var bitwise = require('./bitwise.js')
-
 // Use Hilbert curve point generation to map n-dimensional data to 1D space and vice-versa.
 
-function Point(x, y, z) { // :: Int -> Int -> Int -> Point
-    this.rotations = {
-        x: 0,
-        y: 0,
-        z: 0
-    }
+var bitwise = require('./bitwise.js')
 
-    this.init = function (x, y, z) {
-        this.x = Math.round(x) || 0
-        this.y = Math.round(y) || 0
-        if (z != null) {
-            this.z = Math.round(z) || 0
-            this.d = 3
-            this.n = 4 * this.z + 2 * this.y  + this.x
-        } else {
-            this.z = null
-            this.d = 2
-        }
-    }
-    if (x instanceof Array) {
-        this.init(x[0], x[1], x[2])
-    } else {
-        this.init(x, y, z)
-    }
-}
+// Helpers index generation
 
-Point.prototype.rotate2d = function (n, xbit, ybit) { // : Int -> Int -> Int -> Point
-    return new Point(rotate2d(n, this.x, this.y, xbit, ybit))
-}
-
-Point.prototype.toArray = function () { // :: -> [Int, Int]
-        if (this.d == 3) { return [this.x, this.y, this.z] }
-        return [this.x, this.y]
-}
-
-// Old 2D conversions.
-
-// Accepts the height or width of a square/graph, and the coordinates to
-// convert.
-function convert2dPointToDistance (p, height) { // :: Int -> Int -> Int -> Int
-    var xbit, ybit, level, d = 0
-    var forHeight = p.x > p.y ? p.x : p.y
-
-    // needs some tests to make sure height is compatible
-    // What keeps the user from putting 54 down as the height
-    while (forHeight >= height) {
-            height *=2
-    }
-    // For each Hilbert level, we want to add an amount to
-    // `d` based on which region we are in
-    for (level = height / 2; level > 0; level = Math.floor(level / 2)) {
-        // Determine what region we're in
-        xbit = (p.x & level) > 0
-        ybit = (p.y & level) > 0
-        // increase distance based on region
-        d += level * level * ((3 * xbit) ^ ybit)
-        // rotate so that we'll be in sync with the next
-        // region.
-        p = p.rotate2d(level, xbit, ybit)
-    }
-
-    return d
-}
-
-// Accepts height or width of a square/graph and distance
-function convertDistanceTo2dPoint (distance, height) { // :: Int -> Int -> [Int, Int]
-    distance = Math.floor(distance)
-    var xbit, ybit, level, p = new Point(0, 0)
-
-    if (height <= Math.sqrt(distance))  {
-        height = 2
-        while (height <= Math.sqrt(distance)) {
-            height *=2
-        }
-    }
-
-    for (level = 1; level < height; level *= 2) {
-        xbit = 1 & (distance / 2)
-        ybit = 1 & (distance ^ xbit)
-
-        p = p.rotate2d(level, xbit, ybit)
-        p.x += level * xbit
-        p.y += level * ybit
-        distance = Math.floor(distance / 4)
-    }
-
-    return p.toArray()
-}
-
-// Rotate the coordinate plane and (x,y)
-function rotate2d (n, x, y, xbit, ybit) { // :: Int -> Int -> Int -> Int -> Int -> [Int, Int]
-    if (ybit == 0  ) {
-        if (xbit == 1) {
-            x = n - 1 - x
-            y = n - 1 - y
-        }
-
-        var temp = x
-        x = y
-        y = temp
-    }
-
-    return [x, y]
-}
-
-// Helpers for new Hilbert index.
-
+// reflected binary code
 function grayCode (sequence) { // :: Int -> Int
     return sequence ^ (sequence >> 1)
 }
@@ -141,6 +37,7 @@ function bitPrecision (n) { // :: Int > Int
     return ret
 }
 
+// generate entry points
 function entrySequence (i) { // :: Int -> Int
     if (i) {
         return grayCode(2 * Math.floor((i-1) / 2))
@@ -148,16 +45,28 @@ function entrySequence (i) { // :: Int -> Int
     return 0
 }
 
+// calculate direction at each iteration
 function directionSequence(i, dim) { // :: Int -> Int -> Int
     if (i == 0) return 0
-    if (i % 2 == 0) return trailingSetBits(i - 1) % dim
-    return trailingSetBits(i) % dim
+    if (i % 2 == 0) return bitwise.trailingSetBits(i - 1) % dim
+    return bitwise.trailingSetBits(i) % dim
 }
 
-function trailingSetBits (i) { // :: Int -> Int
-    var ones = ~i & (i + 1)
-    return Math.log(ones) / Math.log(2)
-}
+
+/*``` curve precision
+dim         index       xyz axis    m       bits
+1            0-7        0<=x<2      2       3
+2           0-63        2<=x<4      3       6
+3           0-511       4<=x<8      4       9
+4           4095        8<=x<16     5       12
+5           32767       16<=x<32    6       15
+6         262,144       32<=x<64    7       18
+7       2,097,151       64<=x<128   8       21
+8       16,777,215      128<=x<256  9       24
+9       134,217,727     254<=x<512  10      27
+10      1,073,741,823   512<=x<1024 11      30
+```*/
+
 
 // curve precision
 function curvePrecision(index, dim) { // :: Int -> Int -> Int
@@ -171,6 +80,7 @@ function curvePrecision(index, dim) { // :: Int -> Int -> Int
     }
 }
 
+// general nth root-ing
 function nthRoot(num, nArg, precArg) { // : Int -> Int -> Int -> Int
   var n = nArg || 2;
   var prec = precArg || 12;
@@ -183,8 +93,10 @@ function nthRoot(num, nArg, precArg) { // : Int -> Int -> Int -> Int
   return x;
 }
 
-//N-dimensional conversions.
+// Hilbert conversions
 
+
+// Returns Hilbert index of given cardinal point
 function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
     options = options || {}
     var index = 0, code,
@@ -218,6 +130,7 @@ function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
     return index
 }
 
+// Returns cardinal point given Hilbert index
 function hilbertIndexInverse(dim, index, options) { // :: Int -> Int -> [Int, Int, ..]
     options = options || {}
     var entry = options.entry || 0,

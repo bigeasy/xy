@@ -1,13 +1,8 @@
 http://www.win.tue.nl/~hermanh/stack/dagstuhl08-talk.pdf
 
-pseudo-code: http://www.fundza.com/algorithmic/space_filling/hilbert/basics/index.html
-
 http://arxiv.org/abs/1109.2323
 
 Axis rotation: http://www.siggraph.org/education/materials/HyperGraph/modeling/mod_tran/3drota.htm#X-Axis%20Rotation
-
-parity: http://en.wikipedia.org/wiki/Parity_%28mathematics%29 http://en.wikipedia.org/wiki/Parity_bit
-parity: the number of bits in a byte which are set to 1
 
 http://en.wikipedia.org/wiki/Rotation_matrix
 
@@ -35,21 +30,6 @@ example of axis rotation: https://github.com/Isinlor/Cube3D/blob/master/index.ht
 geometric description of Butz' implementation. https://www.cs.dal.ca/sites/default/files/technical_reports/CS-2006-07.pdf
 
 http://people.csail.mit.edu/jaffer/Geometry/MDSFC
-
-Am using this table to decide on m:
-```
-dim         index       xyz axis    m       bits
-1            0-7        0<=x<2      2       3
-2           0-63        2<=x<4      3       6
-3           0-511       4<=x<8      4       9
-4           4095        8<=x<16     5       12
-5           32767       16<=x<32    6       15
-6         262,144       32<=x<64    7       18
-7       2,097,151       64<=x<128   8       21
-8       16,777,215      128<=x<256  9       24
-9       134,217,727     254<=x<512  10      27
-10      1,073,741,823   512<=x<1024 11      30
-```
 
 
 ## Presentation Notes:
@@ -83,3 +63,9 @@ Due to the recursive geometric nature of the orig- inal construction, the Hilber
 By considering the order on which the curve visits the points in an n- dimensional lattice with 2^m points per dimension, we may assign an index to each point between 0 and 2^mn − 1. In the context of database systems this enumeration is used to sort the points while preserving data locality, meaning that points close in the multi-dimensional space remain close in the linear ordering. This in turn translates to data structures with excellent range query performance.
 
 he key property of the Hilbert curve is that successive points are immediate neighbors in the lattice. Thus, to maintain this property we are looking for a walk through the 2^n points such that every point will be enumerated, and successive points will be neighboring corners of the hypercube.
+
+http://www.ijert.org/view-pdf/12372/higher-confidentiality-through-grouping-hilbert-and-voronoi-over-validation-of-k-nearest-neighbor-query-on-spatial-network
+
+HIlbert space https://en.wikipedia.org/wiki/Hilbert_space
+
+Hilbert spaces and linear regression http://pages.stat.wisc.edu/~myuan/papers/flr.final.pdf
