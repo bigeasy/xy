@@ -75,3 +75,5 @@ HIlbert curves and geospatial applications: http://www.drdobbs.com/database/spac
 Hilbert R-tree applications. http://www.info.teradata.com/HTMLPubs/DB_TTU_14_10/index.html#page/SQL_Reference/B035_1181_112A/Introduction.117.18.html
 
 inverting Hilbert curves: http://www.tomgibara.com/computer-vision/minimizing-spatial-cohesion
+
+Morton Z-curve.https://en.wikipedia.org/wiki/Z-order_curve #TODO: ask Alan to create Z-curve repo.
