@@ -73,3 +73,5 @@ Hilbert spaces and linear regression http://pages.stat.wisc.edu/~myuan/papers/fl
 HIlbert curves and geospatial applications: http://www.drdobbs.com/database/space-filling-curves-in-geospatial-appli/184410998
 
 Hilbert R-tree applications. http://www.info.teradata.com/HTMLPubs/DB_TTU_14_10/index.html#page/SQL_Reference/B035_1181_112A/Introduction.117.18.html
+
+inverting Hilbert curves: http://www.tomgibara.com/computer-vision/minimizing-spatial-cohesion
