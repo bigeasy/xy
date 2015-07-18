@@ -77,3 +77,5 @@ Hilbert R-tree applications. http://www.info.teradata.com/HTMLPubs/DB_TTU_14_10/
 inverting Hilbert curves: http://www.tomgibara.com/computer-vision/minimizing-spatial-cohesion
 
 Morton Z-curve.https://en.wikipedia.org/wiki/Z-order_curve #TODO: ask Alan to create Z-curve repo.
+
+morton in node. https://github.com/kkaefer/node-morton
