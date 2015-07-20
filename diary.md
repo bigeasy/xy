@@ -79,3 +79,5 @@ inverting Hilbert curves: http://www.tomgibara.com/computer-vision/minimizing-sp
 Morton Z-curve.https://en.wikipedia.org/wiki/Z-order_curve #TODO: ask Alan to create Z-curve repo.
 
 morton in node. https://github.com/kkaefer/node-morton
+
+study of Hilbert orderings. http://worldwide.espacenet.com/publicationDetails/originalDocument;jsessionid=inDnFQxm6QU4FPa2QzsG6grh.espacenet_levelx_prod_3?FT=D&date=20040804&DB=&locale=en_EP&CC=EP&NR=1441293B1&KC=B1&ND=1
