@@ -69,6 +69,7 @@ http://www.ijert.org/view-pdf/12372/higher-confidentiality-through-grouping-hilb
 HIlbert space https://en.wikipedia.org/wiki/Hilbert_space
 
 Hilbert spaces and linear regression http://pages.stat.wisc.edu/~myuan/papers/flr.final.pdf
+    also: http://projecteuclid.org/euclid.aos/1291126962
 
 HIlbert curves and geospatial applications: http://www.drdobbs.com/database/space-filling-curves-in-geospatial-appli/184410998
 
