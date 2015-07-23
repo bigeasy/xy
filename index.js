@@ -162,3 +162,8 @@ function hilbertIndexInverse(dim, index, options) { // :: Int -> Int -> [Int, In
 
 exports.hilbert = hilbertIndex
 exports.hilbertInverse = hilbertIndexInverse
+exports.grayCode = grayCode
+exports.grayInverse = grayInverse
+exports.grayTransform = exports.grayInverseTransform
+exports.entrySequence = entrySequence
+exports.directionSequence = directionSequence
