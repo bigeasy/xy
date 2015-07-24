@@ -23,3 +23,13 @@ exports.trailingSetBits = function (i) { // :: Int -> Int
     var ones = ~i & (i + 1)
     return Math.log(ones) / Math.log(2)
 }
+
+// Returns the number of bits required to store an integer
+function bitPrecision (n) { // :: Int > Int
+    var ret = 0
+    while (n > 0) {
+        ret++
+        n = n >> 1
+    }
+    return ret
+}

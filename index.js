@@ -27,16 +27,6 @@ function grayInverseTransform (entry, direction, x, dim) { // :: Int -> Int -> I
     return grayTransform(bitwise.rotateRight(entry, dim, 0, direction + 1), dim - direction - 1, x, dim)
 }
 
-// Returns the number of bits required to store an integer
-function bitPrecision (n) { // :: Int > Int
-    var ret = 0
-    while (n > 0) {
-        ret++
-        n = n >> 1
-    }
-    return ret
-}
-
 // generate entry points
 function entrySequence (i) { // :: Int -> Int
     if (i) {
@@ -102,7 +92,7 @@ function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
     var index = 0, code,
         entry = options.entry || 0,
         direction = options.direction || 0,
-        i = options.bitPrecision || bitPrecision(Math.max.apply(null, point)) - 1,
+        i = options.bitPrecision || bitwise.bitPrecision(Math.max.apply(null, point)) - 1,
         dim = point.length
 
     while (i >= 0) {
