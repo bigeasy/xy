@@ -155,4 +155,4 @@ exports.grayInverse = grayInverse
 exports.grayTransform = exports.grayInverseTransform
 exports.entrySequence = entrySequence
 exports.directionSequence = directionSequence
-exports.two = require('./old2d.js')
+exports.old = require('./old2d.js')
