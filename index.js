@@ -19,10 +19,12 @@ function grayInverse (g) { // : Int -> Int
     return inverse
 }
 
+// rotate to desired gray using entry sequence
 function grayTransform (entry, direction, x, dim) { // :: Int -> Int -> Int -> Int
     return bitwise.rotateRight((x ^ entry), dim, 0, direction + 1)
 }
 
+// unrotate
 function grayInverseTransform (entry, direction, x, dim) { // :: Int -> Int -> Int -> Int
     return grayTransform(bitwise.rotateRight(entry, dim, 0, direction + 1), dim - direction - 1, x, dim)
 }
