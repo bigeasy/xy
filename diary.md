@@ -18,19 +18,9 @@ derived key = sequence number of a point.
 
 3D curves: http://arxiv.org/pdf/1109.2323v1.pdf
 
-binary decomposition: when the scanning order can be defined by `d` rules R0, ..., Rd−1, where each rule Ri divides a region
-    by an axis-parallel cutting plane into two regions of equal size, to each of which ruleR(i+1) mod `d` is applied.
-    requires mono curve.
-
-According to the state diagram there are 12 states. Each state is rotation of
-state 0.
-
-example of axis rotation: https://github.com/Isinlor/Cube3D/blob/master/index.html
-
 geometric description of Butz' implementation. https://www.cs.dal.ca/sites/default/files/technical_reports/CS-2006-07.pdf
 
 http://people.csail.mit.edu/jaffer/Geometry/MDSFC
-
 
 ## Presentation Notes:
 "Calculation of Mappings Between One and n-dimensional Values Using the Hilbert Space-filling Curve"
@@ -62,7 +52,7 @@ Due to the recursive geometric nature of the orig- inal construction, the Hilber
 
 By considering the order on which the curve visits the points in an n- dimensional lattice with 2^m points per dimension, we may assign an index to each point between 0 and 2^mn − 1. In the context of database systems this enumeration is used to sort the points while preserving data locality, meaning that points close in the multi-dimensional space remain close in the linear ordering. This in turn translates to data structures with excellent range query performance.
 
-he key property of the Hilbert curve is that successive points are immediate neighbors in the lattice. Thus, to maintain this property we are looking for a walk through the 2^n points such that every point will be enumerated, and successive points will be neighboring corners of the hypercube.
+The key property of the Hilbert curve is that successive points are immediate neighbors in the lattice. Thus, to maintain this property we are looking for a walk through the 2^n points such that every point will be enumerated, and successive points will be neighboring corners of the hypercube.
 
 http://www.ijert.org/view-pdf/12372/higher-confidentiality-through-grouping-hilbert-and-voronoi-over-validation-of-k-nearest-neighbor-query-on-spatial-network
 
