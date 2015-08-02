@@ -2,7 +2,7 @@
 
 var bitwise = require('./bitwise.js')
 
-// Helpers index generation
+// Helpers for index generation
 
 // reflected binary code
 function grayCode (sequence) { // :: Int -> Int
