@@ -1,3 +1,9 @@
+## Implementations
+
+interesting hilbert implementation. https://github.com/ryan-williams/hilbert-js
+
+morton in node. https://github.com/kkaefer/node-morton
+
 http://www.win.tue.nl/~hermanh/stack/dagstuhl08-talk.pdf
 
 http://arxiv.org/abs/1109.2323
@@ -5,8 +11,6 @@ http://arxiv.org/abs/1109.2323
 Axis rotation: http://www.siggraph.org/education/materials/HyperGraph/modeling/mod_tran/3drota.htm#X-Axis%20Rotation
 
 http://en.wikipedia.org/wiki/Rotation_matrix
-
-interesting hilbert implementation. https://github.com/ryan-williams/hilbert-js
 
 N-dimensional mapping. http://www.dcs.bbk.ac.uk/~jkl/pubs/JL1_00a.pdf
 
@@ -68,7 +72,5 @@ Hilbert R-tree applications. http://www.info.teradata.com/HTMLPubs/DB_TTU_14_10/
 inverting Hilbert curves: http://www.tomgibara.com/computer-vision/minimizing-spatial-cohesion
 
 Morton Z-curve.https://en.wikipedia.org/wiki/Z-order_curve #TODO: ask Alan to create Z-curve repo.
-
-morton in node. https://github.com/kkaefer/node-morton
 
 study of Hilbert orderings. http://worldwide.espacenet.com/publicationDetails/originalDocument;jsessionid=inDnFQxm6QU4FPa2QzsG6grh.espacenet_levelx_prod_3?FT=D&date=20040804&DB=&locale=en_EP&CC=EP&NR=1441293B1&KC=B1&ND=1
