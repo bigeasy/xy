@@ -1,14 +1,25 @@
+## Algorithms
+
+Axis rotation: http://www.siggraph.org/education/materials/HyperGraph/modeling/mod_tran/3drota.htm#X-Axis%20Rotation
+
+http://www.win.tue.nl/~hermanh/stack/dagstuhl08-talk.pdf
+
 ## Implementations
 
 interesting hilbert implementation. https://github.com/ryan-williams/hilbert-js
 
 morton in node. https://github.com/kkaefer/node-morton
 
-http://www.win.tue.nl/~hermanh/stack/dagstuhl08-talk.pdf
+
+## Use
+
+HIlbert curves and geospatial applications: http://www.drdobbs.com/database/space-filling-curves-in-geospatial-appli/184410998
+
+Hilbert R-tree applications. http://www.info.teradata.com/HTMLPubs/DB_TTU_14_10/index.html#page/SQL_Reference/B035_1181_112A/Introduction.117.18.html
+
 
 http://arxiv.org/abs/1109.2323
 
-Axis rotation: http://www.siggraph.org/education/materials/HyperGraph/modeling/mod_tran/3drota.htm#X-Axis%20Rotation
 
 http://en.wikipedia.org/wiki/Rotation_matrix
 
@@ -65,9 +76,6 @@ HIlbert space https://en.wikipedia.org/wiki/Hilbert_space
 Hilbert spaces and linear regression http://pages.stat.wisc.edu/~myuan/papers/flr.final.pdf
     also: http://projecteuclid.org/euclid.aos/1291126962
 
-HIlbert curves and geospatial applications: http://www.drdobbs.com/database/space-filling-curves-in-geospatial-appli/184410998
-
-Hilbert R-tree applications. http://www.info.teradata.com/HTMLPubs/DB_TTU_14_10/index.html#page/SQL_Reference/B035_1181_112A/Introduction.117.18.html
 
 inverting Hilbert curves: http://www.tomgibara.com/computer-vision/minimizing-spatial-cohesion
 
