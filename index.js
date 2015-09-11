@@ -2,7 +2,7 @@
 
 var bitwise = require('./bitwise.js')
 
-// Helpers index generation
+// Helpers for index generation
 
 // reflected binary code
 function grayCode (sequence) { // :: Int -> Int
@@ -19,22 +19,14 @@ function grayInverse (g) { // : Int -> Int
     return inverse
 }
 
+// rotate to desired gray using entry sequence
 function grayTransform (entry, direction, x, dim) { // :: Int -> Int -> Int -> Int
     return bitwise.rotateRight((x ^ entry), dim, 0, direction + 1)
 }
 
+// unrotate
 function grayInverseTransform (entry, direction, x, dim) { // :: Int -> Int -> Int -> Int
     return grayTransform(bitwise.rotateRight(entry, dim, 0, direction + 1), dim - direction - 1, x, dim)
-}
-
-// Returns the number of bits required to store an integer
-function bitPrecision (n) { // :: Int > Int
-    var ret = 0
-    while (n > 0) {
-        ret++
-        n = n >> 1
-    }
-    return ret
 }
 
 // generate entry points
@@ -52,24 +44,22 @@ function directionSequence(i, dim) { // :: Int -> Int -> Int
     return bitwise.trailingSetBits(i) % dim
 }
 
-
-/*``` curve precision
-dim         index       xyz axis    m       bits
-1            0-7        0<=x<2      2       3
-2           0-63        2<=x<4      3       6
-3           0-511       4<=x<8      4       9
-4           4095        8<=x<16     5       12
-5           32767       16<=x<32    6       15
-6         262,144       32<=x<64    7       18
-7       2,097,151       64<=x<128   8       21
-8       16,777,215      128<=x<256  9       24
-9       134,217,727     254<=x<512  10      27
-10      1,073,741,823   512<=x<1024 11      30
-```*/
-
-
 // curve precision
 function curvePrecision(index, dim) { // :: Int -> Int -> Int
+    /*
+    dim         index       xyz axis    m       bits
+    1            0-7        0<=x<2      2       3
+    2           0-63        2<=x<4      3       6
+    3           0-511       4<=x<8      4       9
+    4           4095        8<=x<16     5       12
+    5           32767       16<=x<32    6       15
+    6         262,144       32<=x<64    7       18
+    7       2,097,151       64<=x<128   8       21
+    8       16,777,215      128<=x<256  9       24
+    9       134,217,727     254<=x<512  10      27
+    10      1,073,741,823   512<=x<1024 11      30
+    */
+
     var n = Math.pow(2, dim)
     var bits = 32
 
@@ -102,7 +92,7 @@ function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
     var index = 0, code,
         entry = options.entry || 0,
         direction = options.direction || 0,
-        i = options.bitPrecision || bitPrecision(Math.max.apply(null, point)) - 1,
+        i = options.bitPrecision || bitwise.bitPrecision(Math.max.apply(null, point)) - 1,
         dim = point.length
 
     while (i >= 0) {
@@ -162,3 +152,9 @@ function hilbertIndexInverse(dim, index, options) { // :: Int -> Int -> [Int, In
 
 exports.hilbert = hilbertIndex
 exports.hilbertInverse = hilbertIndexInverse
+exports.grayCode = grayCode
+exports.grayInverse = grayInverse
+exports.grayTransform = exports.grayInverseTransform
+exports.entrySequence = entrySequence
+exports.directionSequence = directionSequence
+exports.old = require('./old2d.js')
