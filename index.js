@@ -11,7 +11,7 @@ function grayCode (sequence) { // :: Int -> Int
 
 // returns a non-negative int 'inverse' such that graycode(inverse) = g
 function grayInverse (g) { // : Int -> Int
-    var m = precision(g), inverse = g, j = 1
+    var m = bitwise.bitPrecision(g), inverse = g, j = 1
     while (j < m) {
         inverse = inverse ^ (g >> j)
         j++
@@ -92,9 +92,10 @@ function hilbertIndex(point, options) { // :: [Int, Int, ..] -> {} -> Int
     var index = 0, code,
         entry = options.entry || 0,
         direction = options.direction || 0,
-        i = options.bitPrecision || bitwise.bitPrecision(Math.max.apply(null, point)) - 1,
+        i = options.precision || bitwise.bitPrecision(Math.max.apply(null, point)) - 1,
         dim = point.length
 
+    console.log(i)
     while (i >= 0) {
 
         var bits = 0

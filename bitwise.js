@@ -25,7 +25,7 @@ exports.trailingSetBits = function (i) { // :: Int -> Int
 }
 
 // Returns the number of bits required to store an integer
-function bitPrecision (n) { // :: Int > Int
+exports.bitPrecision = function (n) { // :: Int > Int
     var ret = 0
     while (n > 0) {
         ret++

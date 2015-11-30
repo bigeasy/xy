@@ -3,7 +3,7 @@
 require('proof')(43, prove)
 
 function prove (assert) {
-    var hilbert = require('../..')
+    var hilbert = require('../../index.js')
     // 2 dimensions
     var options = { precision: 2 }
 
@@ -12,7 +12,7 @@ function prove (assert) {
     assert(hilbert.hilbert([1,1], options), 2, "(1,1) index equals 2")
     assert(hilbert.hilbert([1,0], options), 3, "(1,0) index equals 3")
 
-    var options = { precision: 3 }
+    options = { precision: 3 }
     assert(hilbert.hilbert([0,0], options), 0, "(0,0) index equals 0")
     assert(hilbert.hilbert([1,0], options), 1, "(1,0) index equals 1")
     assert(hilbert.hilbert([1,1], options), 2, "(1,1) index equals 2")
