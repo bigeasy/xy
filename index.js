@@ -155,6 +155,6 @@ exports.hilbert = hilbertIndex
 exports.hilbertInverse = hilbertIndexInverse
 exports.grayCode = grayCode
 exports.grayInverse = grayInverse
-exports.grayTransform = exports.grayInverseTransform
+exports.grayTransform = grayInverseTransform
 exports.entrySequence = entrySequence
 exports.directionSequence = directionSequence
