@@ -2,7 +2,7 @@
     "name":             "xy",
     "version":          "0.0.0",
     "author":           "Alan Gutierrez <alan@prettyrobots.com>",
-    "description":      "Hilbert curve N-dimensional mapping in JS.",
+    "description":      "N-dimensional Hilbert to Cardinal mapping functions.",
     "keywords":
     [
                         "hilbert", "hilbert curve", "cruve", "spatial", "r-tree"
