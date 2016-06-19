@@ -13,7 +13,8 @@ function Point(x, y) { // :: Int -> Int -> Int -> Point
 }
 
 Point.prototype.rotate2d = function (n, xbit, ybit) { // : Int -> Int -> Int -> Point
-    return new Point(rotate2d(n, this.x, this.y, xbit, ybit))
+    var rotate = rotate2d(n, this.x, this.y, xbit, ybit)
+    this.x = rotate[0], this.y = rotate[1]
 }
 
 function convert2dPointToDistance (p, height) { // :: Int -> Int -> Int -> Int
@@ -35,7 +36,7 @@ function convert2dPointToDistance (p, height) { // :: Int -> Int -> Int -> Int
         d += level * level * ((3 * xbit) ^ ybit)
         // rotate so that we'll be in sync with the next
         // region.
-        p = p.rotate2d(level, xbit, ybit)
+        p.rotate2d(level, xbit, ybit)
     }
 
     return d
@@ -56,7 +57,7 @@ function convertDistanceTo2dPoint (distance, height) { // :: Int -> Int -> [Int,
         xbit = 1 & (distance / 2)
         ybit = 1 & (distance ^ xbit)
 
-        p = p.rotate2d(level, xbit, ybit)
+        p.rotate2d(level, xbit, ybit)
         p.x += level * xbit
         p.y += level * ybit
         distance = Math.floor(distance / 4)
