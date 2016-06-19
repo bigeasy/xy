@@ -1,12 +1,14 @@
 function Point(x, y) { // :: Int -> Int -> Int -> Point
-    this.init = function (x, y) {
-        this.x = Math.round(x) || 0
-        this.y = Math.round(y) || 0
-    }
+
     if (x instanceof Array) {
         this.init(x[0], x[1])
     } else {
         this.init(x, y)
+    }
+
+    this.init = function (x, y) {
+        this.x = Math.round(x) || 0
+        this.y = Math.round(y) || 0
     }
 }
 
