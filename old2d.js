@@ -18,6 +18,7 @@ Point.prototype.rotate2d = function (n, xbit, ybit) { // : Int -> Int -> Int -> 
 }
 
 function convert2dPointToDistance (p, height) { // :: Int -> Int -> Int -> Int
+    if (p instanceof Array) p = new Point(p)
     var xbit, ybit, level, d = 0
     var forHeight = p.x > p.y ? p.x : p.y
 
