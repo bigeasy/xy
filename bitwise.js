@@ -1,9 +1,9 @@
-exports.bits = function (n, width) {
+exports.bits = function (n, width) { // :: Int -> Int -> Int
     var padded = (new Array(width).join('0') + n.toString(2))
     return padded.substr(-width)
 }
 
-exports.rotateLeft = function (number, width, offset, count) {
+exports.rotateLeft = function (number, width, offset, count) { // :: Int -> Int -> Int -> Int -> Int
     var mask = 0xffffffff >>> (32 - width) << offset >>> 0
     var bits = number & mask
     var top = bits << count
@@ -11,7 +11,7 @@ exports.rotateLeft = function (number, width, offset, count) {
     return ((top & mask) | (bottom & mask) | (number & ~mask)) >>> 0
 }
 
-exports.rotateRight = function (number, width, offset, count) {
+exports.rotateRight = function (number, width, offset, count) { // :: Int -> Int -> Int -> Int -> Int
     var mask = 0xffffffff >>> (32 - width) << offset >>> 0
     var bits = number & mask
     var bottom = bits >>> count
