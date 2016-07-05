@@ -269,10 +269,11 @@ function run () {
     ctx.beginPath()
     ctx.lineWidth = 5;
     ctx.strokeStyle = 'black';
+    var precision = document.querySelectorAll('input[name=precision]')[0].value || 4
 
     for (var i = 0; i < length; i++) {
         vars.push(hilbertIndexInverse(2, i, {
-            precision: (document.querySelectorAll('input[name=precision]')[0].value || 4)
+            precision: precision
         }).map(function (e) {
             return e * 100 + 50
         }))
