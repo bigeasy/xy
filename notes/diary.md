@@ -12,7 +12,7 @@ inverting Hilbert curves: http://www.tomgibara.com/computer-vision/minimizing-sp
 
 ## Definitions
 
-Morton Z-curve.https://en.wikipedia.org/wiki/Z-order_curve #TODO: ask Alan to create Z-curve repo.
+Morton Z-curve.https://en.wikipedia.org/wiki/Z-order_curve
 
 Hilbert space https://en.wikipedia.org/wiki/Hilbert_space
 
