@@ -242,11 +242,14 @@ function run () {
 
     function drawBoard(){
         ctx.beginPath()
+
         //grid width and height
         var bw = grid * 100;
         var bh = grid * 100;
+
         //padding around grid
         var p = 0;
+
         for (var x = 0; x <= bw; x += 100) {
             ctx.moveTo(0.5 + x + p, p);
             ctx.lineTo(0.5 + x + p, bh + p);
@@ -266,14 +269,15 @@ function run () {
     ctx.beginPath()
     ctx.lineWidth = 5;
     ctx.strokeStyle = 'black';
+    var precision = document.querySelectorAll('input[name=precision]')[0].value || 4
 
     for (var i = 0; i < length; i++) {
-        vars.push(hilbertIndexInverse(2, i, {precision: (document.querySelectorAll('input[name=precision]')[0].value || 4)}).map(function (e) {
+        vars.push(hilbertIndexInverse(2, i, {
+            precision: precision
+        }).map(function (e) {
             return e * 100 + 50
         }))
     }
-
-    console.log(vars)
 
     for (var i = 1; i < length; i++) {
         ctx.moveTo.apply(ctx, vars[i - 1]);
