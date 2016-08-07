@@ -1,36 +1,32 @@
 {
-    "name":             "xy",
-    "version":          "0.0.1",
-    "author":           "Alan Gutierrez <alan@prettyrobots.com>",
-    "description":      "N-dimensional Hilbert to Cardinal mapping functions.",
+    "name":                 "xy",
+    "version":              "0.0.1",
+    "author":               "Alan Gutierrez <alan@prettyrobots.com>",
+    "description":          "N-dimensional Hilbert to Cardinal mapping functions.",
     "keywords":
     [
-                        "hilbert", "hilbert curve", "cruve", "spatial", "r-tree"
+                            "hilbert", "hilbert curve", "cruve", "spatial", "r-tree"
     ],
-    "homepage":         "https://github.com/bigeasy/xy",
-    "bugs":             "https://github.com/bigeasy/xy/issues",
+    "homepage":             "https://github.com/bigeasy/xy",
+    "bugs":                 "https://github.com/bigeasy/xy/issues",
     "repository":
     {
-                        "type": "git",
-                        "url": "http://github.com/bigeasy/xy.git"
+                            "type": "git",
+                            "url": "http://github.com/bigeasy/xy.git"
     },
     "contributors":
     [{
-                        "name":   "Demarius Chrite",
-                        "email":  "chrite.demarius@gmail.com",
-                        "web":    "https://github.com/demarius"
+                            "name":   "Demarius Chrite",
+                            "email":  "chrite.demarius@gmail.com",
+                            "web":    "https://github.com/demarius"
     }],
     "devDependencies":
     {
-                        "proof": "*"
+                            "proof":                        "*"
     },
-    "licenses":
-    [{
-                        "type": "MIT",
-                        "url": "http://github.com/bigeasy/xy/raw/master/LICENSE"
-    }],
+    "license":              "MIT",
     "scripts":
     {
-        "test": "proof platform win32 && proof test */*/*.t.js || t/test"
+                            "test": "proof platform win32 && proof test */*/*.t.js || t/test"
     }
 }
